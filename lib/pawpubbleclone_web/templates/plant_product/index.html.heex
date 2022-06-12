@@ -1,0 +1,353 @@
+
+
+<div class="container">
+  <div class="flex justify-start items-center mb-16">
+    <%= link ("Home"), to: Routes.page_path(@conn, :index), class: "text-xl text-blue-300" %>
+    <i class="fas fa-caret-right ml-4 text-xl text-gray-500"></i>
+    <span class="text-xl text-gray-500 ml-4">Plant Lover - Hoodies - Tees - Phone Cases</span>
+  </div>
+  <div class="text-5xl font-black text-gray-800 mb-14">
+    Plant Lover - Hoodies - Tees - Phone Cases
+  </div>
+  <div class="text-3xl font-normal text-gray-600 mb-12">
+    Funny plant T-shirt, Accessories, Tote Bag, Mug
+  </div>
+
+  <div class="grid grid-cols-4 gap-x-6 gap-y-10">
+    <div class="flex justify-start items-start flex-col">
+      <div class="border-b border-gray-200 w-full pb-4">
+        <i class="fas fa-filter text-3xl"></i>
+        <span class="text-3xl font-bold text-gray-700 ml-4">Filter</span>
+      </div>
+      <div class="pb-4 pt-4 flex justify-between align-center w-full border-b border-gray-200">
+        <span class="text-2xl font-bold text-gray-700">Category</span>
+        <span class="text-5xl font-light text-gray-700"style="margin-top:-7px">-</span>
+      </div>
+      <div class="w-full">
+        <div class="pb-4 pt-4 border-b border-gray-200">
+          <span class="text-2xl font-normal text-gray-700">Men</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200">
+          <span class="text-2xl font-normal text-gray-700">Women</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200">
+          <span class="text-2xl font-normal text-gray-700">Accessories</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200">
+          <span class="text-2xl font-normal text-gray-700">Home & Living</span>
+        </div>
+      </div>
+      <div class="pb-4 pt-4 flex justify-between align-center w-full border-b border-gray-200">
+        <span class="text-2xl font-bold text-gray-700">Color</span>
+        <span class="text-5xl font-light text-gray-700" style="margin-top:-7px">+</span>
+      </div>
+      <div class="w-full">
+        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
+          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+          <div class="mr-4" style="width:22px; height:22px; background:rgb(255, 255, 255); border-radius:50%; border: 1px solid #000"></div>
+          <span class="text-2xl font-normal text-gray-700">White</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
+          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+          <div class="mr-4" style="width:22px; height:22px; background:rgb(151, 153, 155); border-radius:50%;"></div>
+          <span class="text-2xl font-normal text-gray-700">Grey</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
+          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+          <div class="mr-4" style="width:22px; height:22px; background:rgb(5, 74, 232); border-radius:50%;"></div>
+          <span class="text-2xl font-normal text-gray-700">Blue</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
+          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+          <div class="mr-4" style="width:22px; height:22px; background:rgb(4, 106, 56); border-radius:50%;"></div>
+          <span class="text-2xl font-normal text-gray-700">Green</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
+          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+          <div class="mr-4" style="width:22px; height:22px; background:rgb(233, 131, 175); border-radius:50%;"></div>
+          <span class="text-2xl font-normal text-gray-700">Pink</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
+          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+          <div class="mr-4" style="width:22px; height:22px; background:rgb(4, 30, 66); border-radius:50%;"></div>
+          <span class="text-2xl font-normal text-gray-700">Dark Blue</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
+          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+          <div class="mr-4" style="width:22px; height:22px; background:rgb(21, 71, 52); border-radius:50%;"></div>
+          <span class="text-2xl font-normal text-gray-700">Dark Green</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
+          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+          <div class="mr-4" style="width:22px; height:22px; background:rgb(234, 170, 0); border-radius:50%;"></div>
+          <span class="text-2xl font-normal text-gray-700">Gold</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
+          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+          <div class="mr-4" style="width:22px; height:22px; background:rgb(255, 205, 0); border-radius:50%;"></div>
+          <span class="text-2xl font-normal text-gray-700">Yellow</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
+          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+          <div class="mr-4" style="width:22px; height:22px; background:rgb(17, 17, 17); border-radius:50%;"></div>
+          <span class="text-2xl font-normal text-gray-700">Black</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
+          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+          <div class="mr-4" style="width:22px; height:22px; background:rgb(74, 57, 127); border-radius:50%;"></div>
+          <span class="text-2xl font-normal text-gray-700">Purple</span>
+        </div>
+        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
+          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+          <div class="mr-4" style="width:22px; height:22px; background:rgb(247, 127, 0); border-radius:50%;"></div>
+          <span class="text-2xl font-normal text-gray-700">Orange</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-span-3">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <span class="text-2xl font-normal text-gray-600">Showing </span>
+          <span class="text-3xl font-bold text-red-400">160</span>
+          <span class="text-2xl font-normal text-gray-600"> items</span>
+        </div>
+        <div class="flex justify-end items-center">
+          <i class="fas fa-sort text-3xl"></i>
+          <span class="text-2xl font-normal text-gray-600 ml-2">Sort: </span>
+          <span class="text-2xl font-medium text-red-400 ml-2">Top selling </span>
+          <i class="fas fa-sort-down text-3xl text-gray-500 ml-2 mb-2"></i>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-x-6 gap-y-10">
+        <div class="group relative">
+          <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
+            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+          </div>
+          <div class="mt-4 flex justify-between flex-col">
+            <div>
+              <h3 class="text-2xl text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  Basic Tee
+                </a>
+              </h3>
+            </div>
+            <div class="flex items-center mt-3">
+              <p class="text-2xl font-bold text-red-500">$35</p>
+              <p class="mt-1 ml-10 text-xl font-normal text-gray-500">Black</p>
+            </div>
+          </div>
+        </div>
+        <div class="group relative">
+          <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
+            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+          </div>
+          <div class="mt-4 flex justify-between flex-col">
+            <div>
+              <h3 class="text-2xl text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  Basic Tee
+                </a>
+              </h3>
+            </div>
+            <div class="flex items-center mt-3">
+              <p class="text-2xl font-bold text-red-500">$35</p>
+              <p class="mt-1 ml-10 text-xl font-normal text-gray-500">Black</p>
+            </div>
+          </div>
+        </div>
+        <div class="group relative">
+          <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
+            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+          </div>
+          <div class="mt-4 flex justify-between flex-col">
+            <div>
+              <h3 class="text-2xl text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  Basic Tee
+                </a>
+              </h3>
+            </div>
+            <div class="flex items-center mt-3">
+              <p class="text-2xl font-bold text-red-500">$35</p>
+              <p class="mt-1 ml-10 text-xl font-normal text-gray-500">Black</p>
+            </div>
+          </div>
+        </div>
+        <div class="group relative">
+          <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
+            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+          </div>
+          <div class="mt-4 flex justify-between flex-col">
+            <div>
+              <h3 class="text-2xl text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  Basic Tee
+                </a>
+              </h3>
+            </div>
+            <div class="flex items-center mt-3">
+              <p class="text-2xl font-bold text-red-500">$35</p>
+              <p class="mt-1 ml-10 text-xl font-normal text-gray-500">Black</p>
+            </div>
+          </div>
+        </div>
+        <div class="group relative">
+          <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
+            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+          </div>
+          <div class="mt-4 flex justify-between flex-col">
+            <div>
+              <h3 class="text-2xl text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  Basic Tee
+                </a>
+              </h3>
+            </div>
+            <div class="flex items-center mt-3">
+              <p class="text-2xl font-bold text-red-500">$35</p>
+              <p class="mt-1 ml-10 text-xl font-normal text-gray-500">Black</p>
+            </div>
+          </div>
+        </div>
+        <div class="group relative">
+          <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
+            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+          </div>
+          <div class="mt-4 flex justify-between flex-col">
+            <div>
+              <h3 class="text-2xl text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  Basic Tee
+                </a>
+              </h3>
+            </div>
+            <div class="flex items-center mt-3">
+              <p class="text-2xl font-bold text-red-500">$35</p>
+              <p class="mt-1 ml-10 text-xl font-normal text-gray-500">Black</p>
+            </div>
+          </div>
+        </div>
+        <div class="group relative">
+          <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
+            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+          </div>
+          <div class="mt-4 flex justify-between flex-col">
+            <div>
+              <h3 class="text-2xl text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  Basic Tee
+                </a>
+              </h3>
+            </div>
+            <div class="flex items-center mt-3">
+              <p class="text-2xl font-bold text-red-500">$35</p>
+              <p class="mt-1 ml-10 text-xl font-normal text-gray-500">Black</p>
+            </div>
+          </div>
+        </div>
+        <div class="group relative">
+          <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
+            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+          </div>
+          <div class="mt-4 flex justify-between flex-col">
+            <div>
+              <h3 class="text-2xl text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  Basic Tee
+                </a>
+              </h3>
+            </div>
+            <div class="flex items-center mt-3">
+              <p class="text-2xl font-bold text-red-500">$35</p>
+              <p class="mt-1 ml-10 text-xl font-normal text-gray-500">Black</p>
+            </div>
+          </div>
+        </div>
+        <div class="group relative">
+          <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
+            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+          </div>
+          <div class="mt-4 flex justify-between flex-col">
+            <div>
+              <h3 class="text-2xl text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  Basic Tee
+                </a>
+              </h3>
+            </div>
+            <div class="flex items-center mt-3">
+              <p class="text-2xl font-bold text-red-500">$35</p>
+              <p class="mt-1 ml-10 text-xl font-normal text-gray-500">Black</p>
+            </div>
+          </div>
+        </div>
+        <div class="group relative">
+          <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
+            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+          </div>
+          <div class="mt-4 flex justify-between flex-col">
+            <div>
+              <h3 class="text-2xl text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  Basic Tee
+                </a>
+              </h3>
+            </div>
+            <div class="flex items-center mt-3">
+              <p class="text-2xl font-bold text-red-500">$35</p>
+              <p class="mt-1 ml-10 text-xl font-normal text-gray-500">Black</p>
+            </div>
+          </div>
+        </div>
+        <div class="group relative">
+          <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
+            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+          </div>
+          <div class="mt-4 flex justify-between flex-col">
+            <div>
+              <h3 class="text-2xl text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  Basic Tee
+                </a>
+              </h3>
+            </div>
+            <div class="flex items-center mt-3">
+              <p class="text-2xl font-bold text-red-500">$35</p>
+              <p class="mt-1 ml-10 text-xl font-normal text-gray-500">Black</p>
+            </div>
+          </div>
+        </div>
+        <div class="group relative">
+          <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
+            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+          </div>
+          <div class="mt-4 flex justify-between flex-col">
+            <div>
+              <h3 class="text-2xl text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  Basic Tee
+                </a>
+              </h3>
+            </div>
+            <div class="flex items-center mt-3">
+              <p class="text-2xl font-bold text-red-500">$35</p>
+              <p class="mt-1 ml-10 text-xl font-normal text-gray-500">Black</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

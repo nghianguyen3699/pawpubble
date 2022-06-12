@@ -1,0 +1,30 @@
+<span><%= link "Back", to: Routes.category_path(@conn, :index) %></span>
+<div>
+    <h1>New Categorys</h1>
+</div>
+
+<%= if @changeset.action do %>
+    <div class="alert alert-danger">
+        <p>Oops, somethin went wrong! Please check the errors below.</p>
+    </div>
+<% end %>
+<%= form_for @changeset, Routes.category_path(@conn, :create), [method: "post"], fn f -> %>
+    <div>
+        <%= text_input f, :target, placeholder: "Target" %>
+        <%= error_tag f, :target %>
+    </div>
+    <div>
+        <%= text_input f, :category, placeholder: "Category" %>
+        <%= error_tag f, :category %>
+    </div>
+    <div>
+        <%= text_input f, :name, placeholder: "Name" %>
+        <%= error_tag f, :name %>
+    </div>
+    <div>
+        <%= text_input f, :description, placeholder: "Description" %>
+        <%= error_tag f, :description %>
+    </div>
+
+    <%= submit "Create Category" %>
+<% end %>

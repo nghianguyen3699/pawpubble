@@ -1,0 +1,22 @@
+<span><%= link "Back", to: Routes.shipping_path(@conn, :index) %></span>
+<div>
+    <h1>New Shipping</h1>
+</div>
+
+<%= if @changeset.action do %>
+    <div class="alert alert-danger">
+        <p>Oops, somethin went wrong! Please check the errors below.</p>
+    </div>
+<% end %>
+<%= form_for @changeset, Routes.shipping_path(@conn, :create), [method: "post"], fn f -> %>
+    <div>
+        <%= text_input f, :name, placeholder: "Name" %>
+        <%= error_tag f, :name %>
+    </div>
+    <div>
+        <%= text_input f, :value, placeholder: "Value" %>
+        <%= error_tag f, :value %>
+    </div>
+
+    <%= submit "Create" %>
+<% end %>

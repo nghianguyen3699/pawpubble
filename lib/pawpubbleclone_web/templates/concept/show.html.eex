@@ -1,0 +1,689 @@
+<script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "./assets/main.js")}></script>
+ <div class="container">
+    <div class="product__main">
+        <div class="grid wide">
+            <div class="product__main-purchase row">
+                <div class="col p-6">
+                    <div class="product__demo">
+                        <div class="product__demo-cover-img">
+                            <div class="product__demo-img-slide"></div>
+                            <canvas class="product__demo-img-cover"></canvas>
+                            <canvas class="product__demo-img-cover2"></canvas>
+                            <canvas class="product__demo-img-cover3"></canvas>
+                            <canvas class="product__demo-img-cover4"></canvas>
+                        </div>
+                        <div class="product__demo-color-list">
+                            <div class="arrow__cover arrow__cover--left">
+                                <i class="arrow-icon fas fa-chevron-left"></i>
+                            </div>
+                            <div class="product__demo-color-cover">
+
+                            </div>
+                            <div class="arrow__cover arrow__cover--right ">
+                                <i class="arrow-icon fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-6">
+                    <div class="product__detail">
+                        <div class="product__detail-option">
+                            <div class="product__detail-title">
+                                <h1 class="product__detail-title-content">
+                                    I DON'T LIKE MORNING PEOPLE - PERSONALIZED T-SHIRT
+                                </h1>
+                            </div>
+                            <div class="product__detail-price">
+                                <span class="product__detail-price--new">
+                                    $36.00
+                                </span>
+                                <div class="product__detail-price--old">
+                                    <span class="price--old">
+                                        $43.00
+                                    </span>
+                                </div>
+                                <div class="product__detail-price-save">
+                                    <span class="save-percent">SAVE 16%</span>
+                                </div>
+                            </div>
+                            <div class="product__detail-style">
+                                <div class="product__detail-option-header">
+                                    <span class="product__detail-option-title">
+                                        Style:
+                                    </span>
+                                    <span class="product__detail-option-content">
+                                        Unisex T-Shirt
+                                    </span>
+                                </div>
+                                <div class="product__detail-style-img-list">
+                                    <div class="product__detail-style-img-item boder-bold">
+                                        <img src="./assets/img/product-main/product-short/1.png" alt="" class="product__detail-style-img short-shirt">
+                                    </div>
+                                    <div class="product__detail-style-img-item">
+                                        <img src="./assets/img/product-main/product-long/1.png" alt="" class="product__detail-style-img long-shirt">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product__detail-color">
+                                <div class="product__detail-option-header">
+                                    <span class="product__detail-option-title">
+                                        Color:
+                                    </span>
+                                    <span class="product__detail-option-content">
+                                        White
+                                    </span>
+                                </div>
+                                <div class="product__detail-color-box">
+                                    <!-- <div class="color-box box-white boder-bold"></div>
+                                    <div class="color-box box-black"></div>
+                                    <div class="color-box box-blue"></div>
+                                    <div class="color-box box-grey"></div>
+                                    <div class="color-box box-violet"></div>
+                                    <div class="color-box box-red"></div>
+                                    <div class="color-box box-yellow-dark"></div>
+                                    <div class="color-box box-orange"></div>
+                                    <div class="color-box box-pink"></div>
+                                    <div class="color-box box-yellow"></div>
+                                    <div class="color-box box-grey-dark"></div> -->
+                                </div>
+                            </div>
+                            <div class="product__detail-size">
+                                <div class="product__detail-option-header">
+                                    <span class="product__detail-option-title">
+                                        Size:
+                                    </span>
+                                    <span class="product__detail-option-content">
+                                        S
+                                    </span>
+                                </div>
+                                <div class="product__detail-size-box">
+                                    <div class="size-box size-s boder-bold">S</div>
+                                    <div class="size-box size-m">M</div>
+                                    <div class="size-box size-l">L</div>
+                                    <div class="size-box size-xl">XL</div>
+                                    <div class="size-box size-2xl">2XL</div>
+                                    <div class="size-box size-3xl">3XL</div>
+                                    <div class="size-box size-4xl">4XL</div>
+                                    <div class="size-box size-5xl">5XL</div>
+                                </div>
+                            </div>
+                            <div class="product__detail-sector-dog">
+                                <div class="product__detail-option-header">
+                                    <span class="product__detail-option-title">
+                                        Choose The Dog Breed
+                                    </span>
+                                </div>
+                                <select name="dog option" id="" class="product__detail-dog-option" id="abcde">
+                                    <option class="dog-option dog-ab" value="0">A-B</option>
+                                    <option class="dog-option dog-cd" value="1">C-D</option>
+                                    <option class="dog-option dog-eg" value="2">E-G</option>
+                                    <option class="dog-option dog-hm" value="3">H-M</option>
+                                    <option class="dog-option dog-py" value="4">P-Y</option>
+                                </select>
+                                <div class="product__detail-option-header">
+                                    <span class="product__detail-option-title sector-dog">
+                                        A-B
+                                    </span>
+                                </div>
+                                <div class="product__detail-dog-list-imgs">
+                                    <!-- dog img -->
+                                </div>
+                            </div>
+                            <div class="product__detail-dog">
+
+                            </div>
+                            <div class="product__detail-name">
+                                <div class="product__detail-option-header display-flex justify-content-space-between">
+                                    <span class="product__detail-option-title">
+                                        Type Your Dog Name
+                                    </span>
+                                    <span class="product__detail-option-content">
+                                        <span class="name-dog__lenght">1</span>/16
+                                    </span>
+                                </div>
+                                <div class="product__detail-name-input-cover">
+                                    <input type="text" placeholder="Lucy" value="" maxlength="16" class="product__detail-name-input">
+                                </div>
+                            </div>
+                            <button class="btn show-img-dog">
+                                <span>PREVIEW YOUR DESIGN</span>
+                            </button>
+                            <div class="product__detail-add-cart">
+                                <div class="product__detail-cart-quantity">
+                                    <span class="product__detail-cart-quantity-number">
+                                        1
+                                    </span>
+                                    <div class="product__detail-cart-quantity-arrow-cover">
+                                        <span class="product__detail-cart-quantity-arrow">
+                                            <i class="arrow-up-icon fas fa-chevron-up"></i>
+                                        </span>
+                                        <span class="product__detail-cart-quantity-arrow disabled">
+                                            <i class="arrow-down-icon fas fa-chevron-down"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-add-cart">
+                                    <span>ADD TO CART</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product__detail-buy-together">
+                            <div class="product__detail-option-header">
+                                <span class="product__detail-option-title">
+                                    Frequently bought together
+                                </span>
+                            </div>
+                            <div class="product__detail-bt-img-list">
+                                <div class="product__detail-bt-img-item" style="background-image: url('./assets/img/product-buy-together/1.png')">
+                                    <div class="product__detail-bt-img-item-overlay">
+                                        <div class="product__detail-bt-quick-view">
+                                            <i class="product__detail-bt-icon-view far fa-eye"></i>
+                                            <span class="product__detail-bt-view-title">QUICK VIEW</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product__detail-bt-icon-plus">+</div>
+                                <div class="product__detail-bt-img-item" style= " background-image: url('./assets/img/product-buy-together/2.png')">
+                                    <div class="product__detail-bt-img-item-overlay">
+                                        <div class="product__detail-bt-quick-view">
+                                            <i class="product__detail-bt-icon-view far fa-eye"></i>
+                                            <span class="product__detail-bt-view-title">QUICK VIEW</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product__detail-bt-icon-plus">+</div>
+                                <div class="product__detail-bt-img-item" style="background-image: url('./assets/img/product-buy-together/3.png')">
+                                    <div class="product__detail-bt-img-item-overlay">
+                                        <div class="product__detail-bt-quick-view">
+                                            <i class="product__detail-bt-icon-view far fa-eye"></i>
+                                            <span class="product__detail-bt-view-title">QUICK VIEW</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product__detail-bt-detail">
+                                <!-- <div class="product__detail-bt-detail-item">
+                                    <input type="checkbox" class="product__detail-bt-detail-item-check">
+                                    <div class="product__detail-bt-detail-item-content">
+                                        <div class="product__detail-bt-detail-item-content-cover-title">
+                                            <span class="product__detail-bt-detail-item-current">THIS ITEM</span>
+                                            <span class="product__detail-bt-detail-item-title">
+                                                I Don't Like Morning People - Personalized T-shirt
+                                            </span>
+                                        </div>
+                                        <span class="product__detail-bt-detail-item-price">
+                                            $29.00
+                                        </span>
+                                    </div>
+                                    <select name="" id="" class="product__detail-bt-detail-item-choice-option">
+                                        <option value="0">Unisex T-shirt / White / S</option>
+                                        <option value="1">Unisex T-shirt / White / M</option>
+                                        <option value="2">Unisex T-shirt / White / L</option>
+                                        <option value="3">Unisex T-shirt / White / XL</option>
+                                        <option value="4">Unisex T-shirt / White / 2XL</option>
+                                        <option value="5">Unisex T-shirt / White / 3XL</option>
+                                        <option value="6">Unisex T-shirt / White / 4XL</option>
+                                        <option value="7">Unisex T-shirt / White / 5XL</option>
+                                    </select>
+                                </div>
+                                <div class="product__detail-bt-detail-item">
+                                    <input type="checkbox" class="product__detail-bt-detail-item-check">
+                                    <div class="product__detail-bt-detail-item-content">
+                                        <div class="product__detail-bt-detail-item-content-cover-title">
+                                            <span class="product__detail-bt-detail-item-title">
+                                                I Don't Like Morning People - Personalized T-shirt
+                                            </span>
+                                        </div>
+                                        <span class="product__detail-bt-detail-item-price">
+                                            $29.00
+                                        </span>
+                                    </div>
+                                    <select name="" id="" class="product__detail-bt-detail-item-choice-option">
+                                        <option value="0">Unisex T-shirt / White / S</option>
+                                        <option value="1">Unisex T-shirt / White / M</option>
+                                        <option value="2">Unisex T-shirt / White / L</option>
+                                        <option value="3">Unisex T-shirt / White / XL</option>
+                                        <option value="4">Unisex T-shirt / White / 2XL</option>
+                                        <option value="5">Unisex T-shirt / White / 3XL</option>
+                                        <option value="6">Unisex T-shirt / White / 4XL</option>
+                                        <option value="7">Unisex T-shirt / White / 5XL</option>
+                                    </select>
+                                </div>
+                                <div class="product__detail-bt-detail-item">
+                                    <input type="checkbox" class="product__detail-bt-detail-item-check">
+                                    <div class="product__detail-bt-detail-item-content">
+                                        <div class="product__detail-bt-detail-item-content-cover-title">
+                                            <span class="product__detail-bt-detail-item-title">
+                                                I Don't Like Morning People - Personalized T-shirt
+                                            </span>
+                                        </div>
+                                        <span class="product__detail-bt-detail-item-price">
+                                            $29.00
+                                        </span>
+                                    </div>
+                                    <select name="" id="" class="product__detail-bt-detail-item-choice-option">
+                                        <option value="0">Unisex T-shirt / White / S</option>
+                                        <option value="1">Unisex T-shirt / White / M</option>
+                                        <option value="2">Unisex T-shirt / White / L</option>
+                                        <option value="3">Unisex T-shirt / White / XL</option>
+                                        <option value="4">Unisex T-shirt / White / 2XL</option>
+                                        <option value="5">Unisex T-shirt / White / 3XL</option>
+                                        <option value="6">Unisex T-shirt / White / 4XL</option>
+                                        <option value="7">Unisex T-shirt / White / 5XL</option>
+                                    </select>
+                                </div> -->
+
+                            </div>
+                            <div class="product__detail-bt-total">
+                                <div class="product__detail-option-header">
+                                    <span class="product__detail-option-title">
+                                        TOTAL PRICE:
+                                    </span>
+                                    <span class="product__detail-bt-total-price">
+                                        $29.00
+                                    </span>
+                                </div>
+                                <button class="btn btn-buy-together">ADD TO CART</button>
+                                <div class="product__detail-pay-method">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product__detail-footer">
+                            <div class="product__detail-footer-collection">
+                                Collection:
+                                <a href="#" class="product__detail-footer-collection-content">Personalized Collection</a>
+                            </div>
+                            <div class="product__detail-footer-share">
+                                Share
+                                <div class="product__detail-footer-share-icon-list">
+                                    <i class="product__detail-footer-share-icon fab fa-facebook-square"></i>
+                                    <i class="product__detail-footer-share-icon fab fa-twitter"></i>
+                                    <i class="product__detail-footer-share-icon fab fa-pinterest-p"></i>
+                                    <i class="product__detail-footer-share-icon far fa-envelope"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product__infor">
+        <div class="grid wide">
+            <div class="product__infor-main row">
+                <div class="col p-12">
+                    <div class="product__infor-main-decription">
+                        <div class="product__infor-header">
+                            <span href="" class="product__infor-theme">DECRIPTION</span>
+                            <span href="" class="product__infor-theme">RETURN & WARRANTY</span>
+                            <span href="" class="product__infor-theme">SHIPPING POLICIES</span>
+                        </div>
+                        <div class="product__infor-short-theme">
+                            <span class="product__infor-short-theme-content">
+                                This T-shirt is a great gift for any occasion including Birthday, Aniversary, Christmas, and as a "jusst because" present!
+                            </span>
+                        </div>
+                        <div class="product__infor-content">
+                            <div class="product__infor-title">
+                                PRODUCT DETAIL
+                            </div>
+                            <ul class="product__infor-list">
+                                <li class="product__infor-item">100% pre-shrunk cotton, or composition (96% cotton, 4% spandex)</li>
+                                <li class="product__infor-item">Seamles collar, taped neck, and shoulders</li>
+                                <li class="product__infor-item">Double-needle sleeve and bottom hems</li>
+                                <li class="product__infor-item">Quarter-turn to eliminate center crease </li>
+                            </ul>
+                            <span class="product__infor-remind">
+                                Due to the different monitor and light effects, the actual color and size of the item may be slightly different from the visual image.
+                            </span>
+                            <div class="product__infor-img-main-cover">
+                                <span class="product__infor-img-main-title">
+                                    Long Sleeve Tee
+                                </span>
+                                <div class="product__infor-img"></div>
+                            </div>
+                        </div>
+                        <div class="product__infor-detail">
+                            <span class="product__infor-detail-decrip">
+                                Long sleeve shirts are considered basic items for a reason. Not only are they better to wear during transitional weather, they’re also sure to add an element of style to your rotation. The only problem is which long sleeve shirt and where to buy them? Looking for a high-quality, minimal long sleeve that you can wear day in, day out? Look no further. It’s right here.
+                            </span>
+                            <div class="product__infor-detail-list-usage row">
+                                <div class="product__infor-detail-item-usage col p-4">
+                                    <div class="product__infor-detail-item-img" style="background-image: url('./assets/img/product-detail/2.png');" ></div>
+                                    <div class="product__infor-detail-item-title">Cotton Comfor</div>
+                                    <div class="product__infor-detail-item-content">
+                                        Lightweight cotton blend provides premium softness wash after wash
+                                    </div>
+                                </div>
+                                <div class="product__infor-detail-item-usage col p-4">
+                                    <div class="product__infor-detail-item-img" style="background-image: url('./assets/img/product-detail/3.png');" ></div>
+                                    <div class="product__infor-detail-item-title">Superior mobility</div>
+                                    <div class="product__infor-detail-item-content">
+                                        100% pre-shrunk cotton is light, breathable, and stretches for superior mobility
+                                    </div>
+                                </div>
+                                <div class="product__infor-detail-item-usage col p-4">
+                                    <div class="product__infor-detail-item-img" style="background-image: url('./assets/img/product-detail/4.png');" ></div>
+                                    <div class="product__infor-detail-item-title">Moisture Wicking</div>
+                                    <div class="product__infor-detail-item-content">
+                                        Dri-power moisture wicking technology keeps you cool and dry
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product__infor-after">
+                                <div class="product__infor-after-title">
+                                    Products detail
+                                </div>
+                                <div class="product__infor-after-detail">
+                                    <div class="product__infor-after-detail-use">
+                                        <img src="./assets/img/product-detail/Material-01.png" alt="" class="product__infor-after-detail-material-icon">
+                                        <span class="product__infor-after-detail-content">Material: 100% pre-shrunk cotton</span>
+                                    </div>
+                                    <div class="product__infor-after-detail-use">
+                                        <img src="./assets/img/product-detail/Size.png" alt="" class="product__infor-after-detail-material-icon">
+                                        <span class="product__infor-after-detail-content">Size: S-5XL</span>
+                                    </div>
+                                    <div class="product__infor-after-detail-use">
+                                        <img src="./assets/img/product-detail/wash.png" alt="" class="product__infor-after-detail-material-icon">
+                                        <span class="product__infor-after-detail-content">Machine wash</span>
+                                    </div>
+
+                                </div>
+                                <div class="product__infor-after-remind">
+                                    Due to the different monitor and light effects, the actual color and size of the item may be slightly different from the visual image.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product__personalized-collection">
+        <div class="grid wide">
+            <div class="product__personalized-collection-header row">
+                <h2 class="product__personalized-collection-header-content">
+                    More from
+                    <span>Personalized Collection</span>
+                </h2>
+            </div>
+            <div class="slide-arrow slide-arrow--left personalized-collection-arrow--left">
+                <i class="personalized-collection-arrow-icon fas fa-chevron-left"></i>
+            </div>
+            <div class="product__personalized-collection-list">
+                <div class="product__personalized-collection-items">
+                    <div class="col p-2 collumn-best-seller">
+                        <div class="product__personalized-collection-item">
+                            <a href="" class="product__personalized-collection-content">
+                                <div class="product__personalized-collection-img" style="background-image: url('./assets/img/personalized-collection/1.png')"></div>
+                                <div class="product__personalized-collection-detail">
+                                    <span class="product__personalized-collection-detail-title">
+                                        Dad - I Will Feel You In My Heart Forever - Unisex T-shirt
+                                    </span>
+                                    <div class="product__personalized-collection-detail-price">
+                                        <span class="product__personalized-detail-price--new">
+                                            $29.00
+                                        </span>
+                                        <div class="product__personalized-detail-price--old">
+                                            <span class="price-personalized-old">
+                                                $35.79
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn__add-to-cart-cover-personalized-collection">
+                                    <button class="btn btn__add-to-cart-personalized-collection">
+                                        <span>ADD TO CART</span>
+                                    </button>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-arrow slide-arrow--right personalized-collection-arrow--right">
+                <i class="personalized-collection-arrow-icon fas fa-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+    <div class="product__rate">
+        <div class="grid wide">
+            <div class="produc__rate-main row">
+                <div class="product__rate-overview">
+                    <div class="product__rating">
+                        <div class="product__rate-overall">
+                            <div class="product__rate-overall-title">
+                                Overall rating:
+                                <span class="product__rate-overall-num">
+                                    0.0/5
+                                </span>
+                            </div>
+                            <!-- <div class="product__rate-overall-all-view">
+                                (See all reviews (<span class="tottal-rivew">400</span>))
+                            </div> -->
+                        </div>
+                        <div class="product__rate-star-cover">
+                            <div class="product__rate-star-row">
+                                <span class="rate-num">5</span>
+                                <span class="rate-star">
+                                    <i class="rate-star-icon fas fa-star"></i>
+                                </span>
+                                <div class="rate-bar-cover">
+                                    <div class="rate-bar"></div>
+                                </div>
+                                <span class="rate-percent">0%</span>
+                            </div>
+                            <div class="product__rate-star-row">
+                                <span class="rate-num">4</span>
+                                <span class="rate-star">
+                                    <i class="rate-star-icon fas fa-star"></i>
+                                </span>
+                                <div class="rate-bar-cover">
+                                    <div class="rate-bar"></div>
+                                </div>
+                                <span class="rate-percent">0%</span>
+                            </div>
+                            <div class="product__rate-star-row">
+                                <span class="rate-num">3</span>
+                                <span class="rate-star">
+                                    <i class="rate-star-icon fas fa-star"></i>
+                                </span>
+                                <div class="rate-bar-cover">
+                                    <div class="rate-bar"></div>
+                                </div>
+                                <span class="rate-percent">0%</span>
+                            </div>
+                            <div class="product__rate-star-row">
+                                <span class="rate-num">2</span>
+                                <span class="rate-star">
+                                    <i class="rate-star-icon fas fa-star"></i>
+                                </span>
+                                <div class="rate-bar-cover">
+                                    <div class="rate-bar"></div>
+                                </div>
+                                <span class="rate-percent">0%</span>
+                            </div>
+                            <div class="product__rate-star-row">
+                                <span class="rate-num">1</span>
+                                <span class="rate-star">
+                                    <i class="rate-star-icon fas fa-star"></i>
+                                </span>
+                                <div class="rate-bar-cover">
+                                    <div class="rate-bar"></div>
+                                </div>
+                                <span class="rate-percent">0%</span>
+                            </div>
+                        </div>
+                        <div class="btn btn-write-view">
+                            <i class="write-view-icon fas fa-pen"></i>
+                            <span class="write-view-title">
+                                Write a review
+                            </span>
+                        </div>
+                    </div>
+                    <div class="product__write-comment">
+                        <div class="product__write-header">
+                            <span class="product__write-header-title">Write a review</span>
+                            <span class="product__write-header-close">
+                                CLOSE
+                                <i class="product__write-header-close-icon fas fa-times"></i>
+                            </span>
+                        </div>
+                        <div class="product__write-rating-star">
+                            <i class="rating-star fas fa-star"></i>
+                            <i class="rating-star fas fa-star"></i>
+                            <i class="rating-star fas fa-star"></i>
+                            <i class="rating-star fas fa-star"></i>
+                            <i class="rating-star fas fa-star"></i>
+                            <span class="product__write-rating-star-titlte">
+                                Wonderful
+                            </span>
+                        </div>
+                        <div class="product__write-title-review">
+                            <div class="product__write-title">
+                                <span class="product__write-title-header">
+                                    Title of review
+                                </span>
+                                <span class="product__write-title-character">
+                                    0/70 characters
+                                </span>
+                            </div>
+                            <input type="text" maxlength="70" class="product__write-input-title">
+                        </div>
+                        <div class="product__write-recommend">
+                            <div class="product__write-recommend-title">
+                                What's great
+                            </div>
+                            <div class="product__write-recommend-list">
+                                <div class="product__write-recommend-content"><span>GREAT PRODUCT QUALITY</span></div>
+                                <div class="product__write-recommend-content"><span>REASONABLE PRICE</span></div>
+                                <div class="product__write-recommend-content"><span>DEDICATED SELLER</span></div>
+                                <div class="product__write-recommend-content"><span>FAST SHIPPING</span></div>
+                                <div class="product__write-recommend-content"><span>HIGHTLY RECOMMEND</span></div>
+                            </div>
+                        </div>
+                        <div class="product__writing-comment">
+                            <div class="product__write-comment-title">
+                                Review* <span>0</span>/1000 characters
+                            </div>
+                            <textarea class="product__write-comment-content" maxlength="1000" rows="2" cols="20" name="" wrap="soft"></textarea>
+                            <!-- <input type="text" class="product__write-comment-content"> -->
+                        </div>
+                        <div class="product__write-photo">
+                            <div class="product__write-photo-title">
+                                Photos <span>0</span>/5
+                            </div>
+                            <div class="product__write-add-photo">
+                                <!-- <div class="product__write-photo-item-cover" style="background-image: url('./assets/img/product-main/product-short/3.png')">
+                                    <div class="product__write-photo-item-close">x</div>
+                                </div> -->
+                                <div class="product__write-add-photo-cover">
+                                    <input type="file" name="files" multiple class="product__write-btn-add-photo"></input>
+                                    <i class="product__write-btn-add-photo-icon fas fa-plus"></i>
+                                </div>
+                            </div>
+                            <span class="product__write-add-photo-warning"></span>
+                        </div>
+                        <div class="product__write-infor">
+                            <div class="product__write-name">
+                                <div class="product__write-name-title">
+                                    Your name*
+                                </div>
+                                <input type="text" name="name" class="product__write-input-name">
+                                <span class="product__write-add-photo-warning-name"></span>
+                            </div>
+                            <div class="product__write-email">
+                                <div class="product__write-email-title">
+                                    Your email*
+                                </div>
+                                <input type="email" name="email" placeholder="We do not public your email" class="product__write-input-email">
+                                <span class="product__write-add-photo-warning-email"></span>
+                            </div>
+                        </div>
+                        <div class="product__write-sector-review">
+                            <div class="product__write-sector-review-title">
+                                Is this a store review or product review?
+                            </div>
+                            <form class="product__write-sector-list">
+                                <div class="product__write-sector-item">
+                                    <input type="radio" value="store" name="radio" class="product__write-sector-item-input product__write-sector-store">
+                                    <label for="store">Store review</label>
+                                </div>
+                                <div class="product__write-sector-item">
+                                    <input type="radio" value="product" name="radio" checked="checked" class="product__write-sector-item-input product__write-sector-product">
+                                    <label for="product">Product review</label>
+                                </div>
+                            </form>
+                        </div>
+                        <btn class="btn product__write-btn-submit">
+                            <span>Submit review</span>
+                        </btn>
+                    </div>
+                    <div class="product__review-completed display-none">
+                        <span class="product__review-completed-content">Posted successfully!</span>
+                    </div>
+                </div>
+                <div class="product__rate-fillter">
+                    <div class="product__rate-fillter-sector-list ">
+                        <span class="product__rate-fillter-item enable-fillter">
+                            <span>All reviews</span>
+                            <span class="product__rate-fillter-item-count">(0)</span>
+                        </span>
+                        <span class="product__rate-fillter-item">
+                            <span>Product reviews</span>
+                            <span class="product__rate-fillter-item-count">(0)</span>
+                        </span>
+                        <span class="product__rate-fillter-item">
+                            <span>Store reviews</span>
+                            <span class="product__rate-fillter-item-count">(0)</span>
+                        </span>
+                    </div>
+                    <div class="product__rate-fillter-with">
+                        <div class="product__rate-fillter-with-photo">
+                            <input type="checkbox" class="product__rate-fillter-with-photo-checked">
+                            <span class="product__rate-fillter-with-photo-title">With photos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product__rate-comment">
+                    <div class="grid wide">
+                        <div class="product__rate-comment-cover row">
+
+                            <!-- <div class="col">
+                                <div class="product__rate-comment-item">
+                                    <div class="product__rate-comment-name">Abcd</div>
+                                    <div class="product__rate-comment-title">ncjanckad</div>
+                                    <div class="product__rate-comment-star-and-date">
+                                        <div class="product__rate-comment-star">
+                                            <i class="comment-star fas fa-star"></i>
+                                            <i class="comment-star fas fa-star"></i>
+                                            <i class="comment-star fas fa-star"></i>
+                                            <i class="comment-star fas fa-star disable-star-color"></i>
+                                            <i class="comment-star fas fa-star"></i>
+                                        </div>
+                                        <div class="product__rate-comment-date">
+                                            06/29/2021
+                                        </div>
+                                    </div>
+                                    <div class="product__rate-comment-img-cover">
+                                        <div class="product__rate-comment-img"></div>
+                                    </div>
+                                    <div class="product__rate-comment-content">
+                                        adakda
+                                    </div>
+                                </div>
+                            </div>                        -->
+                        </div>
+                        <div class="product__rate-comment-empty">
+                            <i class="product__rate-comment-empty-icon fas fa-comment-medical"></i>
+                            <span class="product__rate-comment-empty-content">
+                                No reviews
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

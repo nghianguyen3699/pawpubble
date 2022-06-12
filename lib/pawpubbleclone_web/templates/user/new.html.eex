@@ -1,0 +1,44 @@
+<span><%= link "Back", to: Routes.user_path(@conn, :index), class: "text-3xl mr-10 text-red-400"%></span>
+
+<div class="mt-8 border-2">
+    <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+            <p>Oops, somethin went wrong! Please check the errors below.</p>
+        </div>
+    <% end %>
+    <%= form_for @changeset, Routes.user_path(@conn, :create), [method: "post"], fn f -> %>
+        <h1 class="text-center text-4xl mb-6 text-gray-600 font-bold font-sans">Form Register</h1>
+        <div class="mb-6 mx-6">
+            <label class="text-gray-800 font-semibold block my-3 text-3xl" for="username">Username</label>
+            <%= text_input f, :name, placeholder: "Name", class: "text-3xl w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"%>
+            <%= error_tag f, :name %>
+        </div>
+        <div class="mb-6 mx-6">
+            <label class="text-gray-800 font-semibold block my-3 text-3xl" for="email">Email</label>
+            <%= text_input f, :email, placeholder: "Email", class: "text-3xl w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"%>
+            <%= error_tag f, :email %>
+        </div>
+        <div class="mb-6 mx-6">
+            <label class="text-gray-800 font-semibold block my-3 text-3xl" for="phone">Phone Number</label>
+            <%= number_input f, :phone, placeholder: "Phone number", class: "text-3xl w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"%>
+            <%= error_tag f, :phone %>
+        </div>
+        <div class="mb-6 mx-6">
+            <label class="text-gray-800 font-semibold block my-3 text-3xl" for="address">Address</label>
+            <%= text_input f, :address, placeholder: "Address", class: "text-3xl w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"%>
+            <%= error_tag f, :address %>
+        </div>
+        <div class="mb-6 mx-6">
+            <label class="text-gray-800 font-semibold block my-3 text-3xl" for="password">Password</label>
+            <%= password_input f, :password, placeholder: "Password", class: "text-3xl w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"%>
+            <%= error_tag f, :password %>
+        </div>
+        <div class="mb-6 mx-6">
+            <label class="text-gray-800 font-semibold block my-3 text-3xl" for="confirm">Confirm password</label>
+            <%= password_input f, :confirmpassword, placeholder: "Confirm Password", class: "text-3xl w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"%>
+            <%= error_tag f, :confirmpassword %>
+        </div>
+
+        <%= submit "Create User", class: "group relative w-full flex justify-center mb-6 py-2 px-4 border border-transparent text-3xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+    <% end %>
+</div>

@@ -1,0 +1,23 @@
+<span><%= link "Back", to: Routes.page_path(@conn, :index) %></span>
+<h1>List Colors</h1>
+<table>
+    <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Code</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <%= for color <- @colors do %>
+            <tr>
+                <td><%= color.id %></td>
+                <td><%= color.name %></td>
+                <td><%= color.code %></td>
+                <td>
+                    <span><%= link "Delete", to: Routes.color_path(@conn, :delete, color), method: :delete, data: [confirm: "Are you sure"]%></span>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<span><%= link "New", to: Routes.color_path(@conn, :new) %></span>

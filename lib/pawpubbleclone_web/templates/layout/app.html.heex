@@ -1,0 +1,96 @@
+
+<header id="header" class="">
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <div class="relative bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+        <div class="flex justify-start lg:w-0 lg:flex-1">
+            <a href="#">
+            <img class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="">
+            </a>
+        </div>
+        <div class="md:flex items-center justify-end md:flex-1 lg:w-0">
+        <%= if @current_user do %>
+            <a class="whitespace-nowrap text-xl font-medium text-gray-500 hover:text-gray-900 mr-2"> <%= @current_user.name %> /</a>
+            <%= link "Log out", to: Routes.session_path(@conn, :delete, @current_user), method: :delete, class: "whitespace-nowrap text-red-400 text-base font-medium text-gray-500 hover:text-gray-900"%>
+        <% else %>
+            <a href="/sessions/new" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
+            <a href="/users/new" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a>
+        <% end %>
+        </div>
+        </div>
+    </div>
+
+    </div>
+
+</header>
+<div class="">
+<main id="main" class="flex justify-center items-center lg:mx-32 md:mx-2">
+    <%= @inner_content %>
+</main>
+</div>
+<footer id="footer">
+    <div class="footer">
+        <div class="back-top w-full h-16 flex justify-center items-center bg-gray-100">
+            <a href="#header" class="text-xl font-bold">Back To Top</a>
+            <i class="fas fa-angle-up text-2xl ml-8"></i>
+        </div>
+        <div class="bg-gray-200 grid grid-cols-1 xl:grid-cols-1 xl:gap-x-8 flex justify-center items-center px-36">
+            <img src="/images/logo/logo.png">
+            <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
+                <div class="">
+                    <ul class="service text-xl font-bold">
+                        <li class="text-2xl font-bold">Service</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">About Us</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Track Order</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">FAQ</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Shipping & Return Policies</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Terms and Conditions</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Privacy Policy</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">DMCA</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Contact Us</li>
+                    </ul>
+                </div>
+                <div class="">
+                    <ul class="service text-xl font-bold">
+                        <li class="text-2xl font-bold">Company</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Sell on Chip</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Chip Seller Blog</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Blog</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Popular Storefronts</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Tags directory</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Pawpubble Reviews</li>
+                    </ul>
+                </div>
+                <div class="">
+                    <ul class="service text-xl font-bold">
+                        <li class="text-2xl font-bold">Need Help</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Submit a Request</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">support@pawpubble.com</li>
+                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">2900 Shadeland Ave Suite B1 Indianapolis, IN 46219</li>
+                    </ul>
+                </div>
+                <div class="">
+                    <img src="/images/img_homepage/bank_logo/bbb-icon.svg" style="width:180px; height:42px; margin:4px">
+                    <div class="flex justify-start flex-wrap">
+                        <img src="/images/img_homepage/bank_logo/visa-icon.svg" style="width: 37px; height: 24px; margin:4px">
+                        <img src="/images/img_homepage/bank_logo/mastercard-icon.svg" style="width: 37px; height: 24px; margin:4px">
+                        <img src="/images/img_homepage/bank_logo/amex-icon.svg" style="width: 37px; height: 24px; margin:4px">
+                        <img src="/images/img_homepage/bank_logo/discover-icon.svg" style="width: 37px; height: 24px; margin:4px">
+                        <img src="/images/img_homepage/bank_logo/paypal-icon.svg" style="width: 37px; height: 24px; margin:4px">
+                        <img src="/images/img_homepage/bank_logo/klarna-icon.svg" style="width: 37px; height: 24px; margin:4px">
+                        <img src="/images/img_homepage/bank_logo/giropay-icon.svg" style="width: 56px; height: 24px; margin:4px">
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-between items-center border-t border-gray-400">
+                <span class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">2022 Pawpubble</span>
+                <div class="flex justify-between items-center text-gray-500 text-4xl">
+                    <i class="fab fa-facebook ml-8"></i>
+                    <i class="fab fa-twitter text-gray-500 ml-8"></i>
+                    <i class="fab fa-instagram ml-8"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

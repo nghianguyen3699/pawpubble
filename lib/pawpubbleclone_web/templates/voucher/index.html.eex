@@ -1,0 +1,20 @@
+<span><%= link "Back", to: Routes.page_path(@conn, :index) %></span>
+<h1>List Products</h1>
+<table>
+    <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <%= for voucher <- @vouchers do %>
+            <tr>
+                <td><%= voucher.name %></td>
+                <td>
+                    <span><%= link "Delete", to: Routes.voucher_path(@conn, :delete, voucher), method: :delete, data: [confirm: "Are you sure"]%></span>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<span><%= link "New", to: Routes.voucher_path(@conn, :new) %></span>

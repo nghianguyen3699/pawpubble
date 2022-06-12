@@ -1,0 +1,8 @@
+<div class="container-personalized-new w-3/4">
+
+    <h1 class="text-4xl">New Plant Product</h1>
+
+    <%= render "form.html", Map.put(assigns, :action, Routes.plant_product_path(@conn, :create)) %>
+
+    <span><%= link "Back", to: Routes.plant_product_path(@conn, :index) %></span>
+</div>

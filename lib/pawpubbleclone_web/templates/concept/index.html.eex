@@ -1,0 +1,21 @@
+<span><%= link "Back", to: Routes.page_path(@conn, :index) %></span>
+<h1>List Products</h1>
+<table>
+    <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <%= for concept <- @concepts do %>
+            <tr>
+                <td><%= concept.name %></td>
+                <td>
+                    <span><%= link "Show", to: Routes.concept_path(@conn, :show, concept)%></span>
+                    <span><%= link "Delete", to: Routes.concept_path(@conn, :delete, concept), method: :delete, data: [confirm: "Are you sure"]%></span>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<span><%= link "New", to: Routes.concept_path(@conn, :new) %></span>

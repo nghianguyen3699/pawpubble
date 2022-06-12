@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <%= csrf_meta_tag() %>
+    <%= live_title_tag assigns[:page_title] || "Pawpubble", suffix: " · Phoenix Framework" %>
+    <%# <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/base.css")}/> %>
+    <%# <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/grid.css")}/> %>
+    <%# <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/style.css")}/> %>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/auk8dcc.css">
+    <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/fonts/fontawesome-free-5.15.4-web/fontawesome-free-5.15.4-web/css/all.min.css")}/>
+    <%# <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/> %>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+  </head>
+  <body>
+  <style>
+    @keyframes fadeIn {
+        from { opacity: 0}
+        to { opacity: 1}
+    }
+    .cart_main::before {
+        content: "";
+        position: absolute;
+        right: -5%;
+        top: -5%;
+        width: 100%;
+        height: 30px;
+    }
+
+    #cart:hover .cart_main {
+        display: block;
+    }
+
+    .cart_content::-webkit-scrollbar {
+        display: none;
+    }
+
+    .delete_item {
+        cursor-pointer
+    }
+
+    .btn {
+        background-color: var(--primary-color);
+        border: none;
+        font-size: 1.4rem;
+        color: var(--white-color);
+        font-weight: 500;
+        min-height: 36px;
+        border-radius: 2px;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 1.4rem;
+        letter-spacing: 0.3rem;
+    }
+    .btn-go-to-cart {
+        width: 100%;
+        height: 40px;
+        background-color: transparent;
+        color: #000;
+        border-radius: 3px;
+        border: 1px solid #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+
+    }
+
+    .btn-checkout {
+        width: 100%;
+        height: 50px;
+        padding: 10px 22px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px -2px rgb(35 67 92 / 32%);
+        border: 1px solid rgba(0,0,0,.16) !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #000;
+    }
+  </style>
+    <%= @inner_content %>
+  </body>
+</html>

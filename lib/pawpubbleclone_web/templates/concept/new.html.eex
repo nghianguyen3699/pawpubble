@@ -1,0 +1,18 @@
+<span><%= link "Back", to: Routes.concept_path(@conn, :index) %></span>
+<div>
+    <h1>New Products</h1>
+</div>
+
+<%= if @changeset.action do %>
+    <div class="alert alert-danger">
+        <p>Oops, somethin went wrong! Please check the errors below.</p>
+    </div>
+<% end %>
+<%= form_for @changeset, Routes.concept_path(@conn, :create), [method: "post"], fn f -> %>
+    <div>
+        <%= text_input f, :name, placeholder: "Name" %>
+        <%= error_tag f, :name %>
+    </div>
+
+    <%= submit "Create Concept Collection" %>
+<% end %>

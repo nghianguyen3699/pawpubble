@@ -1,0 +1,48 @@
+<span><%= link "Back", to: Routes.user_path(@conn, :index), class: "text-3xl mr-10 text-red-400"%></span>
+<div class="mt-8">
+    <h1 class="text-center text-4xl mb-6 text-gray-600 font-bold font-sans">Edit Profile</h1>
+    <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+            <p>Oops, somethin went wrong! Please check the errors below.</p>
+        </div>
+    <% end %>
+    <%= form_for @changeset, Routes.user_path(@conn, :update, @user), [method: "put"], fn f -> %>
+        <div class="mb-6">
+            <label for="name" class="text-4xl mr-2">Name:</label>
+            <%= text_input f, :name, value: @user.name , class: "text-3xl border-2 w-full"%>
+            <%= error_tag f, :name %>
+        </div>
+        <div class="mb-6">
+            <label for="email" class="text-4xl mr-2">Email:</label>
+            <%= text_input f, :email, value: @user.email, class: "text-3xl border-2 w-full" %>
+            <%= error_tag f, :email %>
+        </div>
+        <div class="mb-6">
+            <label for="phone" class="text-4xl mr-2">Phone Number:</label>
+            <%= number_input f, :phone, value: @user.phone, class: "text-3xl border-2 w-full" %>
+            <%= error_tag f, :phone %>
+        </div>
+        <div class="mb-6">
+            <label for="address" class="text-4xl mr-2">Address:</label>
+            <%= text_input f, :address, value: @user.address, class: "text-3xl border-2 w-full" %>
+            <%= error_tag f, :address %>
+        </div>
+        <div class="mb-6">
+            <label for="passwordOld" class="text-4xl mr-2">Password Old:</label>
+            <%= password_input f, :passwordOld, class: "text-3xl border-2 w-full" %>
+            <%= error_tag f, :password %>
+        </div>
+        <div class="mb-6">
+            <label for="passwordNew" class="text-4xl mr-2">Password New:</label>
+            <%= password_input f, :passwordNew, class: "text-3xl border-2 w-full" %>
+            <%= error_tag f, :passwordNew %>
+        </div>
+        <div class="mb-6">
+            <label for="confirm" class="text-4xl mr-2">Confirm Password:</label>
+            <%= password_input f, :confirmpassword, class: "text-3xl border-2 w-full" %>
+            <%= error_tag f, :confirmpassword %>
+        </div>
+
+        <%= submit "Save", class: "group relative w-full flex justify-center mb-6 py-2 px-4 border border-transparent text-3xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+    <% end %>
+</div>
