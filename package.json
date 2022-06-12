@@ -1,18 +1,1 @@
-{ 
-  "type": "module",
-  "name": "pawpubbleclone",
-  "version": "1.0.0",
-  "description": "To start your Phoenix server:",
-  "main": "index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "eval mix assets.deploy && rm -f _build/esbuild*"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
-}
+{"type":"module","name":"pawpubbleclone","version":"1.0.0","description":"To start your Phoenix server:","main":"index.js","directories":{"lib":"lib","test":"test"},"scripts":{"test":"echo \"Error: no test specified\" && exit 1","deploy":"eval mix assets.deploy && rm -f _build/esbuild*"},"keywords":[],"author":"","license":"ISC","dependencies":{"autoprefixer":"^10.4.7","postcss":"^8.4.14","postcss-import":"^14.1.0","postcss-nested":"^5.0.6","tailwindcss":"^3.1.2"}}
