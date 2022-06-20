@@ -15,7 +15,6 @@ defmodule PawpubblecloneWeb.Api.CategoryView do
       category: category.category,
       name: category.name,
       description: category.description,
-      img: category.img
     }
   end
 end

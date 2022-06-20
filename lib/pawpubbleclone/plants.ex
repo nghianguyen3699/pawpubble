@@ -61,6 +61,18 @@ defmodule Pawpubbleclone.Plants do
     Repo.delete(plant_product)
   end
 
+  def get_products_base_category() do
+    products =
+    from( i in Plant_product, select: {i.id, i.category_id})
+     |> Repo.all()
+     |> Enum.uniq_by(fn {_, x} -> x end)
+
+    for {x, _} <- products do
+      x
+       |> get_plant_product!()
+       |> Repo.preload(:category)
+    end
+  end
 
   def change_plant_product(%Plant_product{} = plant_product, attrs \\ %{}) do
     Plant_product.changeset(plant_product, attrs)

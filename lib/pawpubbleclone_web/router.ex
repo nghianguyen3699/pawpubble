@@ -55,7 +55,7 @@ defmodule PawpubblecloneWeb.Router do
     pipe_through [:browser, :authenticate_admin]
     get "/new", Plant_productController, :new
     post "/", Plant_productController, :create
-    delete "/:name", Plant_productController, :delete
+    delete "/:id", Plant_productController, :delete
     get "/:name/:id/edit", Plant_productController, :edit
     put "/:id", Plant_productController, :update
     post "/product/:id", Plant_productController, :create_cart

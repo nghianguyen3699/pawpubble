@@ -1,6 +1,8 @@
 defmodule PawpubblecloneWeb.AdminController do
   use PawpubblecloneWeb, :controller
 
+  import Ecto.Query
+  alias Pawpubbleclone.Accounts.User
   alias Pawpubbleclone.Plants
   alias Pawpubbleclone.Plant.Plant_product
   alias Pawpubbleclone.Repo
@@ -9,9 +11,18 @@ defmodule PawpubblecloneWeb.AdminController do
 
   plug :put_layout, "admin.html"
 
-  def index(conn, _params) do
-    users = Accounts.list_users()
-    products = Repo.preload(Plants.list_plants, [:concept, :color, :size, :category])
+  def index(conn, params) do
+    # users = Accounts.list_users()
+    # products = Repo.preload(Plants.list_plants, [:concept, :color, :size, :category])
+    # products = from p in Plant_product, select: p
+    users =
+      User
+      |> Repo.paginate(params)
+    products =
+      Plant_product
+      |> select([p], p)
+      |> preload([:concept, :color, :size, :category])
+      |> Repo.paginate(params)
     render(conn, "index.html", users: users, products: products)
   end
 

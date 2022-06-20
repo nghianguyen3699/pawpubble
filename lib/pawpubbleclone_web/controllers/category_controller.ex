@@ -7,6 +7,7 @@ defmodule PawpubblecloneWeb.CategoryController do
 
   def index(conn, _params) do
     categorys = Categorys.list_categorys()
+    IO.inspect(categorys)
     render(conn, "index.html", categorys: categorys)
   end
 
@@ -16,8 +17,10 @@ defmodule PawpubblecloneWeb.CategoryController do
   end
 
   def create(conn, %{ "category_core" => category}) do
+    IO.inspect(category)
     case Categorys.create_category(category) do
        {:ok, category}->
+        IO.inspect(category)
         conn
         |> put_flash(:info, "Create #{category.name} succsessfuly")
         |> redirect(to: Routes.category_path(conn, :index))

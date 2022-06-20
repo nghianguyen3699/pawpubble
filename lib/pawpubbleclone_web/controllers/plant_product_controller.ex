@@ -1,6 +1,7 @@
 defmodule PawpubblecloneWeb.Plant_productController do
   use PawpubblecloneWeb, :controller
 
+  alias Pawpubbleclone.Repo
   alias Pawpubbleclone.Plants
   alias Pawpubbleclone.Plant.Plant_product
   alias Pawpubbleclone.{Concepts, Colors, Sizes, Categorys}
@@ -12,8 +13,11 @@ defmodule PawpubblecloneWeb.Plant_productController do
 
 
   def index(conn, _params) do
-    plants = Plants.list_plants()
-    render(conn, "index.html", plants: plants)
+    plants =
+      Plants.get_products_base_category()
+      |> Repo.preload([:category, :color, :concept])
+    colors = Colors.list_colors()
+    render(conn, "index.html", plants: plants, colors: colors)
   end
 
   @spec new(Plug.Conn.t(), any) :: Plug.Conn.t()
@@ -35,10 +39,10 @@ defmodule PawpubblecloneWeb.Plant_productController do
   end
 
   def show(conn, %{"name" => name}) do
-    IO.inspect(conn)
+    plant_categorys = Plants.get_products_base_category()
     plant_product = Plants.get_plant_product_by_name!(name)
     personnalizeds_collec = Plants.get_all_plant_product_by_name!(name)
-    render(conn, "show.html",  [plant_product: plant_product, all_plant_product: personnalizeds_collec])
+    render(conn, "show.html",  [plant_product: plant_product, all_plant_product: personnalizeds_collec, plant_categorys: plant_categorys])
   end
   # def show_concept(conn) do
   #   # IO.inspect(name)

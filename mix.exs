@@ -21,7 +21,7 @@ defmodule Pawpubbleclone.MixProject do
   def application do
     [
       mod: {Pawpubbleclone.Application, []},
-      extra_applications: [:logger, :runtime_tools, :bamboo]
+      extra_applications: [:logger, :runtime_tools, :bamboo, :scrivener_ecto, :scrivener_html]
       # applications: [:bamboo]
     ]
   end
@@ -35,11 +35,11 @@ defmodule Pawpubbleclone.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.6.5"},
+      {:phoenix, "~> 1.6.5", override: true},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 3.0"},
+      {:phoenix_html, "~> 3.0", override: true},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
       {:floki, ">= 0.30.0", only: :test},
@@ -55,7 +55,9 @@ defmodule Pawpubbleclone.MixProject do
       {:faker, "~> 0.17", only: [:test, :dev]},
       {:phx_gen_tailwind, "~> 0.1.3", only: :dev},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
-      {:bamboo, "~> 1.6"}
+      {:bamboo, "~> 1.6"},
+      {:scrivener_ecto, "~> 2.0"},
+      {:scrivener_html, "~> 1.8"}
     ]
   end
 

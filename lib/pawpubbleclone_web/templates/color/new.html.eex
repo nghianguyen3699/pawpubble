@@ -17,6 +17,10 @@
         <%= text_input f, :code, placeholder: "Code" %>
         <%= error_tag f, :code %>
     </div>
+    <div>
+        <%= text_input f, :rgb, placeholder: "Rgb" %>
+        <%= error_tag f, :rgb %>
+    </div>
 
     <%= submit "Create Color" %>
 <% end %>

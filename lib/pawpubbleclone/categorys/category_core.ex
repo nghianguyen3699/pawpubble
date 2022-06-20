@@ -7,14 +7,13 @@ defmodule Pawpubbleclone.Categorys.CategoryCore do
     field :category, :string
     field :name, :string
     field :description, :string
-    field :img, :string
 
     timestamps()
   end
 
   def changeset(category, params \\ %{}) do
     category
-    |> cast(params, [:target, :category, :name, :description, :img])
-    |> validate_required([:target, :category, :name, :description, :img])
+    |> cast(params, [:target, :category, :name, :description])
+    |> validate_required([:target, :category, :name, :description])
   end
 end

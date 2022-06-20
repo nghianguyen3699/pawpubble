@@ -1,0 +1,135 @@
+<style>
+  .item-size:hover,
+  .item-color:hover,
+  .item-category:hover {
+    cursor: pointer;
+  }
+</style>
+<div class="container w-full">
+  <div class="flex justify-start items-center mb-16 mt-8">
+    <%= link ("Home"), to: Routes.page_path(@conn, :index), class: "text-l text-blue-500 hover:text-blue-700" %>
+    <i class="fas fa-caret-right ml-4 mt-1 text-l text-gray-500"></i>
+    <%= link ("Plant Lover - Hoodies - Tees - Phone Cases"), to: Routes.plant_product_path(@conn, :index), class: "text-l text-blue-500 ml-4 hover:text-blue-700" %>
+    <i class="fas fa-caret-right ml-4 mt-1 text-l text-gray-500"></i>
+    <span class="text-l text-gray-500 ml-4">Aloe</span>
+  </div>
+  <div class="flex ">
+    <div class="w-2/3 flex">
+      <div class="flex flex-col w-24">
+        <img src="/images//img_plants/T-shirts/white/1.jpg" class="w-full mb-4 border-2 rounded">
+        <img src="/images//img_plants/T-shirts/white/2.jpg" class="w-full mb-4 border-2 rounded">
+        <img src="/images//img_plants/T-shirts/white/3.jpg" class="w-full mb-4 border-2 rounded">
+      </div>
+      <div class="w-full block ml-8">
+        <div class="">
+          <div class="w-20 h-10 rounded-3xl bg-gray-800 relative">
+            <div class="absolute" style="left:23%; top:16%">
+              <span class="text-xl text-white">1</span>
+              <span class="text-xl text-white">/3</span>
+            </div>
+          </div>
+        </div>
+        <img id="img_main_product" src="" class="w-full rounded">
+      </div>
+    </div>
+    <div class="lg:w-1/3">
+      <div class="flex items-center justify-start mb-8">
+        <span class="text-l text-gray-500">From</span>
+        <%= link ("Plant Lover - Hoodies - Tees - Phone Cases"), to: Routes.plant_product_path(@conn, :index), class: "text-l text-blue-500 ml-4 hover:text-blue-700" %>
+      </div>
+      <div id="name_product" class="text-xl text-gray-700 mb-8 font-normal">Aloe Classic T-Shirt</div>
+      <div class="text-4xl font-bold text-red-600 mb-8 flex justify-start items-center">
+        <span class="mr-4">$</span>
+        <span id="price_product" class=""></span>
+      </div>
+      <div class="text-xl text-gray-600 mb-8 font-normal">
+        <span class="font-bold text-gray-800">Products: </span>
+        <span id="name_category" class="">Classic T-Shirt</span>
+      </div>
+      <div id="plant_category" class="grid xl:grid-cols-5 lg:grid-cols-5 gap-4 mb-8">
+      <%= for plant_category <- @plant_categorys do%>
+        <img src="<%= plant_category.img %>" name="<%= plant_category.category.name%>" class="item-category hover:cursor-pointer w-full border-2 rounded">
+        <%# <img src="/images//img_plants/T-shirts/white/1.jpg" class="w-full border-2 rounded border-blue-600 hover:cursor-pointer">
+        <img src="/images//img_plants/T-shirts/white/2.jpg" class="w-full border-2 rounded">
+        <img src="/images//img_plants/T-shirts/white/3.jpg" class="w-full border-2 rounded">
+        <img src="/images//img_plants/T-shirts/white/2.jpg" class="w-full border-2 rounded">
+        <img src="/images//img_plants/T-shirts/white/3.jpg" class="w-full border-2 rounded">
+        <img src="/images//img_plants/T-shirts/white/1.jpg" class="w-full border-2 rounded">
+        <img src="/images//img_plants/T-shirts/white/2.jpg" class="w-full border-2 rounded">
+        <img src="/images//img_plants/T-shirts/white/3.jpg" class="w-full border-2 rounded">
+        <img src="/images//img_plants/T-shirts/white/2.jpg" class="w-full border-2 rounded">
+        <img src="/images//img_plants/T-shirts/white/3.jpg" class="w-full border-2 rounded">
+        <img src="/images//img_plants/T-shirts/white/3.jpg" class="w-full border-2 rounded">
+        <img src="/images//img_plants/T-shirts/white/2.jpg" class="w-full border-2 rounded">
+        <img src="/images//img_plants/T-shirts/white/3.jpg" class="w-full border-2 rounded"> %>
+      <% end %>
+      </div>
+      <div id="color_block">
+        <div class="flex justify-start items-center text-xl text-gray-600 mb-8">
+          <span class="font-bold text-gray-800">Color: </span>
+          <span id="name_color" class="ml-2">Sunshine</span>
+        </div>
+        <div id="list_color" class=" w-full flex justify-start items-center mb-8">
+          <%# <span class="w-10 h-10 rounded-full border-xl border-white" style="background-color:black"></span>
+          <span class="w-10 h-10 ml-4 rounded-full border-xl border-white" style="background-color:red"></span>
+          <span class="w-10 h-10 ml-4 rounded-full border-xl border-white" style="background-color:yellow"></span>
+          <span class="w-10 h-10 ml-4 rounded-full border-xl border-white" style="background-color:blue"></span>
+          <span class="w-10 h-10 ml-4 rounded-full border-xl border-white" style="background-color:green"></span> %>
+        </div>
+      </div>
+      <div id="size_block">
+        <div class="text-xl text-gray-600 mb-8 font-normal flex justify-between">
+          <div class="flex justify-center items-center">
+            <span class="font-bold text-gray-800">Size: </span>
+            <span id="name_size" class="ml-2">M</span>
+          </div>
+          <span class="text-gray-400 underline hover:text-red-400 hover:font-bold">Size Guide</span>
+        </div>
+        <div id="list_size" class="grid grid-cols-5 gap-4 text-xl text-gray-600 font-normal mb-8">
+          <%# <div class="w-full h-14 flex justify-center items-center border-2 rounded">S</div>
+          <div class="w-full h-14 flex justify-center items-center border-2 rounded">M</div>
+          <div class="w-full h-14 flex justify-center items-center border-2 rounded">L</div>
+          <div class="w-full h-14 flex justify-center items-center border-2 rounded">XL</div>
+          <div class="w-full h-14 flex justify-center items-center border-2 rounded">2XL</div>
+          <div class="w-full h-14 flex justify-center items-center border-2 rounded">3XL</div>
+          <div class="w-full h-14 flex justify-center items-center border-2 rounded">4XL</div> %>
+        </div>
+      </div>
+      <div class="flex justify-start items-center text-xl text-gray-600 mb-8">
+        <span class="font-bold text-gray-800">Quantity:</span>
+        <span class="ml-2">1</span>
+      </div>
+      <select name="quantity" id="quantity" class="text-xl w-20 h-14 pl-3 border-2 rounded bg-white mb-8">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+      <button type="button" id="btn_add-to-cart" class="w-full h-12 flex justify-center items-center mb-6 py-2 px-4 border border-transparent text-3xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Add To Cart
+      </button>
+      <div class="text-xl text-gray-600 mb-8 font-normal border-t">
+        <div class="font-bold mt-8 text-gray-800">Product Details</div>
+        <ul id="description_category" class="mb-8 mt-8 list-disc">
+          <%# <li class="mb-3 ml-6">Ribbed and double stitched collar</li>
+          <li class="mb-3 ml-6">Machine-wash safe</li>
+          <li class="mb-3 ml-6">Unisex</li>
+          <li class="mb-3 ml-6">Products are proudly printed in the United States</li> %>
+        </ul>
+        <span class="">All products are made to order and printed to the best standards available. They do not include embellishments, such as rhinestones</span>
+      </div>
+      <div class="text-xl text-gray-600 mb-8 font-normal border-t">
+        <div class="font-bold mb-8 mt-8 text-gray-800">Shipping Info</div>
+        <div class="mb-8">Orders will ship between May 11 and May 18.</div>
+        <div class="mb-8">Learn more about our shipping rates here and our returns, refunds, and exchanges policy here.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="module" src="/assets/plant_product/main.js"></script>
