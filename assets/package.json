@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "deploy": "NODE_ENV=production tailwindcss --minify -i css/app.css -o ../priv/static/assets/app.css"
+    "deploy": "eval mix assets.deploy && rm -f _build/esbuild*"
   },
   "dependencies": {},
   "devDependencies": {
