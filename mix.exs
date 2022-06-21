@@ -58,6 +58,7 @@ defmodule Pawpubbleclone.MixProject do
       {:bamboo, "~> 1.6"},
       {:scrivener_ecto, "~> 2.0"},
       {:scrivener_html, "~> 1.8"}
+      sadf
     ]
   end
 

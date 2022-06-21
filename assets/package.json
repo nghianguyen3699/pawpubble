@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "deploy": "eval mix assets.deploy && rm -f _build/esbuild*"
+    "deploy": "cd .. && mix assets.deploy && rm -f _build/esbuild*"
   },
   "dependencies": {},
   "devDependencies": {
