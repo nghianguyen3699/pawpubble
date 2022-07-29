@@ -111,7 +111,7 @@ function renderCart(cartDataApi) {
                 `
         
     })
-    cartListEle.innerHTML = htmlsItemCart.reverse().join('')
+    cartListEle.innerHTML = htmlsItemCart.join('')
     changeQuantityItemCartBTN()
     listRemoveItemCartEle = $$('.remove_item_btn')
     removeItemCart()

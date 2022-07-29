@@ -1,5 +1,6 @@
 defmodule Pawpubbleclone.Product_Orders do
 
+  import Ecto.Query
   alias Pawpubbleclone.Repo
   alias Pawpubbleclone.Product_Orders.Product_order
 
@@ -7,8 +8,10 @@ defmodule Pawpubbleclone.Product_Orders do
     Repo.get(Product_order, id)
   end
 
-  def get_product_order!(name) do
-    Repo.get_by!(Product_order, %{name: name})
+  def get_product_order!(order_code) do
+    product_order =
+      from(i in Product_order, where: i.order_code == ^order_code, select: i)
+      |> Repo.all()
   end
 
   def get_product_order_by(params) do

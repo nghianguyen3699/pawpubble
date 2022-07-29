@@ -2,11 +2,13 @@ defmodule Pawpubbleclone.Plants do
   @moduledoc """
   The Plant context.
   """
+  import Plug.Conn
 
   import Ecto.Query, warn: false
   alias Pawpubbleclone.Repo
-
+  alias Pawpubbleclone.{Concepts, Colors, Sizes, Categorys}
   alias Pawpubbleclone.Plant.Plant_product
+  alias Pawpubbleclone.Categorys.CategoryCore
 
 
   def list_plants do
@@ -61,20 +63,128 @@ defmodule Pawpubbleclone.Plants do
     Repo.delete(plant_product)
   end
 
-  def get_products_base_category() do
+  def get_products_base_atributes() do
     products =
-    from( i in Plant_product, select: {i.id, i.category_id})
+    from( i in Plant_product, where: i.concept_id == 9, select: {i.id, i.category_id, i.name, i.color_id, i.price })
      |> Repo.all()
-     |> Enum.uniq_by(fn {_, x} -> x end)
+     |> Enum.uniq_by(fn {_, x, y, z, _} -> {x, y, z} end)
 
-    for {x, _} <- products do
+    for {x, _, _, _, _} <- products do
       x
        |> get_plant_product!()
-       |> Repo.preload(:category)
     end
+  end
+
+  def get_products_base_color(colors_id) do
+    # query = Enum.map(String.split(colors_id, "_"), fn x -> {:color_id, x} end)
+    products =
+      for c <- String.split(colors_id, "_") do
+        from( i in Plant_product, where: i.concept_id == 9 and i.color_id == ^c, select: {i.id, i.category_id, i.name, i.color_id})
+         |> Repo.all()
+         |> Enum.uniq_by(fn {_, x, y, z} -> {x, y, z} end)
+      end
+      |> List.flatten()
+    for {x, _, _, _} <- products do
+      x
+        |> get_plant_product!()
+    end
+  end
+
+  def get_all_categorys_base_products(name) do
+    categorys =
+      from(i in Plant_product, where: i.concept_id == 9 and i.name == ^name, select: {i.id, i.category_id, i.name})
+       |> Repo.all()
+       |> Enum.uniq_by(fn {_, x, y} -> {x, y} end)
+
+    for {x, _, _} <- categorys do
+      x
+      |> get_plant_product!()
+    end
+  end
+
+  def get_products_base_target(target_name) do
+    # Categorys.list_categorys()
+    products =
+        from( i in Plant_product, join: c in CategoryCore,
+                                  on: c.target == ^target_name,
+                                  where: i.concept_id == 9 and c.id == i.category_id,
+                                  select: {i.id, c.target, i.category_id, i.name, i.color_id})
+         |> Repo.all()
+         |> Enum.uniq_by(fn {_, _, y, z, t} -> { y, z, t} end)
+
+    for {x, _, _, _, _} <- products do
+      x
+      |> get_plant_product!()
+    end
+  end
+
+  def get_products_base_target_category(target_name, category_name) do
+    IO.inspect(category_name)
+    products =
+      for d <- String.split(category_name, "_")  do
+        from( i in Plant_product, join: c in CategoryCore,
+                                  on: c.target == ^target_name and c.category == ^d,
+                                  where: i.concept_id == 9 and c.id == i.category_id,
+                                  select: {i.id, c.target, i.category_id, i.name, i.color_id})
+           |> Repo.all()
+           |> Enum.uniq_by(fn {_, _, y, z, t} -> { y, z, t} end)
+      end
+      |> List.flatten()
+    for {x, _, _, _, _} <- products do
+      x
+        |> get_plant_product!()
+    end
+  end
+
+  def get_products_base_target_category_name(target_name, category_name, category_detail) do
+    # IO.inspect(category_name)
+    products =
+      for d <- String.split(category_detail, "_")  do
+        from( i in Plant_product, join: c in CategoryCore,
+                                  on: c.target == ^target_name and c.category == ^d,
+                                  where: i.concept_id == 9 and c.id == i.category_id,
+                                  select: {i.id, c.target, i.category_id, i.name, i.color_id})
+           |> Repo.all()
+           |> Enum.uniq_by(fn {_, _, y, z, t} -> { y, z, t} end)
+      end
+      |> List.flatten()
+    for {x, _, _, _, _} <- products do
+      x
+        |> get_plant_product!()
+    end
+  end
+
+  def load_categorys_base_product(category) do
+    categorys =
+      from( i in Plant_product, where: i.concept_id == 9, select: {i.id, i.category_id})
+       |> Repo.all()
+       |> Enum.uniq_by(fn {_,x} -> {x} end)
+    categorys
+        |> Enum.map(fn {x, _} -> x |> get_plant_product!() |> Repo.preload(:category) end)
+        |> Enum.map(fn x -> [x.id, x.category.target, x.category.category, x.category.name] end)
+        |> Enum.uniq_by(fn [_, _, _, x] ->  [x] end )
+        |> Enum.map(fn x -> if Enum.at(x, 1) == category do x end end )
+        |> Enum.filter(& !is_nil(&1))
+
   end
 
   def change_plant_product(%Plant_product{} = plant_product, attrs \\ %{}) do
     Plant_product.changeset(plant_product, attrs)
+  end
+
+  def load_concepts_category(conn, _) do
+    assign(conn, :concepts, Concepts.list_concepts())
+  end
+
+  def load_colors_category(conn, _) do
+      assign(conn, :colors, Colors.list_colors())
+  end
+
+  def load_sizes_category(conn, _) do
+      assign(conn, :sizes, Sizes.list_sizes())
+  end
+
+  def load_categorys_category(conn, _) do
+      assign(conn, :categorys, Categorys.list_categorys())
   end
 end

@@ -18,111 +18,93 @@
       <div class="border-b border-gray-200 w-full pb-4">
         <i class="fas fa-filter text-2xl"></i>
         <span class="text-2xl font-bold text-gray-700 ml-4">Filter</span>
+        <div class="text-xl flex justify-between items-start">
+          <div id="list_filter" class="flex justify-start flex-wrap items-center mt-4">
+            <%# <div class="ml-1 border border-gray-600 rounded flex justify-center items-center">
+              <span class="text-sm mr-2 ml-1">Men</span>
+              <i class="text-sm mt-1 mr-1 text-red-400 fas fa-times"></i>
+            </div> %>
+
+          </div>
+          <i class="fas fa-times"></i>
+        </div>
       </div>
-      <div class="pb-4 pt-4 flex justify-between align-center w-full border-b border-gray-200">
+      <div id="category" class="pb-4 pt-4 flex justify-between align-center w-full border-b border-gray-200 cursor-pointer">
         <span class="text-xl font-bold text-gray-700">Category</span>
-        <span class="text-3xl font-light text-gray-700"style="margin-top:-7px">-</span>
+        <span class="text-l font-light text-gray-500"><i class="fas fa-plus"></i></span>
       </div>
-      <div class="w-full">
-        <div class="pb-4 pt-4 border-b border-gray-200">
-          <span class="text-xl font-normal text-gray-700">Men</span>
+      <div id="list_category" class="w-full">
+      <%= if @categorys do %>
+        <%= for category_item <- get_only_category(@categorys) do %>
+        <div class="category_main">
+          <div class="category_item pb-4 pt-4 flex justify-between align-center w-full border-b border-gray-200 cursor-pointer">
+            <div class="flex justify-start align-center">
+              <input class="mr-4" value="<%= category_item.category.category %>" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+              <span class="text-l font-normal text-gray-700"><%= category_item.category.category %></span>
+            </div>
+            <span class="text-l font-light text-gray-500"><i class="fas fa-plus"></i></span>
+          </div>
+          <%= for category_name <- get_only_category_name(@categorys, category_item.category.category) do %>
+            <div class="category_name pb-4 pt-4 flex justify-between align-center w-full border-b border-gray-200 cursor-pointer">
+              <div class="ml-4 flex justify-start align-center">
+                <input class="mr-4" value="<%= category_name.category.name %>" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+                <span class="text-l font-normal text-gray-700"><%= category_name.category.name %></span>
+              </div>
+              <%# <span class="text-l font-light text-gray-500"><i class="fas fa-plus"></i></span> %>
+            </div>
+          <% end %>
+          </div>
+        <% end %>
+        <div class="">
         </div>
-        <div class="pb-4 pt-4 border-b border-gray-200">
-          <span class="text-xl font-normal text-gray-700">Women</span>
-        </div>
-        <div class="pb-4 pt-4 border-b border-gray-200">
-          <span class="text-xl font-normal text-gray-700">Accessories</span>
-        </div>
-        <div class="pb-4 pt-4 border-b border-gray-200">
-          <span class="text-xl font-normal text-gray-700">Home & Living</span>
-        </div>
+
+      <% else %>
+        <%= if @targets do %>
+          <%= for target <- @targets do %>
+            <div class="target_item cursor-pointer flex justify-between align-center pb-4 pt-4 border-b border-gray-200">
+              <span value="<%= target.target %>" class="text-xl font-normal text-gray-700"><%= target.target %></span>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
       </div>
       <div class="pb-4 pt-4 flex justify-between align-center w-full border-b border-gray-200">
         <span class="text-xl font-bold text-gray-700">Color</span>
-        <span class="text-3xl font-light text-gray-700" style="margin-top:-7px">+</span>
+        <span class="text-l font-light text-gray-500"><i class="fas fa-plus"></i></span>
       </div>
       <div class="w-full">
         <%= for color <- @colors do %>
-        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
-          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+        <div class="color_filter pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
+          <input class="color_input mr-4" value="<%= color.id %>" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
           <div class="mr-4" style="width:22px; height:22px; background:<%= color.rgb %>; border-radius:50%; border: 1px solid #000"></div>
-          <span class="text-l font-normal text-gray-700"><%= color.name%></span>
+          <span class="text-l font-normal text-gray-700"><%= color.name %></span>
         </div>
         <% end %>
-        <%# <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
-          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
-          <div class="mr-4" style="width:22px; height:22px; background:rgb(151, 153, 155); border-radius:50%;"></div>
-          <span class="text-xl font-normal text-gray-700">Grey</span>
-        </div>
-        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
-          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
-          <div class="mr-4" style="width:22px; height:22px; background:rgb(5, 74, 232); border-radius:50%;"></div>
-          <span class="text-xl font-normal text-gray-700">Blue</span>
-        </div>
-        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
-          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
-          <div class="mr-4" style="width:22px; height:22px; background:rgb(4, 106, 56); border-radius:50%;"></div>
-          <span class="text-xl font-normal text-gray-700">Green</span>
-        </div>
-        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
-          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
-          <div class="mr-4" style="width:22px; height:22px; background:rgb(233, 131, 175); border-radius:50%;"></div>
-          <span class="text-xl font-normal text-gray-700">Pink</span>
-        </div>
-        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
-          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
-          <div class="mr-4" style="width:22px; height:22px; background:rgb(4, 30, 66); border-radius:50%;"></div>
-          <span class="text-xl font-normal text-gray-700">Dark Blue</span>
-        </div>
-        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
-          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
-          <div class="mr-4" style="width:22px; height:22px; background:rgb(21, 71, 52); border-radius:50%;"></div>
-          <span class="text-xl font-normal text-gray-700">Dark Green</span>
-        </div>
-        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
-          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
-          <div class="mr-4" style="width:22px; height:22px; background:rgb(234, 170, 0); border-radius:50%;"></div>
-          <span class="text-xl font-normal text-gray-700">Gold</span>
-        </div>
-        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
-          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
-          <div class="mr-4" style="width:22px; height:22px; background:rgb(255, 205, 0); border-radius:50%;"></div>
-          <span class="text-xl font-normal text-gray-700">Yellow</span>
-        </div>
-        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
-          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
-          <div class="mr-4" style="width:22px; height:22px; background:rgb(17, 17, 17); border-radius:50%;"></div>
-          <span class="text-xl font-normal text-gray-700">Black</span>
-        </div>
-        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
-          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
-          <div class="mr-4" style="width:22px; height:22px; background:rgb(74, 57, 127); border-radius:50%;"></div>
-          <span class="text-xl font-normal text-gray-700">Purple</span>
-        </div>
-        <div class="pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
-          <input class="mr-4" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
-          <div class="mr-4" style="width:22px; height:22px; background:rgb(247, 127, 0); border-radius:50%;"></div>
-          <span class="text-xl font-normal text-gray-700">Orange</span>
-        </div> %>
       </div>
     </div>
     <div class="col-span-3">
       <div class="flex justify-between items-center mb-4">
         <div>
           <span class="text-xl font-normal text-gray-600">Showing </span>
-          <span class="text-3xl font-bold text-red-400">160</span>
+          <span id="quantity_product" class="text-3xl font-bold text-red-400">160</span>
           <span class="text-xl font-normal text-gray-600"> items</span>
         </div>
         <div class="flex justify-end items-center">
           <i class="fas fa-sort text-3xl"></i>
           <span class="text-xl font-normal text-gray-600 ml-2">Sort: </span>
-          <span class="text-xl font-medium text-red-400 ml-2">Top selling </span>
-          <i class="fas fa-sort-down text-3xl text-gray-500 ml-2 mb-2"></i>
+          <%# <span class="text-xl font-medium text-red-400 ml-2">Top selling </span> %>
+          <select id="sort" class="text-xl font-medium text-red-400 ml-2">
+            <option value="">Option sort</option>
+            <option value="topselling">Top selling</option>
+            <option value="lowestprice">Price: Lowest Firt</option>
+            <option value="highestprice">Price: Highest Firt</option>
+          <%# <i class="fas fa-sort-down text-3xl text-gray-500 ml-2 mb-2"></i> %>
+          </select>
         </div>
       </div>
       <div class="grid grid-cols-3 gap-x-6 gap-y-10">
         <%= for plant <- @plants do %>
-            <div class="group relative">
+            <div class="item_product group relative drop-shadow-lg cursor-pointer">
               <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
                 <img  class="w-full h-full object-center object-cover lg:w-full lg:h-full" src="<%=plant.img%>">
               </div>
@@ -131,6 +113,12 @@
                   <h3 class="flex flex-col justify-start text-xl text-gray-700">
                       <span class="inset-0"><%= plant.name%></span>
                       <p class="mt-1 text-base font-normal text-gray-500"><%= plant.category.name %></p>
+                      <div class="flex justify-start items-center mt-1 font-normal text-gray-500 text-base">
+                        <%= if plant.color_id != nil do%>
+                        <span class="mt-1 mr-2">color:</span> <p style="color:<%= plant.color.code%>; text-shadow: 1px 1px 2px black" class="mt-1 text-lg  font-bold"><%= plant.color.name %></p>
+                        <% end %>
+                      </div>
+
                   </h3>
                 </div>
                 <div class="flex items-center mt-3">
@@ -143,3 +131,4 @@
     </div>
   </div>
 </div>
+<script type="module" src="/assets/plant_product/index.js""></script>

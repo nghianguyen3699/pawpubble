@@ -3,6 +3,7 @@ import { getSizePlants, sizeData } from '/assets/module/fetch.js'
 import { getCategoryPlants } from '/assets/module/fetch.js'
 import { getPlantProduct } from '/assets/module/fetch.js'
 import { getCart } from '/assets/module/fetch.js'
+import { renderCart } from '/assets/layout/main.js'
 
 import { renderColorEle, renderSizeEle, renderDesCategoryEle } from '/assets/module/render.js'
 
@@ -36,6 +37,14 @@ var cartListEle = $('#cart_list')
 var totalPriceCartEle = $('.total_price_cart')
 var listCheckboxCartEle = null
 var listRemoveItemCartEle = null
+var minusQuantityBtn = null
+var plusQuantityBtn 
+var listCart = [];
+
+var totalPrice = 0.00
+var quantityItem = 0
+var priceItem = 0
+
 
 
 
@@ -44,10 +53,10 @@ function start() {
     getPlantProduct(queryProduct)
     getColorPlants()
     getSizePlants()
-    setTimeout(() => {
-        getCart(renderCart)
+    // setTimeout(() => {
+    //     getCart(renderCart)
         addProductIntoCart()
-    }, 2000);
+    // }, 2000);
 
 }
 
@@ -66,9 +75,8 @@ function renderCategoryPlants(categorys) {
 
 
 function queryProduct(plantsData) {
-    plantsListData = plantsData
+    plantsListData = plantsData.data.filter( o => o.name == "Aloe")
     var nameProductEle = $('#name_product')
-    // console.log(priceProductEle);
 
     var nameCategoryEle = $('#name_category')
     var itemsCategoryEle =  $$('.item-category')
@@ -86,13 +94,13 @@ function queryProduct(plantsData) {
     // console.log(sizeData);
     
     // ------------------------render data first load-------------------------
-    var listFirstCate = plantsData.data.filter( o => o.category.name === plantsData.data[0].category.name)
+    var listFirstCate = plantsListData.filter( o => o.category.name === plantsListData[0].category.name)
     
     currentPlantProduct.category = listFirstCate[0].category.name
     currentPlantProduct.color = listFirstCate[0].color.name
     currentPlantProduct.size = listFirstCate[0].size.name
 
-    getInforProduct(plantsData, currentPlantProduct, currentProductId, priceProductEle)
+    getInforProduct(plantsListData, currentPlantProduct, currentProductId, priceProductEle)
 
     // console.log(currentPlantProduct);
     // console.log(currentProductId);
@@ -114,7 +122,6 @@ function queryProduct(plantsData) {
     itemsColorEle = $$('.item-color')
     itemsSizeEle = $$('.item-size')
 // -----------------------------------------------------------------------
-console.log(itemsCategoryEle);
     itemsCategoryEle.forEach((itemCategory) => {
         itemCategory.onclick = () => {
             focusEle(itemsCategoryEle, itemCategory)
@@ -126,12 +133,11 @@ console.log(itemsCategoryEle);
                     renderDesCategoryEle(desCategoryEle, itemCategoryData.description)
 
                     currentPlantProduct.category = itemCategoryData.name
-                    checkCategory(plantsData, itemCategoryData.name)
-                    console.log(currentPlantProduct);
+                    checkCategory(plantsListData, itemCategoryData.name)
                 }
             })
-            getInforProduct(plantsData, currentPlantProduct, currentProductId, priceProductEle)
-            plantsData.data.forEach((plantData) => {
+            getInforProduct(plantsListData, currentPlantProduct, currentProductId, priceProductEle)
+            plantsListData.forEach((plantData) => {
                 if (nameCategoryEle.textContent == plantData.category.name) {
                     listColor.push(plantData.color)
                     if (plantData.size != null) {
@@ -188,76 +194,77 @@ console.log(itemsCategoryEle);
 }
 
 
-function renderCart(cartDataApi) {
-    // console.log(cartData);
-    var listCart = [];
-    cartData = cartDataApi
-    cartData.data.forEach((item) => {
-        // console.log(item);
-        var itemCart = plantsListData.data.find((o) => o.id == item.product_id);
-        itemCart.quantityIncart = item.quantity
-        listCart.push(itemCart);
-        // console.log(listCart);
-    })
-    var htmlsItemCart = listCart.map((item) => {
-        // console.log(item.color.name);
-        return `
-                    <div class="cart_item flex flex justify-center items-start py-4">
-                        <div class="">
-                            <input class="check_item_cart h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="">
-                        </div>
-                        <img src="${item.img}" alt="" class="w-20">
-                        <div class="flex flex-col pl-4 flex-nowrap" style="min-width: 280px; ">
-                            <span class="-title text-xl font-bold">
-                                ${item.name}
-                            </span>
-                            <span class="text-m font-normal text-gray-400 py-1">
-                                ${item.concept.name}
-                            </span>
-                            <span class="text-m font-normal text-gray-400 py-1">
-                                Category: ${item.category.name}
-                            </span>
-                            <span class="color_item_cart ${item.color == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
-                                Color: ${item.color == null ? '' : item.color.name}
-                            </span>
-                            <span class="size_item_cart ${item.size == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
-                                Size: ${item.size == null ? '' : item.size.name}
-                            </span>
-                            <div class="">
-                                <span class="flex justify-start items-center text-xl font-medium text-red-500">
-                                    <span>$</span>
-                                    <span class="">
-                                        ${item.price}
-                                    </span>
-                                </span>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="flex justify-between items-center border-2" style="min-width: 100px">
-                                    <div class="text-xl" style="padding: 5px 7px">
-                                        <i class="fas fa-minus"></i>
-                                    </div>
-                                    <span class="">${item.quantityIncart}</span>
-                                    <div class="text-xl" style="padding: 5px 7px">
-                                        <i class="fas fa-plus"></i>
-                                    </div>
-                                </div>
-                                <span class="delete_item pl-3 cursor-pointer hover:underline hover:text-red-700">Remove item</span>
-                            </div>
-                            <div class="sku_product hidden">${item.sku}</div>
-                        </div>
-                    </div>
-                `
+// function renderCart(cartDataApi) {
+//     // console.log(cartData);
+//     cartData = cartDataApi
+//     cartData.data.forEach((item) => {
+//         var itemCart = plantsListData.find((o) => o.id == item.product_id);
+//         itemCart.quantityIncart = item.quantity
+//         itemCart.idItem = item.id
+//         listCart.push(itemCart);
+//         // console.log(listCart);
+//     })
+//     var htmlsItemCart = listCart.map((item) => {
+//         // console.log(item.color.name);
+//         return `
+//                     <div class="cart_item flex justify-center items-start py-4" style="min-width: 420px; ">
+//                         <div class="">
+//                             <input class="check_item_cart h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-green-500 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="">
+//                         </div>
+//                         <img src="${item.img}" alt="" class="w-20">
+//                         <div class="flex flex-col pl-4 flex-nowrap" style="min-width: 280px; ">
+//                             <span class="-title text-xl font-bold">
+//                                 ${item.name}
+//                             </span>
+//                             <span class="text-m font-normal text-gray-400 py-1">
+//                                 ${item.concept.name}
+//                             </span>
+//                             <span class="text-m font-normal text-gray-400 py-1">
+//                                 Category: ${item.category.name}
+//                             </span>
+//                             <span class="color_item_cart ${item.color == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
+//                                 Color: ${item.color == null ? '' : item.color.name}
+//                             </span>
+//                             <span class="size_item_cart ${item.size == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
+//                                 Size: ${item.size == null ? '' : item.size.name}
+//                             </span>
+//                             <div class="">
+//                                 <span class="flex justify-start items-center text-xl font-medium text-red-500">
+//                                     <span>$</span>
+//                                     <span class="">
+//                                         ${item.price}
+//                                     </span>
+//                                 </span>
+//                             </div>
+//                             <div class="flex items-center">
+//                                 <div class="flex justify-between items-center border-2" style="min-width: 100px">
+//                                     <div class="minus_quantity text-xl" style="padding: 5px 7px">
+//                                         <i class="fas fa-minus"></i>
+//                                     </div>
+//                                     <span class="">${item.quantityIncart}</span>
+//                                     <div class="plus_quantity text-xl" style="padding: 5px 7px">
+//                                         <i class="fas fa-plus"></i>
+//                                     </div>
+//                                 </div>
+//                                 <span class="delete_item pl-3 cursor-pointer hover:underline hover:text-red-700">Remove item</span>
+//                             </div>
+//                             <div class="sku_product hidden">${item.sku}</div>
+//                         </div>
+//                     </div>
+//                 `
         
-    })
-        // console.log(htmlsItemCart);
-    //     cartListEle.appendChild(htmlsItemCart)
-    cartListEle.innerHTML = htmlsItemCart.reverse().join('')
-    listCheckboxCartEle = $$('.check_item_cart')
-    checkboxCart()
-
-    listRemoveItemCartEle = $$('.delete_item')
-    removeItemCart()
-}
+//     })
+//         // console.log(htmlsItemCart);
+//     //     cartListEle.appendChild(htmlsItemCart)
+//     cartListEle.innerHTML = htmlsItemCart.join('')
+//     listCheckboxCartEle = $$('.check_item_cart')
+//     checkboxCart()
+//     listRemoveItemCartEle = $$('.delete_item')
+//     removeItemCart()
+//     minusQuantityBtn = $$('.minus_quantity')
+//     plusQuantityBtn = $$('.plus_quantity')
+//     changeQuantityCart()
+// }
 // --------------------------mini function------------------------
 
 function uniqBy(a, key) {
@@ -277,8 +284,8 @@ function focusEle(eles, ele) {
 
 
 
-function getInforProduct(plantsData, currentPlantProduct, currentProductId, priceProductEle) {
-    plantsData.data.forEach((item) => {
+function getInforProduct(plantsListData, currentPlantProduct, currentProductId, priceProductEle) {
+    plantsListData.forEach((item) => {
         switch (true) {
             case currentPlantProduct.color == undefined:
                 if (item.category.name == currentPlantProduct.category) {
@@ -297,7 +304,7 @@ function getInforProduct(plantsData, currentPlantProduct, currentProductId, pric
                 break;
         }
     })
-    currentProductObj = plantsData.data.filter( o => o.id === currentProductId)[0]
+    currentProductObj = plantsListData.filter( o => o.id === currentProductId)[0]
     // console.log(plantsData.data);
     priceProductEle.textContent = `${currentProductObj.price}`
     imgMainProductEle.setAttribute('src',currentProductObj.img)
@@ -328,14 +335,14 @@ function handleClickColorAndSize(data, elements, name, plantsData, currentPlantP
                         break;
                 }
             })
-            getInforProduct(plantsData, currentPlantProduct, currentProductId, priceProductEle)
+            getInforProduct(plantsListData, currentPlantProduct, currentProductId, priceProductEle)
         }
     })
 }
 
-function checkCategory(plantsData, category) {
+function checkCategory(plantsListData, category) {
     var listSameCategory = []
-    plantsData.data.forEach((item) => {
+    plantsListData.forEach((item) => {
         if (item.category.name == category) {
             // console.log(item.color);
             listSameCategory.push(item)
@@ -383,67 +390,160 @@ function addProductIntoCart(params) {
     }
 }
 
-function checkboxCart(params) {
-    // console.log(listCheckboxCartEle);
-    var checkboxAllCart = $('#checkbox_all_item_cart')
-    var totalPrice = 0.00
-    listCheckboxCartEle.forEach((checkbox) => {
-        checkbox.onclick = () => {
-            priceItem = parseFloat(checkbox.parentNode.parentNode.childNodes[5].childNodes[11].childNodes[1].childNodes[3].textContent.trim());
-            quantityItem = parseFloat(parseInt(checkbox.parentNode.parentNode.childNodes[5].childNodes[13].childNodes[1].childNodes[3].textContent.trim()))
-            if (checkbox.checked == true) {
-                totalPrice += priceItem*quantityItem
-                totalPriceCartEle.textContent = totalPrice.toFixed(2)
-                // console.log(totalPrice.toFixed(2));
-            } else {
-                totalPrice -= priceItem*quantityItem
-                totalPriceCartEle.textContent = totalPrice.toFixed(2)
-                // console.log(totalPrice.toFixed(2));
-            }
-        }
+// function checkboxCart(params) {
+//     // console.log(listCheckboxCartEle);
+//     var checkboxAllCart = $('#checkbox_all_item_cart')
+//     listCheckboxCartEle.forEach((checkbox, index) => {
+//         checkbox.onclick = () => {
+//             var allCheckboxChecked = Array.from(listCheckboxCartEle).every((ele) => {
+//                 if (ele.checked == true) {
+//                     return true
+//                 } else {
+//                     return false
+//                 }
+//             })
+//             if (allCheckboxChecked == true) {
+//                 checkboxAllCart.checked = true
+//             }
+//             listCheckboxCartEle.forEach((ele) => {
+//                 if (ele.checked == false) {
+//                     checkboxAllCart.checked = false
+//                 } 
+//             })
+//             // priceItem = parseFloat(checkbox.parentNode.parentNode.childNodes[5].childNodes[11].childNodes[1].childNodes[3].textContent.trim());
+//             // quantityItem = parseFloat(parseInt(checkbox.parentNode.parentNode.childNodes[5].childNodes[13].childNodes[1].childNodes[3].textContent.trim()))
+//             priceItem = listCart[index].price
+//             quantityItem = listCart[index].quantityIncart
+//             if (checkbox.checked == true) {
+//                 totalPrice += priceItem*quantityItem
+//                 totalPriceCartEle.textContent = totalPrice.toFixed(2)
+//             } else {
+//                 totalPrice -= priceItem*quantityItem
+//                 totalPriceCartEle.textContent = totalPrice.toFixed(2)
+//             }
+//         }
 
-    })
-    checkboxAllCart.onclick = () => {
-        listCheckboxCartEle.forEach((checkbox) => {
-            checkbox.checked = true
-            quantityItem = parseFloat(parseInt(checkbox.parentNode.parentNode.childNodes[5].childNodes[13].childNodes[1].childNodes[3].textContent.trim()))
-            priceItem = parseFloat(checkbox.parentNode.parentNode.childNodes[5].childNodes[11].childNodes[1].childNodes[3].textContent.trim());
-            totalPrice += priceItem*quantityItem
-            totalPriceCartEle.textContent = totalPrice.toFixed(2)
-        })
-        // console.log(totalPrice);
-    }
-}
-function removeItemCart(params) {
-    var skuProduct = null
-    listRemoveItemCartEle.forEach(removeItem => {
-        removeItem.onclick = () => {          
-            skuProduct = removeItem.parentNode.parentNode.childNodes[15].textContent.trim()
-            var product = plantsListData.data.find((o) => o.sku == skuProduct)
-            cartData.data.forEach(item => {
-                if (item.product_id == product.id) {
-                    const data = {
-                        id: item.id
-                    };
-                    fetch(`/carts/${item.id}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': token
-                        },
-                        body: JSON.stringify(data),
-                    })
-                    .then(response => response.text())
-                    .then(data => {
-                        console.log('Success:', data);
-                        getCart(renderCart)
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
-                }
-            })
-        }
-    })
-}
+//     })
+//     checkboxAllCart.onclick = () => {
+//         if (checkboxAllCart.checked == true) {
+//             listCheckboxCartEle.forEach((checkbox) => {
+//                 checkbox.checked = true
+//                 quantityItem = parseFloat(parseInt(checkbox.parentNode.parentNode.childNodes[5].childNodes[13].childNodes[1].childNodes[3].textContent.trim()))
+//                 priceItem = parseFloat(checkbox.parentNode.parentNode.childNodes[5].childNodes[11].childNodes[1].childNodes[3].textContent.trim());
+//                 totalPrice += priceItem*quantityItem
+//                 totalPriceCartEle.textContent = `$${totalPrice.toFixed(2)}`
+//             })
+//         } else {
+//             listCheckboxCartEle.forEach((checkbox) => {
+//                 checkbox.checked = false
+//                 totalPrice = 0
+//                 totalPriceCartEle.textContent = `$${totalPrice.toFixed(2)}`
+//             })
+//         }
+//         // console.log(totalPrice);
+//     }
+// }
+
+// function changeQuantityCart(params) {
+//     minusQuantityBtn.forEach( (ele, index) => {
+//         var quantityOld = parseInt(ele.parentNode.childNodes[3].textContent)
+//         if (quantityOld == 1) {
+//             ele.getElementsByTagName('i')[0].classList.add('text-gray-300')
+//         }
+//         ele.addEventListener('click', () => {
+//             quantityOld = parseInt(ele.parentNode.childNodes[3].textContent)
+//             if (quantityOld >= 2) {
+//                 console.log(listCart);
+//                 listCart[index].quantityIncart = parseInt(ele.parentNode.childNodes[3].textContent) - 1
+//                 quantityItem = listCart[index].quantityIncart
+//                 priceItem = listCart[index].price
+//                 updateCart(index)
+//                 if (ele.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('check_item_cart')[0].checked) {
+//                     console.log(totalPrice);
+//                     totalPrice -= priceItem
+//                     totalPriceCartEle.textContent = totalPrice.toFixed(2)     
+//                 }
+//                 ele.parentNode.childNodes[3].textContent = listCart[index].quantityIncart
+//                 if (parseInt(ele.parentNode.childNodes[3].textContent) <= 1) {
+//                     ele.getElementsByTagName('i')[0].classList.add('text-gray-300')
+//                 }
+//             }
+//         })
+//     });
+//     plusQuantityBtn.forEach( (ele, index) => {
+//         ele.addEventListener('click', () => {
+//             if (ele.parentNode.childNodes[1].getElementsByTagName('i')[0].classList.contains('text-gray-300')) {
+//                 ele.parentNode.childNodes[1].getElementsByTagName('i')[0].classList.remove('text-gray-300')
+//             }
+//             priceItem = listCart[index].price
+//             listCart[index].quantityIncart = parseInt(ele.parentNode.childNodes[3].textContent) + 1
+//             updateCart(index)
+//             if (ele.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('check_item_cart')[0].checked) {
+//                 totalPrice += parseFloat(priceItem)
+//                 console.log(totalPrice);
+//                 totalPriceCartEle.textContent = totalPrice.toFixed(2)  
+//             }
+//             ele.parentNode.childNodes[3].textContent = listCart[index].quantityIncart
+//         })
+//     });
+// }
+
+// function removeItemCart(params) {
+//     var skuProduct = null
+//     listRemoveItemCartEle.forEach(removeItem => {
+//         removeItem.onclick = () => {          
+//             skuProduct = removeItem.parentNode.parentNode.childNodes[15].textContent.trim()
+//             var product = plantsListData.data.find((o) => o.sku == skuProduct)
+//             cartData.data.forEach(item => {
+//                 if (item.product_id == product.id) {
+//                     const data = {
+//                         id: item.id
+//                     };
+//                     fetch(`/carts/${item.id}`, {
+//                         method: 'DELETE',
+//                         headers: {
+//                             'Content-Type': 'application/json',
+//                             'X-CSRF-TOKEN': token
+//                         },
+//                         body: JSON.stringify(data),
+//                     })
+//                     .then(response => response.text())
+//                     .then(data => {
+//                         console.log('Success:', data);
+//                         getCart(renderCart)
+//                     })
+//                     .catch((error) => {
+//                         console.error('Error:', error);
+//                     });
+//                 }
+//             })
+//         }
+//     })
+// }
+
+// function updateCart(index) {
+//     // update quantity items
+//     const data = {
+//         id: listCart[index].idItem,
+//         quantity: listCart[index].quantityIncart
+//     };
+//     console.log(data);
+
+//     fetch(`/carts/${listCart[index].idItem}`, {
+//         method: 'PUT',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'X-CSRF-TOKEN': token
+//         },
+//         body: JSON.stringify(data),
+//     })
+//     .then(response => response.text())
+//     .then(data => {
+//         console.log('Success:', data);
+//         getCart(renderCart)
+//     })
+//     .catch((error) => {
+//         console.error('Error:', error);
+//     });
+// }
 

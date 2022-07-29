@@ -1,4 +1,12 @@
-
+<style>
+#cart_list::-webkit-scrollbar {
+    display: none;
+}
+#cart_list {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+</style>
 <header id="header" class="">
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="relative bg-white">
@@ -10,9 +18,138 @@
             </a>
         </div>
         <div class="md:flex items-center justify-end md:flex-1 lg:w-0">
+        <div class="navbar__container-option flex justify-center items-center">
+                    <div class="navbar__container-option-cart-main cursor-pointer relative mr-6 pl-4">
+                        <i class="navbar__container--cart cart_icon text-xl fas fa-shopping-cart"></i>
+                        <span class="navbar__container-option-cart-count cart_count w-5 h-5 bg-green-500 text-white absolute flex justify-center items-center pt-1" style="border-radius: 20%; top: -12px; right: -15px">0</span>
+                        <div class="navbar__container-option-cart cart_container hidden absolute z-50 bg-white border rounded-md ease-in-out drop-shadow-xl" style="top: 150%; right: 0%">
+                            <div class="navbar__container-option-cart-cover flex flex-col p-4" style="max-height: 600px">
+                                <div class="">
+                                    <input id="checkbox_all_item_cart" class="h-5 w-5 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox">
+                                </div>
+                                <div id="cart_list" class="flex flex-col overflow-y-scroll invisible-scrollbar">
+                                    <div class="navbar__container-option-cart-empty hidden flex flex-col items-center justify-center px-6 py-3 bg-gray-300 rounded-md" style="min-width: 280px">
+                                        <i class="navbar__container-option-cart-empty-icon text-xl text-gray-500 fas fa-cart-plus"></i>
+                                        <span class="navbar__container-option-cart-empty-call pt-4 text-l text-gray-500">Cart is empty</span>
+                                    </div>
+                                    <%# <div class="navbar__container-option-cart-infor px-6 flex justify-center items-start border-b-2 pb-4 mt-4">
+                                        <div class="navbar__container-option-cart-img w-20">
+                                            <img src="/images/img_plants/Hoodies/Ash/1.jpg" alt="" class="navbar__container-option-cart-detail-img ">
+                                        </div>
+                                        <div class="navbar__container-option-cart-detail flex flex-col flex-nowrap pl-6" style="min-width: 280px">
+                                            <span class="navbar__container-option-cart-title pb-3 text-lg font-bold">
+                                                ALOE
+                                            </span>
+                                            <span class="navbar__container-option-cart-proper text-base pb-1 text-gray-500">
+                                                Unisex T-shirt / Black / S
+                                            </span>
+                                            <span class="navbar__container-option-cart-proper text-base pb-1 text-gray-500">
+                                                Category: T-shirt
+                                            </span>
+                                            <span class="navbar__container-option-cart-proper text-base pb-1 text-gray-500">
+                                                Color: red
+                                            </span>
+                                            <span class="navbar__container-option-cart-proper text-base pb-1 text-gray-500">
+                                                Size: XL
+                                            </span> 
+                                            <span class="navbar__container-option-cart-price--new text-lg font-bold text-red-500">
+                                                $29.00
+                                            </span>
+                                            <div class="navbar__container-option-cart-quantity flex items-center">
+                                                <div class="navbar__container-option-cart-quantity-num flex justify-between items-center border" style="min-width: 100px">
+                                                    <div class="option-cart-quantity-variability text-lg px-2 py-2 border-x cursor-pointer">
+                                                        <i class="option-cart-quantity-minus fas fa-minus"></i>
+                                                    </div>
+                                                    <span class="option-cart-quantity-count">1</span>
+                                                    <div class="option-cart-quantity-variability text-lg px-2 py-2 border-x cursor-pointer">
+                                                        <i class="option-cart-quantity-plus fas fa-plus"></i>
+                                                    </div>
+                                                </div>
+                                                <span class="navbar__container-option-cart-remove p-2 pl-3 hover:underline hover:text-red-500 cursor-pointer">Remove item</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="navbar__container-option-cart-infor px-6 flex justify-center items-start border-b-2 pb-4 mt-4">
+                                        <div class="navbar__container-option-cart-img w-20">
+                                            <img src="/images/img_plants/Hoodies/Ash/1.jpg" alt="" class="navbar__container-option-cart-detail-img ">
+                                        </div>
+                                        <div class="navbar__container-option-cart-detail flex flex-col flex-nowrap pl-6" style="min-width: 280px">
+                                            <span class="navbar__container-option-cart-title pb-3 text-lg font-bold">
+                                                ALOE
+                                            </span>
+                                            <span class="navbar__container-option-cart-proper text-base pb-1 text-gray-500">
+                                                Unisex T-shirt / Black / S
+                                            </span>
+                                            <span class="navbar__container-option-cart-proper text-base pb-1 text-gray-500">
+                                                Category: T-shirt
+                                            </span>
+                                            <span class="navbar__container-option-cart-proper text-base pb-1 text-gray-500">
+                                                Color: red
+                                            </span>
+                                            <span class="navbar__container-option-cart-proper text-base pb-1 text-gray-500">
+                                                Size: XL
+                                            </span> 
+                                            <span class="navbar__container-option-cart-price--new text-lg font-bold text-red-500">
+                                                $29.00
+                                            </span>
+                                            <div class="navbar__container-option-cart-quantity flex items-center">
+                                                <div class="navbar__container-option-cart-quantity-num flex justify-between items-center border" style="min-width: 100px">
+                                                    <div class="option-cart-quantity-variability text-lg px-2 py-2 border-x cursor-pointer">
+                                                        <i class="option-cart-quantity-minus fas fa-minus"></i>
+                                                    </div>
+                                                    <span class="option-cart-quantity-count">1</span>
+                                                    <div class="option-cart-quantity-variability text-lg px-2 py-2 border-x cursor-pointer">
+                                                        <i class="option-cart-quantity-plus fas fa-plus"></i>
+                                                    </div>
+                                                </div>
+                                                <span class="navbar__container-option-cart-remove p-2 pl-3 hover:underline hover:text-red-500 cursor-pointer">Remove item</span>
+                                            </div>
+                                        </div>
+                                    </div> %>
+                                    
+                                    
+                                </div>
+                                <div class="navbar__container-option-cart-pay mt-4">
+                                    <div class="navbar__container-option-cart-subtotal flex justify-between items-center">
+                                        <div class="navbar__container-option-subtotal-title">
+                                            SUBTOTAL
+                                        </div>
+                                        <div class="total_price_cart navbar__container-option-subtotal-price text-xl font-bold text-red-500">
+                                            $00.00
+                                        </div>
+                                    </div>
+                                    <div class="navbar__container-option-cart-shipping mb-6">
+                                        Shipping fee is calculated at checkout
+                                    </div>
+                                    <a href="/carts" class="btn btn-go-to-cart hover:bg-green-500 hover:text-white hover:border-green-500">GO TO CART</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         <%= if @current_user do %>
-            <a class="whitespace-nowrap text-xl font-medium text-gray-500 hover:text-gray-900 mr-2"> <%= @current_user.name %> /</a>
-            <%= link "Log out", to: Routes.session_path(@conn, :delete, @current_user), method: :delete, class: "whitespace-nowrap text-red-400 text-base font-medium text-gray-500 hover:text-gray-900"%>
+            <div class="flex-1 md:flex-none md:mr-3">
+                <div class="relative inline-block">
+                    <button onclick="toggleDD('myDropdown')" class="drop-button text-gray py-2 px-2"> <span class="pr-2"><i class="em em-robot_face"></i></span> Hi, <%= @current_user.name %> <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg></button>
+                    <div id="myDropdown" class="dropdownlist absolute border-2 rounded bg-white text-gray-500 drop-shadow right-0 mt-3 p-3 overflow-auto z-30 invisible w-52">
+                        <%# <a href="#" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fa fa-user fa-fw"></i> Profile</a> %>
+                        <%# <a href="#" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fa fa-cog fa-fw"></i> Settings</a> %>
+                        <div class="flex justify-start items-center ml-2 hover:text-red-400">
+                            <i class="fa fa-user fa-fw"></i>
+                            <%= link "Profile", to: Routes.profile_path(@conn, :index, @current_user), class: "p-2 text-sm no-underline block"%>
+                        </div>
+                        <div class="flex justify-start items-center ml-3 hover:text-red-400">
+                            <i class="fas fa-shopping-bag text-m"></i>
+                            <%= link "Purchase", to: Routes.profile_path(@conn, :index, @current_user), class: "p-2 text-sm no-underline block"%>
+                        </div>
+                        <div class="flex justify-start items-center ml-2 hover:text-red-400">
+                            <i class="fas fa-sign-out-alt fa-fw"></i>
+                            <%= link "Log out", to: Routes.session_path(@conn, :delete, @current_user), method: :delete, class: "p-2 text-sm no-underline block"%>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <% else %>
             <a href="/sessions/new" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
             <a href="/users/new" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a>
@@ -94,3 +231,37 @@
         </div>
     </div>
 </footer>
+<script type="text/javascript">
+    /*Toggle dropdown list*/
+    function toggleDD(myDropMenu) {
+        document.getElementById(myDropMenu).classList.toggle("invisible");
+    }
+    /*Filter dropdown options*/
+    function filterDD(myDropMenu, myDropMenuSearch) {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById(myDropMenuSearch);
+        filter = input.value.toUpperCase();
+        div = document.getElementById(myDropMenu);
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+            if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
+            }
+        }
+    }
+    // Close the dropdown menu if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.drop-button') && !event.target.matches('.drop-search')) {
+            var dropdowns = document.getElementsByClassName("dropdownlist");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (!openDropdown.classList.contains('invisible')) {
+                    openDropdown.classList.add('invisible');
+                }
+            }
+        }
+    }
+</script>
+<script type="module" src="/assets/layout/main.js"></script>

@@ -7,13 +7,11 @@ defmodule PawpubblecloneWeb.OrderSessionController do
 
 
   def create(conn, %{"order_session" => order_session}) do
-    IO.inspect(order_session)
     user_id =
       conn
       |> fetch_session()
       |> get_session(:user_id)
       order_session = Map.put(order_session, "user_id", user_id)
-      IO.inspect(order_session)
     case Orders.create_order(order_session) do
        {:ok, _}->
         conn
@@ -23,10 +21,8 @@ defmodule PawpubblecloneWeb.OrderSessionController do
     end
   end
   def create_product(conn, %{"products" => products, "order_code" => order_code}) do
-    IO.inspect(products)
     Enum.map(products, fn product ->
       product = Map.put(product, "order_code", order_code)
-      IO.inspect(product)
       case Product_Orders.create_product_order(product) do
          {:ok, _}->
           conn

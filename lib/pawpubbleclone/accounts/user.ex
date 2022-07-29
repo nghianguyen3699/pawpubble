@@ -1,26 +1,31 @@
 defmodule Pawpubbleclone.Accounts.User do
   use Ecto.Schema
+  use Arc.Ecto.Schema
   import Ecto.Changeset
   alias Accounts
 
   schema "users" do
+    field :avatar, Pawpubbleclone.Avatar.Type
     field :name, :string
     field :email, :string
     field :password, :string, virtual: true
     field :confirmpassword, :string, virtual: true
     field :password_hash, :string
-    field :phone, :integer
+    field :phone, :string
     field :address, :string
     field :revenue, :decimal
+    field :gender, :string
+    field :birthday, :date
 
     timestamps()
   end
 
   def changeset(user, params \\ %{}) do
     user
-    |> cast(params, [:name, :password, :email, :phone, :address, :decimal])
+    |> cast(params, [:name, :password, :email, :phone, :address, :revenue, :avatar, :gender, :birthday])
     |> validate_required(:name)
     |> validate_length(:name, min: 1, max: 30)
+
   end
   @spec registration_changeset(
           {map, map}
@@ -31,7 +36,6 @@ defmodule Pawpubbleclone.Accounts.User do
           :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}
         ) :: Ecto.Changeset.t()
   def registration_changeset(user, params) do
-    IO.inspect(params)
     user
     |> changeset(params)
     |> validate_required_inclusion([:email, :phone])
@@ -40,16 +44,36 @@ defmodule Pawpubbleclone.Accounts.User do
     |> validate_email()
   end
 
-  def update_changeset(user, params \\ %{}) do
+  def update_changeset_contain_password(user, params \\ %{}) do
     user
     |> check_password_old(params)
     |> cast(params, [:email, :name, :phone, :address])
     |> validate_email()
   end
 
+  def update_changeset_none_password(user, params \\ %{}) do
+    user
+    |> cast(params, [:email, :name, :phone, :address, :gender, :birthday])
+  end
+
+  def email_changeset(user, params \\ %{}) do
+    user
+     |> changeset(params)
+     |> validate_email()
+  end
+  def phone_changeset(user, params \\ %{}) do
+    user
+     |> changeset(params)
+     |> unsafe_validate_unique(:phone, Pawpubbleclone.Repo)
+     |> unique_constraint(:phone, message: "phone number already exists")
+  end
+
+  def avatar_changeset(user, params \\ %{}) do
+    user
+     |> cast_attachments(params, [:avatar])
+  end
 # ------------------------------validate password and email---------------------------------
   def validate_password(changeset) do
-    # IO.inspect(changeset)
     changeset
     |> validate_required(:password)
     |> validate_length(:password, min: 6, max: 72)
@@ -69,6 +93,7 @@ defmodule Pawpubbleclone.Accounts.User do
 # ------------------------------------------------------------------------------------------
 # -------------------------------edit password---------------------------------------------
   def check_password_old(user, %{ "passwordOld" => passwordOld}) do
+
     if valid_password?(user, passwordOld) do
       user
     else
@@ -85,20 +110,21 @@ defmodule Pawpubbleclone.Accounts.User do
   end
 
   def validate_new_password(changeset, params) do
-      if check_comfirm_password(changeset, params) == changeset do
-        passwordNew = params["passwordNew"]
-        # IO.inspect(changeset)
-        case changeset do
-          %Ecto.Changeset{valid?: true} ->
-            passwordNew = Pbkdf2.hash_pwd_salt(passwordNew)
-            changeset1 = change(changeset.data, %{password_hash: passwordNew})
-            merge(changeset, changeset1)
-          _ ->
-            changeset
-        end
-      else
-        add_error(changeset, :confirmpassword, "Confirm password is incorrect!")
+    # IO.inspect(params)
+    if check_comfirm_password(changeset, params) == changeset do
+      passwordNew = params["passwordNew"]
+      # IO.inspect(changeset)
+      case changeset do
+        %Ecto.Changeset{valid?: true} ->
+          passwordNew = Pbkdf2.hash_pwd_salt(passwordNew)
+          changeset1 = change(changeset.data, %{password_hash: passwordNew})
+          merge(changeset, changeset1)
+        _ ->
+          changeset
       end
+    else
+      add_error(changeset, :confirmpassword, "Confirm password is incorrect!")
+    end
 
 
     # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")

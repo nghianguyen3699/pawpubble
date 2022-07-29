@@ -21,7 +21,7 @@ defmodule Pawpubbleclone.MixProject do
   def application do
     [
       mod: {Pawpubbleclone.Application, []},
-      extra_applications: [:logger, :runtime_tools, :bamboo, :scrivener_ecto, :scrivener_html]
+      extra_applications: [:logger, :runtime_tools, :bamboo, :scrivener_ecto, :scrivener_html, :arc_ecto]
       # applications: [:bamboo]
     ]
   end
@@ -57,7 +57,9 @@ defmodule Pawpubbleclone.MixProject do
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       {:bamboo, "~> 1.6"},
       {:scrivener_ecto, "~> 2.0"},
-      {:scrivener_html, "~> 1.8"}
+      {:scrivener_html, "~> 1.8"},
+      {:arc, "~> 0.11.0"},
+      {:arc_ecto, "~> 0.11.1"}
     ]
   end
 

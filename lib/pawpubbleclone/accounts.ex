@@ -21,13 +21,42 @@ defmodule Pawpubbleclone.Accounts do
     Repo.all(User)
   end
 
-  def update_user(%User{} = user, atts) do
-    # IO.inspect(atts)
+  def update_user(%User{} = user, atts = %{"gender" => gender, "birthday" => birthday, "address" => address}) do
+    if Map.has_key?(atts, "passwordOld" ) do
+      user
+      |> User.update_changeset_contain_password(atts)
+      |> User.validate_new_password(atts)
+      |> Repo.update()
+    else
+      if address != "" do
+        user
+        |> User.update_changeset_none_password(%{"gender" => gender, "birthday" => birthday, "address" => address})
+        |> Repo.update()
+      else
+        user
+        |> User.update_changeset_none_password(%{"gender" => gender, "birthday" => birthday})
+        |> Repo.update()
+      end
+    end
+
+  end
+
+  def update_email(%User{} = user, email) do
     user
-    |> User.update_changeset(atts)
-    # |> User.validate_infor_edit(atts)
-    |> User.validate_new_password(atts)
-    |> Repo.update()
+     |> User.email_changeset(email)
+     |> Repo.update()
+  end
+  def update_phone(%User{} = user, phone) do
+    user
+     |> User.phone_changeset(phone)
+     |> Repo.update()
+  end
+
+  def update_avatar(%User{} = user, avatar) do
+    user
+     |> User.avatar_changeset(avatar)
+     |> IO.inspect()
+     |> Repo.update()
   end
 
   def delete(%User{} = user) do

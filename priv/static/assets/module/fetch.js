@@ -73,5 +73,16 @@ function getShipping(callback) {
 export { getShipping };
 // ----------------------SHIPPING---------------------------------------
 
+// ----------------------ADDRESS----------------------------------------
+var addressApi = 'https://raw.githubusercontent.com/nghianguyen3699/vietnam_address/main/nested-divisions.json'
+
+function getAddress(callback) {
+    fetch(addressApi)
+        .then(response => response.json())
+        .then(callback)
+        .catch(err => console.error(err))
+}
+export { getAddress }
+// ----------------------ADDRESS----------------------------------------
 
 

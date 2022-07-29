@@ -18,7 +18,7 @@ function start() {
     addClassPagination()
     loadNav()
     changeNav()
-    console.log(paginationEle);
+    changeHrefPage()
 }
 start()
 
@@ -72,4 +72,42 @@ function changeNav() {
         
     });
     })
+}
+
+function changeHrefPage(params) {
+    var pageLink = Array.from($$('.page-link'))
+
+    pageLink.forEach((item, index) => {
+        if (item.textContent == '…') {
+            pageLink.splice(index, 1)
+        }
+    })
+    pageLink.forEach((item) => {
+        let url = window.location.search
+        let oldHref = ""
+        console.log(url.split('='));
+        switch (item.textContent) {
+            case "Next":
+                oldHref = "page=" + (parseInt(url.split('=').pop()) + 1)
+                break;
+            case "Prev":
+                oldHref = "page=" + (parseInt(url.split('=').pop()) - 1)
+                break;
+            default:
+                oldHref = "page=" + item.textContent
+                break;
+        }
+        if (url.includes('&page')) {
+            url = url.split('&').slice(0, -1).join().replaceAll(',', '&')
+        } 
+        if (url != '') {
+            if (url.includes('?page=')) {
+                item.href = "?" + oldHref
+            } else {
+                item.href = url + "&" + oldHref
+            }
+        }
+        // console.log(item);
+    })
+    
 }

@@ -21,7 +21,7 @@ defmodule PawpubblecloneWeb.Router do
   end
 
   scope "/", PawpubblecloneWeb do
-    pipe_through [:browser, :authenticate_admin]
+    pipe_through [:browser, :authenticate_admin, :admin_layout]
 
     resources "/sizes", SizeController, only: [:index, :new, :create, :delete]
     resources "/colors", ColorController, only: [:index, :new, :create, :delete]
@@ -35,9 +35,20 @@ defmodule PawpubblecloneWeb.Router do
     pipe_through [:browser]
 
     get "/", PageController, :index
+  end
+
+  scope "/", PawpubblecloneWeb do
+    pipe_through [:browser, :admin_layout]
+
     resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 
+  scope "/profile", PawpubblecloneWeb do
+    pipe_through [:browser, :authenticate_user]
+
+    get "/:id", ProfileController, :index
+    put "/:id/update", ProfileController, :update
+  end
 
 
   scope "/concepts", PawpubblecloneWeb do
@@ -59,11 +70,11 @@ defmodule PawpubblecloneWeb.Router do
     get "/:name/:id/edit", Plant_productController, :edit
     put "/:id", Plant_productController, :update
     post "/product/:id", Plant_productController, :create_cart
-    get "/:name", Plant_productController, :show
   end
   scope "/plants", PawpubblecloneWeb do
     pipe_through [:browser]
     get "/", Plant_productController, :index
+    get "/:name", Plant_productController, :show
   end
 
   scope "/carts", PawpubblecloneWeb do
@@ -71,6 +82,7 @@ defmodule PawpubblecloneWeb.Router do
     get "/", CartController, :index
     post "/", CartController, :create
     put "/:id", CartController, :update
+    # put "/", CartController, :update_quantity
     delete "/:id", CartController, :delete
 
   end
@@ -96,6 +108,8 @@ defmodule PawpubblecloneWeb.Router do
     get "/", AdminController, :index
     get "/users", AdminController, :usersManage
     get "/products", AdminController, :productsManage
+    post "/concept_id", AdminController, :sortProducts
+    get "/sort", AdminController, :load_sort
     delete "/:id", AdminController, :delete_session
   end
 

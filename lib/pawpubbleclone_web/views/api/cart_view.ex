@@ -2,7 +2,11 @@ defmodule PawpubblecloneWeb.Api.CartView do
   use PawpubblecloneWeb, :view
 
   def render("index.json", %{carts: carts}) do
-    %{data: render_many(carts, PawpubblecloneWeb.Api.CartView, "cart.json")}
+    if carts == nil do
+      %{data: nil}
+    else
+      %{data: render_many(carts, PawpubblecloneWeb.Api.CartView, "cart.json")}
+    end
   end
   def render("show.json", %{cart: cart}) do
     %{data: render_one(cart, PawpubblecloneWeb.Api.CartView, "cart.json")}

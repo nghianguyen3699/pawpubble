@@ -6,8 +6,6 @@ defmodule PawpubblecloneWeb.UserController do
   alias Pawpubbleclone.Email
   alias Pawpubbleclone.Mailer
 
-  plug :authenticate_user when action in [:index, :show]
-
   def new(conn, _params) do
     changeset = Accounts.change_registration(%User{}, %{})
     render(conn, "new.html", changeset: changeset)

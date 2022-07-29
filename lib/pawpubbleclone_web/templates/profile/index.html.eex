@@ -1,0 +1,319 @@
+<div class="w-full">
+<nav id="header" class="bg-white w-full z-10 top-0 shadow mt-">
+
+
+    <div class="w-full container mx-auto flex flex-col items-start justify-center ju mt-0 pt-3 pb-3 md:pb-0">
+
+        <div class="w-1/2 pl-2 md:pl-0">
+            <a class="text-gray-900 text-base xl:text-xl no-underline hover:no-underline font-bold" href="#">
+                <i class="fas fa-sun text-pink-600 pr-3"></i>Profile
+            </a>
+        </div>
+
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-white z-20" id="nav-content">
+            <ul class="list-reset lg:flex flex-1 items-center px-4 md:px-0">
+                <li class="title_content mr-6 my-2 md:my-0" name="profile">
+                    <a href="#" class="block py-1 md:py-3 pl-1 align-middle text-pink-600 no-underline hover:text-gray-900 border-b-2 border-orange-600 hover:border-orange-600">
+                        <i class="fas fa-home fa-fw mr-3 text-pink-600"></i><span class="pb-1 md:pb-0 text-sm">Profile</span>
+                    </a>
+                </li>
+                <li class="title_content mr-6 my-2 md:my-0" name="purchase">
+                    <a href="#" class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-900 border-b-2 border-white hover:border-pink-500">
+                        <i class="fas fa-tasks fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Purchase</span>
+                    </a>
+                </li>
+                <li class="title_content mr-6 my-2 md:my-0" name="payment">
+                    <div  class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-900 border-b-2 border-white hover:border-red-500">
+                        <i class="fa fa-wallet fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Payments</span>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+<div id="profile" class="main_content w-full">
+    <!--Table Card-->
+    <div class="bg-white border rounded shadow">
+        <div class="border-b p-3 flex flex-col items-start">
+            <h5 class="font-bold uppercase text-gray-600">My Profile</h5>
+            <h3 class="font-medium text-gray-600">Manage and protect your account</h3>
+        </div>
+    <div class="flex items-center justify-between w-full">
+        <%= form_for @conn, Routes.profile_path(@conn, :update, @user), [method: "put"], fn f -> %>
+        <div id="infor_profile" class="<%= case @email_old do
+                                           nil -> ""
+                                           "" -> "hidden"
+                                           x when x != "" -> "hidden"
+                                           end %> <%= case @phone_old do
+                                                        nil -> ""
+                                                        "" -> "hidden"
+                                                        x when x != "" -> "hidden"
+                                                        end %>">
+            <div class=" flex flex-col p-3">
+                <div class="flex justify-start items-center">
+                    <label class="w-40 text-gray-500 flex justify-end">Username</label>
+                    <span class="ml-12"><%= @user.name %></span>
+                </div>
+            </div>
+            <div class=" flex flex-col p-3">
+                <div class="flex justify-start items-center">
+                    <label class="w-40 text-gray-500 flex justify-end">Email</label>
+                    <div class="flex justify-start items-center">
+                        <span id="email" class="ml-12"><%= hiddenPartEmail(@user.email) %></span>
+                        <span class="cursor-pointer change-email_button bg-green-400 hover:bg-green-600 rounded text-m px-2 py-1 ml-2">Change</span>
+                    </div>
+                </div>
+            </div>
+            <div class=" flex flex-col p-3">
+                <div class="flex justify-start items-center">
+                    <label class="w-40 text-gray-500 flex justify-end">Phone number</label>
+                    <div class="flex justify-start items-center">
+                        <span id="phone_number" class="ml-12"><%= hiddenPartEmail(@user.phone) %></span>
+                        <span class="cursor-pointer change-phone_button bg-green-400 hover:bg-green-600 rounded text-m px-2 py-1 ml-2">Change</span>
+                    </div>
+                </div>
+            </div>
+            <div class=" flex flex-col p-3">
+                <div class="flex justify-start items-center">
+                    <label class="w-40 text-gray-500 flex justify-end">Address</label>
+                    <div id="address_main" class="flex justify-start items-center">
+                        <span class="ml-12 w-52"><%= @user.address %></span>
+                        <span class="change-address_button cursor-pointer change-phone_button bg-green-400 hover:bg-green-600 rounded text-m px-2 py-1 ml-2">Change</span>
+                    </div>
+                    <div class="change_address hidden flex flex-col justify-center items-start ml-12 w-72">
+                        <%= select f, :province, [], class: "px-4 py-2 mb-2 w-full" %>
+                        <%= select f, :district, [], prompt: "Choose District", class: "px-4 py-2 w-full mb-2" %>
+                        <%= select f, :ward, [], prompt: "Choose Ward", class: "px-4 py-2 mb-2 w-full" %>
+                        <%= textarea f, :description , class: "px-2 py-2 mb-2 w-full border border-gray-500"%>
+                        <span class="back-address_button cursor-pointer change-phone_button bg-red-400 hover:bg-red-600 rounded text-m px-3 py-1 ">Back</span>
+                    </div>
+                </div>
+            </div>
+            <div class=" flex flex-col p-3">
+                <div class="flex justify-start items-center">
+                    <label class="w-40 text-gray-500 flex justify-end">Gender</label>
+                    <div class="flex justify-start items-center ml-12">
+                        <%= radio_button f, :gender, "male", checked: @user.gender == "male", class: "w-5 h-5"%>
+                        <label class="ml-2">Male</label>
+                    </div>
+                    <div class="flex justify-start items-center ml-6">
+                        <%= radio_button f, :gender, "female", checked: @user.gender == "female", class: "w-5 h-5"%>
+                        <label class="ml-2">Female</label>
+                    </div>
+                    <div class="flex justify-start items-center ml-6">
+                        <%= radio_button f, :gender, "other", checked: @user.gender == "other", class: "w-5 h-5"%>
+                        <label class="ml-2">Other</label>
+                    </div>
+                </div>
+            </div>
+            <div class=" flex flex-col p-3">
+                <div class="flex justify-start items-center">
+                    <label class="w-40 text-gray-500 flex justify-end">Date of birth</label>
+                    <div class="flex flex-col justify-center items-start ml-12">
+                        <%= date_input f, :birthday, value: "#{@user.birthday}"%>
+                        <label class="text-gray-500">mm/dd/yyyy</label>
+                    </div>
+                </div>
+            </div>
+            <%= submit "Confirm", class: "w-1/2 ml-7 mb-6 mt-4 py-2 bg-green-400 hover:bg-green-600 h-8 rounded"%>
+        </div>
+        <% end %>
+
+        <div id="avatar_form" class="<%= case @email_old do
+                                           nil -> ""
+                                           "" -> "hidden"
+                                           x when x != "" -> "hidden"
+                                           end %> <%= case @phone_old do
+                                                        nil -> ""
+                                                        "" -> "hidden"
+                                                        x when x != "" -> "hidden"
+                                                        end %> flex flex-col justify-center items-center border-l-2 w-1/2">
+            <%= form_for @conn, Routes.profile_path(@conn, :update, @user), [method: "put", multipart: true], fn f -> %>
+            <div class="flex flex-col justify-center items-center w-full">
+                <div class="my-4">
+                    <div class="group w-48 h-48 rounded-full overflow-hidden shadow-inner text-center bg-purple cursor-pointer">
+                            <div class="empty_avatar <%= if Pawpubbleclone.Avatar.url({@user.avatar, @user}) == nil do "" else "hidden" end %> flex items-center justify-center w-48 h-48 bg-gray-600 text-5xl text-white font-bold align-middle"><%= showFirstCharacterName(@user.name)%></div>
+                            <img id="avatar_image" src="<%= Pawpubbleclone.Avatar.url({@user.avatar, @user}) %>" alt="avatar" class="<%= if Pawpubbleclone.Avatar.url({@user.avatar, @user}) == nil do "hidden" else "" end %> object-cover w-full h-full object-center visible group-hover:hidden" />
+                    </div>
+                </div>
+                <div class="flex justify-center items-start w-full">
+                    <label for="dropzone-file" class="upload_image relative flex flex-col justify-center items-center bg-gray-100 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer hover:bg-gray-200">
+                        <div class="flex flex-col justify-center items-center px-6 py-4">
+                            <div class="image_name_title flex flex-col items-center justify-center hidden font-semibold text-gray-500">Image:<p class="image_name"></p></div>
+                            <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span></p>
+                            <p class="text-xs text-gray-500">PNG, JPG or GIF (RECOMMEND. 400x400px)</p>
+                        </div>
+                        <%= file_input f, :avatar, class: "opacity-0 absolute left-0 top-0 cursor-pointer w-72 h-36" %>
+                    </label>
+                    <div class="remove_image_demo hidden text-xl ml-2">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <div class="flex justify-center items-center">
+                    <%= submit "Save", class: "submit_avatar mt-6 px-6 py-2 bg-green-200 text-gray-500 h-8 rounded mb-4"%>
+            <% end %>
+            <%= form_for @conn, Routes.profile_path(@conn, :update, @user), [method: "put"], fn f -> %>
+                <%= hidden_input f, :avatar, value: "remove" %>
+                <%= submit "Remove", class: "remove_avatar ml-4 mt-6 px-6 py-2 bg-red-500 hover:bg-red-600 h-8 rounded mb-4"%>
+            <% end %>
+                </div>
+            </div>
+        </div>
+
+        <div id="old_email" class="<%= case @email_old do
+                                           nil -> "hidden"
+                                           "" -> ""
+                                           x when x != "" -> "hidden"
+                                           end %> flex flex-col w-full" >
+            <i class="back_icon_step1 text-gray-600 hover:text-red-400 ml-6 mt-4 w-12 cursor-pointer fas fa-arrow-left"></i>
+            <div class="flex flex-col items-start justify-center ml-20">
+                <h5 class="font-bold text-gray-500 mb-4 mt-4">Old Email</h5>
+                <input class="email_old_input w-52 border mb-2 w-1/3 h-10 p-4" type="email" placeholder="">
+                <span class="error_old_email <%= case @email_old do
+                                                    nil -> "hidden"
+                                                    "" -> "email_invalid"
+                                                    x when x != "" -> "hidden"
+                                                    end %> text-red-500 mb-4">email is not available</span>
+                <a href="" class="check_old_email_btn flex items-center justify-center w-1/6 px-6 py-2 bg-green-400 hover:bg-green-600 h-8 rounded mb-4">Confirm</a>
+            </div>
+        </div>
+
+        <div id="change_email" class="<%= case @email_old do
+                                           nil -> "hidden"
+                                           "" -> "hidden"
+                                           x when x != "" -> ""
+                                           end %> flex flex-col w-full">
+        <%= form_for @conn, Routes.profile_path(@conn, :update, @user), [method: "put"], fn f -> %>
+            <%= link "", to: Routes.profile_path(@conn, :index, @user), class: "text-gray-600 hover:text-red-400 ml-6 mt-4 w-12 cursor-pointer ml-6 mt-4 fas fa-arrow-left"%>
+            <div class="flex flex-col items-start justify-center ml-20">
+                <h5 class="font-bold text-gray-500 mb-4 mt-4">New Email</h5>
+                <%= text_input f, :email, class: "email_input w-52 border mb-2 w-1/3 h-10 p-4" %>
+                <span class="error_email hidden text-red-500 mb-4">email is not available</span>
+                <%= submit "Confirm", class: "submit_email w-1/6 px-6 py-2 bg-green-400 hover:bg-green-600 h-8 rounded mb-4"%>
+            </div>
+        <% end %>
+        </div>
+
+        <div id="old_phone" class="<%= case @phone_old do
+                                           nil -> "hidden"
+                                           "" -> ""
+                                           x when x != "" -> "hidden"
+                                           end %> flex flex-col w-full">
+            <i class="back_icon_step1 text-gray-600 hover:text-red-400 ml-6 mt-4 w-12 cursor-pointer fas fa-arrow-left"></i>
+            <div class="flex flex-col items-start justify-center ml-20">
+                <h5 class="font-bold text-gray-500 mb-4 mt-4">Old Phone</h5>
+                <input class="phone_old_input w-52 border mb-2 w-1/3 h-10 p-4" type="" placeholder="" maxlength="12">
+                <span class="error_old_phone <%= case @phone_old do
+                                                    nil -> "hidden"
+                                                    "" -> "phone_invalid"
+                                                    x when x != "" -> "hidden"
+                                                    end %> text-red-500 mb-4">phone number is not available</span>
+                <a href="" class="check_old_phone_btn flex items-center justify-center w-1/6 px-6 py-2 bg-green-400 hover:bg-green-600 h-8 rounded mb-4">Confirm</a>
+            </div>
+        </div>
+
+        <div id="change_phone" class="<%= case @phone_old do
+                                           nil -> "hidden"
+                                           "" -> "hidden"
+                                           x when x != "" -> ""
+                                           end %> flex w-full flex-col">
+        <%= form_for @conn, Routes.profile_path(@conn, :update, @user), [method: "put"], fn f -> %>
+            <%= link "", to: Routes.profile_path(@conn, :index, @user), class: "text-gray-600 hover:text-red-400 ml-6 mt-4 w-12 cursor-pointer ml-6 mt-4 fas fa-arrow-left"%>
+            <div class="flex flex-col items-start justify-center ml-20">
+                <h5 class="font-bold text-gray-500 mb-4 mt-4">New Phone Number</h5>
+                <%= telephone_input f, :phone, class: "phone_input w-52 border mb-4 w-1/3 h-10 p-4", maxlength: "12" %>
+                <span class="error_phone hidden text-red-500 mb-4">phone number is not available</span>
+                <%= submit "Confirm", class: "submit_phone w-1/6 px-6 py-2 bg-green-400 hover:bg-green-600 h-8 rounded mb-4"%>
+            </div>
+        <% end %>
+        </div>
+
+        </div>
+    <!--/table Card-->
+    </div>
+</div>
+<div id="purchase" class="main_content hidden w-full">
+    <!--Table Card-->
+    <div class="bg-white border rounded shadow">
+        <div class="border-b p-3 flex flex-col items-start">
+            <h5 class="font-bold uppercase text-gray-600">My Purchase</h5>
+            <h3 class="font-medium text-gray-600">Manage your orders</h3>
+        </div>
+    </div>
+    <div class="border-2 drop-shadow-lg w-full">
+
+
+        <%= for product <- analyzeOrders(@orders) do %>
+        <div class="m-4 border-2 rounded drop-shadow-lg">
+            <%= for order <- convertTupleToList(@orders) do %>
+                <%= if List.last(order) == List.last(product) do %>
+            <div class="flex items-center justify-between border-b-2 mx-2 my-2">
+                <div class="order_date">
+                    Date-Time: <%= NaiveDateTime.to_string(Enum.at(order, 2)) %>
+                </div>
+                <div class="flex flex-col justify-center items-end order_status text-green-600">
+                    <span class="text-gray-600">ID:<%= Enum.at(order, 0)%></span>
+                    <div class="flex justify-center items-center">
+                        <span class="text-gray-600">Look up orders at -></span>
+                        <a href="https://viettelpost.com.vn/tra-cuu-hanh-trinh-don/" class="font-bold ml-2 text-xl hover:text-red-500">VIETTEL POST</a>
+                    </div>
+                    <%= if Enum.at(order, 4) != nil do%>
+                        <span class="text-gray-600"><%= Enum.at(order, 4)%>
+                    <% else %>
+                        <span class="text-red-600">Updating Bill of Lading No ...</span>
+                    <% end %>
+                </div>
+            </div>
+            <%= for ele <- List.first(product) do %>
+            <div class="order_item flex justify-between items-center p-2 border-b-2">
+                <div class="flex items-center justify-center">
+                    <img src="<%= List.first(ele).img%>" class="w-24 border">
+                    <div class="flex flex-col items-start justify-center ml-6">
+                        <p class=""><%= List.first(ele).name%></p>
+                        <span class="text-gray-500 text-l"><%= List.first(ele).concept.name%></span>
+
+                        <%= if List.first(ele).color_id == nil do%>
+                        <% else %>
+                            <span class="text-gray-500 text-l">Color: <%= List.first(ele).color.name %></span>
+                        <% end %>
+
+                        <%= if List.first(ele).size_id == nil do%>
+                        <% else %>
+                            <span class="text-gray-500 text-l">Size: <%= List.first(ele).size.name %></span>
+                        <% end %>
+
+                        <span class="text-l">x<%= List.last(ele)%></span>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center items-end">
+                    <div class="text-lg text-gray-600 font-normal mb-4">$<%= List.first(ele).price%></div>
+                    <div class="flex justify-center items-center text-2xl text-green-500 font-medium">
+                        <span class="mr-3 text-xl text-gray-600 font-medium">=</span>
+                        $<%= Float.round(Decimal.to_float(List.first(ele).price) * List.last(ele), 2) %>
+                    </div>
+                </div>
+            </div>
+            <% end %>
+            <div class="flex flex-col justify-center items-end w-full">
+                <div class="flex justify-center items-center mt-4">
+                    Shipping Fee:<p class="text-2xl text-green-500 font-medium mx-2 mb-2">
+                    <span class="mr-1 ml-2 text-xl text-gray-600 font-medium">+</span>
+                    $<%= Enum.at(order, 3)%></p>
+                </div>
+                <div class="flex justify-center items-center">
+                    Order Total:<p class="text-2xl text-red-500 font-bold mx-2 mb-2">$<%= Enum.at(order, 1)%></p>
+                </div>
+            </div>
+                <% end %>
+            <% end %>
+            <div class="flex justify-end items-center w-full">
+                <a href="" class="flex justify-center items-center px-10 py-2 bg-green-400 hover:bg-green-600 h-8 rounded my-4 mr-2">Buy Again</a>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>
+<script type="module" src="/assets/profile/main.js"></script>

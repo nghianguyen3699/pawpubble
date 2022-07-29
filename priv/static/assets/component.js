@@ -18,3 +18,10 @@ function previousSlide(){
     previousSlide.classList.remove('-translate-x-full');
     previousSlide.classList.add('translate-x-0');
 }
+
+function removeDuplicates(arr) {
+	return arr.filter((item, 
+		index) => arr.indexOf(item) === index);
+}
+
+export {removeDuplicates}

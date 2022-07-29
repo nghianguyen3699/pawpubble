@@ -13,12 +13,13 @@ defmodule Pawpubbleclone.Orders.Order_session do
     belongs_to :shipping, Pawpubbleclone.Shipping.Shippings
     belongs_to :voucher, Pawpubbleclone.Voucher.Vouchers
     field :total_price, :decimal
+    field :bill_of_lading_no, :string
     timestamps()
   end
 
   def changeset(order, params \\ %{}) do
     order
-    |> cast(params, [:name, :quantity, :phone, :order_code, :address, :note, :total_price, :user_id, :shipping_id, :voucher_id ])
+    |> cast(params, [:name, :quantity, :phone, :order_code, :address, :note, :total_price, :user_id, :shipping_id, :voucher_id, :bill_of_lading_no ])
     |> validate_required([:name, :quantity, :phone, :address, :note, :total_price, :user_id, :shipping_id ])
   end
 

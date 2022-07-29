@@ -21,14 +21,19 @@ defmodule Pawpubbleclone.Carts do
   end
 
   def list_cart_query(id) do
-    query = from u in "carts",
-                where: u.user_id == ^id,
-                select: %{  id: u.id,
-                            product_id: u.product_id,
-                            user_id: u.user_id,
-                            quantity: u.quantity
-                        }
-    Repo.all(query)
+    if id == nil do
+      nil
+    else
+      query = from u in "carts",
+                  where: u.user_id == ^id,
+                  select: %{  id: u.id,
+                              product_id: u.product_id,
+                              user_id: u.user_id,
+                              quantity: u.quantity
+                  },
+                  order_by: [desc: u.updated_at]
+      Repo.all(query)
+    end
   end
   def check_cart(user_id, product_id) do
     query = from u in "carts",

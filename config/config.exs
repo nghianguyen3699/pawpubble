@@ -60,6 +60,8 @@ config :scrivener_html,
   routes_helper: Pawpubbleclone.Router.Helpers,
   view_style: :bootstrap_v4
 
+config :arc,
+  storage: Arc.Storage.Local
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

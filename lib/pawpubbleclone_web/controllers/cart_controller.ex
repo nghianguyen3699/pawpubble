@@ -9,7 +9,6 @@ defmodule PawpubblecloneWeb.CartController do
 
   def index(conn, _params) do
     changeset = Order_session.changeset(%Order_session{}, %{})
-    IO.inspect(conn.assigns.current_user)
     user = conn.assigns.current_user
     render(conn, "index.html", user: user, changeset: changeset)
   end
@@ -72,6 +71,10 @@ defmodule PawpubblecloneWeb.CartController do
         |> current_path()
     end
   end
+
+  # def update_quantity(conn, %{"id" => id, "quantity" => quantity}) do
+  #   IO.inspect(params)
+  # end
 
   def delete(conn, %{ "id" => id}) do
     cart_item = Carts.get_cart(id)
