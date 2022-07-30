@@ -13,12 +13,15 @@ var currentPage = 'user'
 var config = JSON.parse(localStorage.getItem(PAGE_STORAGE_KEY)) || {}
 var paginationEle = $('.pagination')
 var pageItemsEle = $$('.page-item')
+var billOfLadingNoInputEle = $(".bill_lading_input")
+var attsSearchEle = $('#atts_order')
 
 function start() {
     addClassPagination()
     loadNav()
     changeNav()
     changeHrefPage()
+    updateBillOfLadingNo()
 }
 start()
 
@@ -85,7 +88,6 @@ function changeHrefPage(params) {
     pageLink.forEach((item) => {
         let url = window.location.search
         let oldHref = ""
-        console.log(url.split('='));
         switch (item.textContent) {
             case "Next":
                 oldHref = "page=" + (parseInt(url.split('=').pop()) + 1)
@@ -109,5 +111,45 @@ function changeHrefPage(params) {
         }
         // console.log(item);
     })
+   
+}
+
+function updateBillOfLadingNo(params) { 
+    var btnUpdateNo = $$(".update_bill_lading_btn")
+    btnUpdateNo.forEach( (ele) => {
+        
+        ele.onclick = () => {
+            var idOrder = ele.parentNode.parentNode.parentNode.childNodes[1].textContent.trim()
+            var billOfLadingNoInputEle = ele.parentNode.getElementsByTagName('input')
+            // console.log(idOrder.textContent.trim());
+            // console.log(billOfLadingNoInputEle);
+            const data = {
+                bill_of_lading_no: billOfLadingNoInputEle[0].value
+            };
     
+            fetch(`/admin/update-order/${idOrder}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Success:', data);
+                location.reload();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    })
+
+}
+
+function chooseAtributeSearch(params) {
+    attsSearchEle.addEventListener('change', () => {
+        console.log(attsSearchEle);
+    })
 }

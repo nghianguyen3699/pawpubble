@@ -13,7 +13,6 @@ defmodule PawpubblecloneWeb.AdminView do
       order_code
         |> Product_Orders.get_product_order!()
         |> Repo.preload(:product)
-    IO.inspect(products)
     for product <- products do
       [Repo.preload(product.product, [:size, :color, :category, :concept]), product.quantity]
     end

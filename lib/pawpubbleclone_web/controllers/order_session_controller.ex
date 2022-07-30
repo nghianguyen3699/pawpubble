@@ -20,6 +20,7 @@ defmodule PawpubblecloneWeb.OrderSessionController do
         render(conn, "index.html", changeset: changeset)
     end
   end
+
   def create_product(conn, %{"products" => products, "order_code" => order_code}) do
     Enum.map(products, fn product ->
       product = Map.put(product, "order_code", order_code)
@@ -33,6 +34,21 @@ defmodule PawpubblecloneWeb.OrderSessionController do
       end
     end)
   end
+
+  # def update(conn, params = %{"id" => id, "bill_of_lading_no" => bill_of_lading_no}) do
+  #   order = Orders.get_order(id)
+  #   IO.inspect(params)
+  #   IO.inspect(order)
+  #   case Orders.update_orders(order, %{"bill_of_lading_no" => bill_of_lading_no}) do
+  #     {:ok, order} ->
+  #       conn
+  #       |> put_flash(:info, "Update successfuly.")
+  #       |> redirect(to: Routes.admin_path(conn, :index, order: order))
+
+  #     {:error, %Ecto.Changeset{} = changeset} ->
+  #       render(conn, AdminView, "index.html")
+  #   end
+  # end
 
   # def delete(conn, %{ "id" => id}) do
   #   order = Colors.get_order(id)

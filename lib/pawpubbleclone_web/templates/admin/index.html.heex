@@ -356,13 +356,11 @@
                 <div id="purchase" class="main_content hidden w-full">
                     <div class="w-full mx-auto">
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                            <%= form_for @conn, Routes.admin_path(@conn, :sortProducts), fn f -> %>
-                            <div class=" flex justify-center items-center p-4">
-                                <%= select f, :concept_id, category_select_options(@concepts), prompt: "Choose a concept", class: "bg-white border rounded-lg w-full h-8" %>
-                                <%= select f, :category_id, category_select_options(@categorys), prompt: "Choose a category", class: "bg-white border rounded-lg w-full h-8" %>
-                                <%= select f, :color_id, category_select_options(@colors), prompt: "Choose a color", class: "bg-white border rounded-lg w-full h-8" %>
-                                <%= select f, :size_id, category_select_options(@sizes), prompt: "Choose a size", class: "bg-white border rounded-lg w-full h-8" %>
-                                <%= submit "Sort", class: "w-1/4 px-6 py-2 text-blue-200 bg-blue-600 hover:bg-blue-900 h-8 rounded"%>
+                            <%= form_for @conn, Routes.admin_path(@conn, :search_order_code), fn f -> %>
+                            <div class=" flex justify-end items-center p-4">
+                                <%= select f, :atts_order, ["Order code": "order_code","ID user": "id"] %>
+                                <%=  text_input f, :order_code , class: "ml-4"%>
+                                <%= submit "Sort", class: "w-50 ml-4 px-6 py-2 text-blue-200 bg-blue-600 hover:bg-blue-900 h-8 rounded"%>
                             </div>
                             <% end %>
                                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -473,10 +471,10 @@
                                                 <div class="flex flex-col justify-center items-start ">
                                                     <%= if order.bill_of_lading_no == nil do %>
                                                         <input class="bill_lading_input w-36 border border-gray-500 mb-4 text-gray-600 pl-2" type="text">
-                                                        <a href="" class="update_bill_lading_btn flex items-center justify-center w-1/6 px-10 py-2 bg-green-400 hover:bg-green-600 h-8 rounded mb-4">Update</a>
+                                                        <button class="update_bill_lading_btn flex items-center justify-center w-1/6 px-10 py-2 bg-green-400 hover:bg-green-600 h-8 rounded mb-4">Update</button>
                                                     <% else %>    
                                                         <%= order.bill_of_lading_no %>
-                                                        <a href="" class="update_bill_lading_btn flex items-center justify-center w-1/6 px-10 py-2 bg-green-400 hover:bg-green-600 h-8 rounded mb-4">Edit</a>
+                                                        <button class="update_bill_lading_btn flex items-center justify-center w-1/6 px-10 py-2 bg-green-400 hover:bg-green-600 h-8 rounded mb-4">Edit</button>
                                                     <% end %>
                                                 </div>
                                             </td>
@@ -489,7 +487,7 @@
 
                             </div>
                         </div>
-                        <%= pagination_links @products, next: "Next", previous: "Prev" %>
+                        <%= pagination_links @orders, next: "Next", previous: "Prev" %>
                 </div>
 
                 <%# <div class="">

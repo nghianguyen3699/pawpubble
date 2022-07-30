@@ -32,6 +32,12 @@ defmodule Pawpubbleclone.Orders do
     |> Repo.insert()
   end
 
+  def update_orders(%Order_session{} = order, params) do
+    order
+     |> Order_session.changeset(params)
+     |> Repo.update()
+  end
+
   def delete(%Order_session{} = order) do
     Repo.delete(order)
   end

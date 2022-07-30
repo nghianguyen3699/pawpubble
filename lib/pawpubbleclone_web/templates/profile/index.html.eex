@@ -258,7 +258,7 @@
                     <span class="text-gray-600">ID:<%= Enum.at(order, 0)%></span>
                     <div class="flex justify-center items-center">
                         <span class="text-gray-600">Look up orders at -></span>
-                        <a href="https://viettelpost.com.vn/tra-cuu-hanh-trinh-don/" class="font-bold ml-2 text-xl hover:text-red-500">VIETTEL POST</a>
+                        <a href="https://viettelpost.com.vn/tra-cuu-hanh-trinh-don/" class="font-bold ml-2 text-xl text hover:text-red-500">VIETTEL POST</a>
                     </div>
                     <%= if Enum.at(order, 4) != nil do%>
                         <span class="text-gray-600"><%= Enum.at(order, 4)%>

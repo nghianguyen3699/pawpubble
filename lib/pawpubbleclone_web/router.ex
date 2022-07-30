@@ -96,7 +96,7 @@ defmodule PawpubblecloneWeb.Router do
     # delete "/:id", CartController, :delete
   end
 
-  scope "/order", PawpubblecloneWeb do
+  scope "/orders", PawpubblecloneWeb do
     pipe_through [:browser, :authenticate_user]
     post "/", OrderSessionController, :create
     post "/product", OrderSessionController, :create_product
@@ -111,6 +111,9 @@ defmodule PawpubblecloneWeb.Router do
     post "/concept_id", AdminController, :sortProducts
     get "/sort", AdminController, :load_sort
     delete "/:id", AdminController, :delete_session
+    put "/update-order/:id", AdminController, :update_orders
+    put "/", AdminController, :index
+    post "/search/order-code", AdminController, :search_order_code
   end
 
   scope "/admin", PawpubblecloneWeb do

@@ -121,7 +121,6 @@ function renderCart(cartDataApi) {
 }
 
 function checkboxCart() {
-
     if (config.itemChecked.length == 0) {
         totalPrice = 0
         setStorage("totalPrice", totalPrice, config, PAGE_STORAGE_KEY)
@@ -234,7 +233,7 @@ function changeQuantityCart(params) {
                 listCart[index].quantityIncart = parseInt(ele.parentNode.childNodes[3].textContent) - 1
                 quantityItem = listCart[index].quantityIncart
                 priceItem = listCart[index].price
-                if (ele.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('check_item_cart')[0].checked) {
+                if (ele.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('check_item_cart_header')[0].checked) {
                     totalPrice -= parseFloat(priceItem)
                     setStorage("totalPrice", totalPrice, config, PAGE_STORAGE_KEY)
                     totalPriceCartEle.textContent = `$${config.totalPrice.toFixed(2)}`  
@@ -254,7 +253,8 @@ function changeQuantityCart(params) {
             }
             priceItem = listCart[index].price
             listCart[index].quantityIncart = parseInt(ele.parentNode.childNodes[3].textContent) + 1
-            if (ele.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('check_item_cart')[0].checked) {
+            console.log(ele.parentNode.parentNode.parentNode.parentNode);
+            if (ele.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('check_item_cart_header')[0].checked) {
                 totalPrice += parseFloat(priceItem)
                 setStorage("totalPrice", totalPrice, config, PAGE_STORAGE_KEY)
                 totalPriceCartEle.textContent = `$${config.totalPrice.toFixed(2)}` 
