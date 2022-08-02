@@ -24,6 +24,7 @@ defmodule PawpubblecloneWeb.AdminController do
   # plug :sortProducts when action in [:index]
 
   def index(conn, params) do
+    IO.inspect(params)
     users =
       User
       |> Repo.paginate(params)
@@ -35,39 +36,55 @@ defmodule PawpubblecloneWeb.AdminController do
        |> preload([:shipping, :voucher])
        |> Repo.paginate(params)
 
-      cond do
-        Map.has_key?(conn.query_params, "concept_id") == true ->
-          concept_id = conn.query_params["concept_id"]
-          category_id = conn.query_params["category_id"]
-          color_id = conn.query_params["color_id"]
-          size_id = conn.query_params["size_id"]
-          products =
-              handleSortProduct(concept_id, category_id, color_id, size_id, params)
+    cond do
+      Map.has_key?(conn.query_params, "concept_id") == true ->
+        concept_id = conn.query_params["concept_id"]
+        category_id = conn.query_params["category_id"]
+        color_id = conn.query_params["color_id"]
+        size_id = conn.query_params["size_id"]
+        products =
+            handleSortProduct(concept_id, category_id, color_id, size_id, params)
 
-          render(conn, "index.html", users: users, products: products, orders: orders)
-        Map.has_key?(conn.query_params, "order_code") == true ->
-          order_code = conn.query_params["order_code"]
-          products =
-            Plant_product
-            |> select([p], p)
-            |> preload([:concept, :color, :size, :category])
-            |> Repo.paginate(params)
-          orders =
-            Order_session
-             |> where([o], o.order_code == ^order_code)
-             |> select([o], o)
-             |> preload([:shipping, :voucher])
-             |> Repo.paginate(params)
-             render(conn, "index.html", users: users, products: products, orders: orders)
-        true ->
-          products =
-            Plant_product
-            |> select([p], p)
-            |> preload([:concept, :color, :size, :category])
-            |> Repo.paginate(params)
+        render(conn, "index.html", users: users, products: products, orders: orders)
+      Map.has_key?(conn.query_params, "atts_order") == true ->
+        atts_order = conn.query_params["atts_order"]
+        atts_input = conn.query_params["atts_input"]
+        products =
+          Plant_product
+          |> select([p], p)
+          |> preload([:concept, :color, :size, :category])
+          |> Repo.paginate(params)
+        orders =
+          case atts_order do
+            "order_code"-> Order_session
+                              |> where([o], o.order_code == ^atts_input)
+                              |> select([o], o)
+                              |> preload([:shipping, :voucher])
+                              |> IO.inspect()
+                              |> Repo.paginate(params)
+            "id_user"-> Order_session
+                          |> where([o], o.user_id == ^atts_input)
+                          |> select([o], o)
+                          |> preload([:shipping, :voucher])
+                          |> Repo.paginate(params)
+            "bill_of_lading_no"-> Order_session
+                                  |> where([o], o.bill_of_lading_no == ^atts_input)
+                                  |> select([o], o)
+                                  |> preload([:shipping, :voucher])
+                                  |> Repo.paginate(params)
 
-          render(conn, "index.html", users: users, products: products, orders: orders)
-      end
+          end
+        IO.inspect(orders)
+        render(conn, "index.html", users: users, products: products, orders: orders)
+      true ->
+        products =
+          Plant_product
+          |> select([p], p)
+          |> preload([:concept, :color, :size, :category])
+          |> Repo.paginate(params)
+
+        render(conn, "index.html", users: users, products: products, orders: orders)
+    end
     # if Map.has_key?(conn.query_params, "concept_id") do
 
     #   concept_id = conn.query_params["concept_id"]
@@ -254,9 +271,9 @@ defmodule PawpubblecloneWeb.AdminController do
     end
   end
 
-  def search_order_code(conn, %{"order_code" => order_code}) do
+  def search_order_code(conn, %{"atts_order" => atts_order, "atts_input" => atts_input}) do
     conn
-      |> redirect(to: Routes.admin_path(conn, :index, order_code: order_code))
+      |> redirect(to: Routes.admin_path(conn, :index, %{"atts_order" => atts_order, "atts_input" => atts_input}))
   end
 
   def usersManage(conn, _params) do

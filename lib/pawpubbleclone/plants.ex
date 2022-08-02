@@ -28,6 +28,30 @@ defmodule Pawpubbleclone.Plants do
     hd(Repo.all(query))
   end
 
+  def get_plant_product_by_concept(params) do
+    #   Enum.random(1..100)
+    query_name_products = from(p in Plant_product, where: p.concept_id == ^params, select: p.name)
+      |> Repo.all()
+      |> Enum.uniq_by(fn x -> x end)
+    IO.inspect(Enum.at(query_name_products, 0))
+    list =
+      for p <- 0..(Enum.count(query_name_products) - 1)  do
+        index_name = Enum.at(query_name_products, p)
+        query = from(p in Plant_product, where: p.name == ^index_name, select: {p.id, p.category_id, p.color_id})
+          |> Repo.all()
+          |> Enum.uniq_by(fn {_, x, y} -> {x, y} end)
+          |> Enum.map(fn {x, _, _} -> x end)
+        list_product =
+          for i <- 1..2 do
+            random_id = Enum.random(query)
+            from(q in Plant_product, where: q.id == ^random_id, select: q)
+            |> Repo.all()
+          end
+        Enum.map(list_product, fn [i] -> i end)
+      end
+     |> List.flatten() |> Repo.preload([:category, :concept, :color, :size])
+  end
+
   def get_plant_product_by_sku!(sku) do
     # IO.inspect(sku)
     Repo.get_by!(Plant_product, %{sku: sku})

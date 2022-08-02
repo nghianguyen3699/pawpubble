@@ -75,7 +75,8 @@ defmodule PawpubblecloneWeb.Plant_productController do
     end
   end
 
-  def show(conn, %{"name" => name}) do
+  def show(conn, params = %{"name" => name}) do
+    IO.inspect(params)
     plant_categorys = get_all_categorys_base_products(name)
                       |> Repo.preload([:category])
     plant_product = get_plant_product_by_name!(name)

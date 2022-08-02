@@ -15,6 +15,7 @@ var paginationEle = $('.pagination')
 var pageItemsEle = $$('.page-item')
 var billOfLadingNoInputEle = $(".bill_lading_input")
 var attsSearchEle = $('#atts_order')
+var billLadingMainEle = $('.bill_lading_main')
 
 function start() {
     addClassPagination()
@@ -22,6 +23,7 @@ function start() {
     changeNav()
     changeHrefPage()
     updateBillOfLadingNo()
+    editBillOfLadingNo()
 }
 start()
 
@@ -61,17 +63,17 @@ function changeNav() {
                 item.classList.remove('border-blue-600', 'border-b-2')
             })
             item.classList.add('border-blue-600', 'border-b-2')
-            mainContentEle.forEach((ele) => {
-                // console.log(ele.id);
-                if (ele.id != item.getAttribute('name')) {
-                    ele.classList.add('hidden')
-                }
-                else {
-                    titleEle.textContent = ele.id.toUpperCase()
-                    ele.classList.remove('hidden')
-                }
+            // mainContentEle.forEach((ele) => {
+            //     // console.log(ele.id);
+            //     if (ele.id != item.getAttribute('name')) {
+            //         ele.classList.add('hidden')
+            //     }
+            //     else {
+            //         titleEle.textContent = ele.id.toUpperCase()
+            //         ele.classList.remove('hidden')
+            //     }
                 
-            })
+            // })
         
     });
     })
@@ -119,8 +121,8 @@ function updateBillOfLadingNo(params) {
     btnUpdateNo.forEach( (ele) => {
         
         ele.onclick = () => {
-            var idOrder = ele.parentNode.parentNode.parentNode.childNodes[1].textContent.trim()
-            var billOfLadingNoInputEle = ele.parentNode.getElementsByTagName('input')
+            var idOrder = ele.parentNode.parentNode.parentNode.parentNode.childNodes[1].textContent.trim()
+            var billOfLadingNoInputEle = ele.parentNode.parentNode.getElementsByTagName('input')
             // console.log(idOrder.textContent.trim());
             // console.log(billOfLadingNoInputEle);
             const data = {
@@ -148,8 +150,32 @@ function updateBillOfLadingNo(params) {
 
 }
 
-function chooseAtributeSearch(params) {
-    attsSearchEle.addEventListener('change', () => {
-        console.log(attsSearchEle);
+function editBillOfLadingNo(params) {
+    var editBillOfLadingNoBtn = $$('.edit_bill_lading_btn')
+    editBillOfLadingNoBtn.forEach(ele => {
+        ele.addEventListener('click', () => {
+            ele.classList.toggle('hidden')
+            ele.parentNode.getElementsByTagName('span')[0].classList.toggle('hidden')
+            ele.parentNode.getElementsByClassName('bill_lading_input')[0].classList.toggle('hidden')
+            ele.parentNode.getElementsByClassName('option_btn_bill_lading')[0].classList.toggle('hidden')
+            ele.parentNode.getElementsByClassName('cancel_edit_bill_lading_btn')[0].classList.remove('hidden')
+        })
+    });
+    
+    var cancelEditBillLadingBtn = $$('.cancel_edit_bill_lading_btn')
+    cancelEditBillLadingBtn.forEach(ele => {
+        ele.addEventListener('click', () => {
+            console.log(ele);
+            ele.classList.toggle('hidden')
+            ele.parentNode.classList.toggle('hidden')
+            ele.parentNode.parentNode.getElementsByClassName('bill_lading_input')[0].classList.toggle('hidden')
+            
+            ele.parentNode.parentNode.getElementsByClassName('edit_bill_lading_btn')[0].classList.toggle('hidden')
+            ele.parentNode.parentNode.getElementsByTagName('span')[0].classList.toggle('hidden')
+            ele.parentNode.parentNode.getElementsByClassName('bill_lading_input')[0].classList.add('hidden')
+            ele.parentNode.parentNode.getElementsByClassName('option_btn_bill_lading')[0].classList.add('hidden')
+        })
     })
+        // cancelEditBillLadingBtn.forEach
+
 }

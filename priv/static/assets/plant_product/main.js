@@ -75,7 +75,9 @@ function renderCategoryPlants(categorys) {
 
 
 function queryProduct(plantsData) {
-    plantsListData = plantsData.data.filter( o => o.name == "Aloe")
+    console.log(window.location.href.split('/').at(-1).replace(/%20/g, " ").trim());
+    var nameProduct = window.location.href.split('/').at(-1).replace(/%20/g, " ")
+    plantsListData = plantsData.data.filter( o => o.name == nameProduct)
     var nameProductEle = $('#name_product')
 
     var nameCategoryEle = $('#name_category')

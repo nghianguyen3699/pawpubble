@@ -97,7 +97,7 @@
                     </ul>
                 </div>
             </div>
-            
+
         </nav> %>
         <section class="w-full">
             <div class="flex flex-wrap mt-12">
@@ -230,7 +230,7 @@
                             </div>
                         </div>
                     </div>
-                    <%# <%= pagination_links @users, next: "Next", previous: "Prev"%> 
+                    <%# <%= pagination_links @users, next: "Next", previous: "Prev"%>
 
                 </div>
 
@@ -310,7 +310,7 @@
                                                 <%= product.id %>
                                             </td>
                                             <th scope="row" class="flex justify-start items-center px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                                <img class="mr-4" style="width:40px" src={ product.img }>
+                                                <img class="mr-4" style="width:40px" src="<%= product.img %>">
                                                 <%= product.name %>
                                             </th>
                                             <td class="px-6 py-4">
@@ -341,7 +341,7 @@
                                                 <%= product.revenue %>
                                             </td>
                                             <td class="px-6 py-4 text-right">
-                                                <a href='/plants/{ product.name}/{ product.id}/edit' class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                                <a href="/plants/<%=product.name%>/<%=product.id%>/edit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                                 <%= link "Delete", to: Routes.plant_product_path(@conn, :delete, product), method: :delete, data: [confirm: "Are you sure"]%>
                                             </td>
                                         </tr>
@@ -358,9 +358,10 @@
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <%= form_for @conn, Routes.admin_path(@conn, :search_order_code), fn f -> %>
                             <div class=" flex justify-end items-center p-4">
-                                <%= select f, :atts_order, ["Order code": "order_code","ID user": "id"] %>
-                                <%=  text_input f, :order_code , class: "ml-4"%>
-                                <%= submit "Sort", class: "w-50 ml-4 px-6 py-2 text-blue-200 bg-blue-600 hover:bg-blue-900 h-8 rounded"%>
+                                <%= select f, :atts_order, ["Order code": "order_code","ID user": "id_user", "Bill of lading no": "bill_of_lading_no"] %>
+                                <%= text_input f, :atts_input , class: "ml-4"%>
+                                <%= submit "Sort", class: "w-50 ml-4 px-6 py-2 text-blue-200 bg-green-600 hover:bg-green-900 h-8 rounded"%>
+                                <a href="/admin", class="w-50 ml-4 px-6 py-2 text-blue-200 bg-red-500 hover:bg-red-800 h-8 rounded">Cancel</a>
                             </div>
                             <% end %>
                                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -445,7 +446,7 @@
                                                     <div class="flex flex-col items-end justify-center ml-20">
                                                         <span>x <%= List.last(product) %></span>
                                                         <span>$<%= List.first(product).price%></span>
-                                            
+
                                                     </div>
                                                 </div>
                                             <% end %>
@@ -468,13 +469,20 @@
                                                 <%= order.note %>
                                             </td>
                                             <td class="px-6 py-4">
-                                                <div class="flex flex-col justify-center items-start ">
+                                                <div class="bill_lading_main flex flex-col justify-center items-start ">
                                                     <%= if order.bill_of_lading_no == nil do %>
                                                         <input class="bill_lading_input w-36 border border-gray-500 mb-4 text-gray-600 pl-2" type="text">
-                                                        <button class="update_bill_lading_btn flex items-center justify-center w-1/6 px-10 py-2 bg-green-400 hover:bg-green-600 h-8 rounded mb-4">Update</button>
-                                                    <% else %>    
-                                                        <%= order.bill_of_lading_no %>
-                                                        <button class="update_bill_lading_btn flex items-center justify-center w-1/6 px-10 py-2 bg-green-400 hover:bg-green-600 h-8 rounded mb-4">Edit</button>
+                                                        <div class="">
+                                                            <button class="update_bill_lading_btn flex items-center justify-center w-1/6 px-10 py-2 bg-green-400 hover:bg-green-600 h-8 rounded mb-4">Update</button>
+                                                        </div>
+                                                    <% else %>
+                                                        <span><%= order.bill_of_lading_no %></span>
+                                                        <button class="edit_bill_lading_btn flex items-center justify-center w-1/6 px-10 py-2 bg-green-400 hover:bg-green-600 h-8 rounded mb-4">Edit</button>
+                                                        <input class="bill_lading_input hidden w-42 border border-gray-500 mb-4 text-gray-600 pl-2" type="text">
+                                                        <div class="option_btn_bill_lading text-white flex items-center justify-start hidden">
+                                                            <button class="update_bill_lading_btn flex items-center justify-center w-15 px-5 py-2 bg-green-600 hover:bg-green-800 h-8 rounded">Update</button>
+                                                            <button class="cancel_edit_bill_lading_btn ml-2 w-15 px-5 py-2 bg-red-500 hover:bg-red-700 h-8 rounded ">Cancel</button>
+                                                        </div>
                                                     <% end %>
                                                 </div>
                                             </td>

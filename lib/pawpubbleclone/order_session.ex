@@ -26,6 +26,10 @@ defmodule Pawpubbleclone.Orders do
     Repo.all(Order_session)
   end
 
+  def list_orders_pagination() do
+
+  end
+
   def create_order(atts \\ %{}) do
     %Order_session{}
     |> Order_session.changeset(atts)
