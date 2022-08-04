@@ -1,9 +1,9 @@
-defmodule PawpubblecloneWeb.Plant_productView do
+defmodule PawpubblecloneWeb.CollectionView do
 
   use PawpubblecloneWeb, :view
-
+  import Scrivener.HTML
   alias Pawpubbleclone.Repo
-  # alias Pawpubbleclone.Categorys
+  alias Pawpubbleclone.Concepts
   alias Pawpubbleclone.Plants
 
   def category_select_options(options) do
@@ -32,6 +32,8 @@ defmodule PawpubblecloneWeb.Plant_productView do
      |> Enum.filter(& !is_nil(&1))
   end
 
+  def get_slug_concept() do
 
+  end
 
 end

@@ -189,7 +189,7 @@
     <div class="mx-auto py-16 flex flex-col items-center">
       <div class="flex justify-between grid grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 lg:gap-x-8 xl:gap-x-8">
         <div class="relative">
-          <%= link to: Routes.plant_product_path(@conn, :index) do %>
+          <%= link to: "/collections/#{get_slug_concept(9).slug}" do %>
             <img src="/images/img_homepage/plans_product/1.png" class="h-full">
             <div class="absolute d-ib bottom-0 right-0" style="width: 318px; text-align: left; left: 88px; bottom: 200px;">
               <div class="">
@@ -234,7 +234,8 @@
     
     <div class="mx-auto py-16">
       <div class=" grid grid-cols-1 xl:grid-cols-1 xl:gap-x-8">
-        <a class="relative mb-8">
+        <div class="relative mb-8">
+          <%= link to: "/collections/#{get_slug_concept(10).slug}" do %>
           <img src="images/img_homepage/fitness_product/1.jpg" class="h-full">
           <div class="absolute d-ib bottom-0 right-0" style="width: 318px; text-align: left; right: 25px; bottom: 165px;">
             <div class="">
@@ -250,7 +251,8 @@
               </div>
             </div>
           </div>
-        </a>
+          <% end %>
+        </div>
         <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
           <%= for plant <- render_product_concepts(10) do %>
             <div class="group relative">

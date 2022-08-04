@@ -5,14 +5,16 @@ defmodule Pawpubbleclone.Concepts.ConceptCore do
 
   schema "concepts" do
     field :name, :string
+    field :slug, :string
+    field :decription, :string
 
     timestamps()
   end
 
   def changeset(concept, params \\ %{}) do
     concept
-    |> cast(params, [:name])
-    |> validate_required(:name)
-    |> unique_constraint(:name)
+    |> cast(params, [:name, :slug, :decription])
+    |> validate_required([:name, :slug, :decription])
+    |> unique_constraint([:name, :slug, :decription])
   end
 end

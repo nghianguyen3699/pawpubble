@@ -1,16 +1,16 @@
 
 
 <div class="container">
-  <div class="flex justify-start items-center mb-16">
-    <%= link ("Home"), to: Routes.page_path(@conn, :index), class: "text-l text-blue-300" %>
+  <div class="flex justify-start items-center mb-12 mt-8">
+    <%= link ("Home"), to: Routes.page_path(@conn, :index), class: "text-l text-red-500" %>
     <i class="fas fa-caret-right ml-4 text-l text-gray-500"></i>
-    <span class="text-l text-gray-500 ml-4">Plant Lover - Hoodies - Tees - Phone Cases</span>
+    <span class="text-l text-gray-500 ml-4"><%= @concept.name %></span>
   </div>
-  <div class="text-4xl font-black text-gray-800 mb-14">
-    Plant Lover - Hoodies - Tees - Phone Cases
+  <div class="text-4xl font-black text-green-600 mb-8">
+    <%= @concept.name %>
   </div>
-  <div class="text-2xl font-normal text-gray-600 mb-12">
-    Funny plant T-shirt, Accessories, Tote Bag, Mug
+  <div class="text-2xl font-normal text-green-800 mb-12">
+    <%= @concept.decription %>
   </div>
 
   <div class="grid grid-cols-4 gap-x-6 gap-y-10">
@@ -26,14 +26,16 @@
             </div> %>
 
           </div>
-          <i class="fas fa-times"></i>
+          <div id="remove_all_filters" class="text-red-500 hover:text-red-700 cursor-pointer">
+            <i class="fas fa-times"></i>
+          </div>
         </div>
       </div>
       <div id="category" class="pb-4 pt-4 flex justify-between align-center w-full border-b border-gray-200 cursor-pointer">
         <span class="text-xl font-bold text-gray-700">Category</span>
-        <span class="text-l font-light text-gray-500"><i class="fas fa-plus"></i></span>
+        <span class="text-l font-light text-gray-500"><i class="fas fa-minus"></i></span>
       </div>
-      <div id="list_category" class="w-full">
+      <div id="list_category" class="w-full" style="animation: fadeIn 0.5s linear;">
       <%= if @categorys do %>
         <%= for category_item <- get_only_category(@categorys) do %>
         <div class="category_main">
@@ -42,7 +44,6 @@
               <input class="mr-4" value="<%= category_item.category.category %>" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
               <span class="text-l font-normal text-gray-700"><%= category_item.category.category %></span>
             </div>
-            <span class="text-l font-light text-gray-500"><i class="fas fa-plus"></i></span>
           </div>
           <%= for category_name <- get_only_category_name(@categorys, category_item.category.category) do %>
             <div class="category_name pb-4 pt-4 flex justify-between align-center w-full border-b border-gray-200 cursor-pointer">
@@ -68,14 +69,14 @@
         <% end %>
       <% end %>
       </div>
-      <div class="pb-4 pt-4 flex justify-between align-center w-full border-b border-gray-200">
+      <div id="color_title" class="pb-4 pt-4 cursor-pointer  flex justify-between align-center w-full border-b border-gray-200">
         <span class="text-xl font-bold text-gray-700">Color</span>
         <span class="text-l font-light text-gray-500"><i class="fas fa-plus"></i></span>
       </div>
-      <div class="w-full">
+      <div id="list_colors" class="hidden w-full" style="animation: fadeIn 0.5s linear;">
         <%= for color <- @colors do %>
         <div class="color_filter pb-4 pt-4 border-b border-gray-200 flex justify-start items-center">
-          <input class="color_input mr-4" value="<%= color.id %>" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
+          <input class="color_input cursor-pointer mr-4" value="<%= color.id %>" type="checkbox" style="accent-color:#ef4444; width:18px; height:18px">
           <div class="mr-4" style="width:22px; height:22px; background:<%= color.rgb %>; border-radius:50%; border: 1px solid #000"></div>
           <span class="text-l font-normal text-gray-700"><%= color.name %></span>
         </div>
@@ -102,9 +103,9 @@
           </select>
         </div>
       </div>
-      <div class="grid grid-cols-3 gap-x-6 gap-y-10">
+      <div class="grid grid-cols-3 gap-x-6 gap-y-10 mb-10">
         <%= for plant <- @plants do %>
-            <div class="item_product group relative drop-shadow-lg cursor-pointer">
+            <a href="/collections/<%=@concept.slug%>/<%=plant.name%>" class="item_product group relative drop-shadow-lg cursor-pointer">
               <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
                 <img  class="w-full h-full object-center object-cover lg:w-full lg:h-full" src="<%=plant.img%>">
               </div>
@@ -125,7 +126,7 @@
                   <p class="text-xl font-bold text-red-500">$<%= plant.price %></p>
                 </div>
               </div>
-            </div>
+            </a>
         <% end %>
       </div>
     </div>

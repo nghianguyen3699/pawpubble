@@ -87,9 +87,9 @@ defmodule Pawpubbleclone.Plants do
     Repo.delete(plant_product)
   end
 
-  def get_products_base_atributes() do
+  def get_products_base_atributes(concept_id) do
     products =
-    from( i in Plant_product, where: i.concept_id == 9, select: {i.id, i.category_id, i.name, i.color_id, i.price })
+    from( i in Plant_product, where: i.concept_id == ^concept_id, select: {i.id, i.category_id, i.name, i.color_id, i.price })
      |> Repo.all()
      |> Enum.uniq_by(fn {_, x, y, z, _} -> {x, y, z} end)
 
@@ -99,11 +99,11 @@ defmodule Pawpubbleclone.Plants do
     end
   end
 
-  def get_products_base_color(colors_id) do
+  def get_products_base_color(concept_id, colors_id) do
     # query = Enum.map(String.split(colors_id, "_"), fn x -> {:color_id, x} end)
     products =
       for c <- String.split(colors_id, "_") do
-        from( i in Plant_product, where: i.concept_id == 9 and i.color_id == ^c, select: {i.id, i.category_id, i.name, i.color_id})
+        from( i in Plant_product, where: i.concept_id == ^concept_id and i.color_id == ^c, select: {i.id, i.category_id, i.name, i.color_id})
          |> Repo.all()
          |> Enum.uniq_by(fn {_, x, y, z} -> {x, y, z} end)
       end
@@ -126,12 +126,12 @@ defmodule Pawpubbleclone.Plants do
     end
   end
 
-  def get_products_base_target(target_name) do
+  def get_products_base_target(concept_id, target_name) do
     # Categorys.list_categorys()
     products =
         from( i in Plant_product, join: c in CategoryCore,
                                   on: c.target == ^target_name,
-                                  where: i.concept_id == 9 and c.id == i.category_id,
+                                  where: i.concept_id == ^concept_id and c.id == i.category_id,
                                   select: {i.id, c.target, i.category_id, i.name, i.color_id})
          |> Repo.all()
          |> Enum.uniq_by(fn {_, _, y, z, t} -> { y, z, t} end)
@@ -142,13 +142,13 @@ defmodule Pawpubbleclone.Plants do
     end
   end
 
-  def get_products_base_target_category(target_name, category_name) do
+  def get_products_base_target_category(concept_id, target_name, category_name) do
     IO.inspect(category_name)
     products =
       for d <- String.split(category_name, "_")  do
         from( i in Plant_product, join: c in CategoryCore,
                                   on: c.target == ^target_name and c.category == ^d,
-                                  where: i.concept_id == 9 and c.id == i.category_id,
+                                  where: i.concept_id == ^concept_id and c.id == i.category_id,
                                   select: {i.id, c.target, i.category_id, i.name, i.color_id})
            |> Repo.all()
            |> Enum.uniq_by(fn {_, _, y, z, t} -> { y, z, t} end)
@@ -160,17 +160,20 @@ defmodule Pawpubbleclone.Plants do
     end
   end
 
-  def get_products_base_target_category_name(target_name, category_name, category_detail) do
+  def get_products_base_target_category_name(concept_id, target_name, category_name, category_detail) do
     # IO.inspect(category_name)
     products =
-      for d <- String.split(category_detail, "_")  do
+    for d <- String.split(category_name, "_")  do
+      for n <- String.split(category_detail, "_")  do
+        IO.inspect(d)
         from( i in Plant_product, join: c in CategoryCore,
-                                  on: c.target == ^target_name and c.category == ^d,
-                                  where: i.concept_id == 9 and c.id == i.category_id,
+                                  on: c.target == ^target_name and c.category == ^d and c.name == ^n,
+                                  where: i.concept_id == ^concept_id and c.id == i.category_id,
                                   select: {i.id, c.target, i.category_id, i.name, i.color_id})
            |> Repo.all()
            |> Enum.uniq_by(fn {_, _, y, z, t} -> { y, z, t} end)
       end
+    end
       |> List.flatten()
     for {x, _, _, _, _} <- products do
       x

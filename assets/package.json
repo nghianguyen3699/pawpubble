@@ -2,8 +2,8 @@
   "scripts": {
     "deploy": "cd .. && mix assets.deploy && rm -f _build/esbuild*"
   },
-  "dependencies": {},
   "devDependencies": {
+    "file-loader": "^6.2.0",
     "tailwindcss": "^2.2.8"
   }
 }

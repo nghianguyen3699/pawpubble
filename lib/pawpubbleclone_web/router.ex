@@ -62,19 +62,30 @@ defmodule PawpubblecloneWeb.Router do
     put "/:name", ConceptController, :update
   end
 
-  scope "/plants", PawpubblecloneWeb do
+  # scope "/plants", PawpubblecloneWeb do
+  #   pipe_through [:browser, :authenticate_admin]
+  #   get "/new", Plant_productController, :new
+  #   post "/", Plant_productController, :create
+  #   delete "/:id", Plant_productController, :delete
+  #   get "/:name/:id/edit", Plant_productController, :edit
+  #   put "/:id", Plant_productController, :update
+  #   post "/product/:id", Plant_productController, :create_cart
+  # end
+
+  scope "/collections", PawpubblecloneWeb do
     pipe_through [:browser, :authenticate_admin]
-    get "/new", Plant_productController, :new
-    post "/", Plant_productController, :create
-    delete "/:id", Plant_productController, :delete
-    get "/:name/:id/edit", Plant_productController, :edit
-    put "/:id", Plant_productController, :update
-    post "/product/:id", Plant_productController, :create_cart
+    get "/:concept/new", CollectionController, :new
+    post "/product", CollectionController, :create
+    delete "/product/:id", CollectionController, :delete
+    get "/:concept/:name/:id/edit", CollectionController, :edit
+    put "/:concept/:id", CollectionController, :update
+    post "/:concept/product/:id", CollectionController, :create_cart
   end
-  scope "/plants", PawpubblecloneWeb do
+
+  scope "/collections", PawpubblecloneWeb do
     pipe_through [:browser]
-    get "/", Plant_productController, :index
-    get "/:name", Plant_productController, :show
+    get "/:concept", CollectionController, :index
+    get "/:concept/:name", CollectionController, :show
   end
 
   scope "/carts", PawpubblecloneWeb do
