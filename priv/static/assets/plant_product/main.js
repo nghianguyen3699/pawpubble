@@ -2,10 +2,11 @@ import { getColorPlants, colorData } from '/assets/module/fetch.js'
 import { getSizePlants, sizeData } from '/assets/module/fetch.js'
 import { getCategoryPlants } from '/assets/module/fetch.js'
 import { getPlantProduct } from '/assets/module/fetch.js'
+import { getSizeClother, sizeClotherData } from '/assets/module/fetch.js'
 import { getCart } from '/assets/module/fetch.js'
 import { renderCart } from '/assets/layout/main.js'
 
-import { renderColorEle, renderSizeEle, renderDesCategoryEle } from '/assets/module/render.js'
+import { renderColorEle, renderSizeEle, renderDesCategoryEle, renderSizeClotherEle } from '/assets/module/render.js'
 
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
@@ -30,7 +31,24 @@ var currentPlantProduct = {
 var listColor = []
 var listSize = []
 var priceProductEle = $('#price_product')
+var imgMainLoading = $('#loading_img_main')
 var imgMainProductEle = $('#img_main_product')
+var titleSizeClotherEle = $('.title_size_clother')
+var sizeClotherDecriptionEle = $('#size_clother_decription')
+var unitSizeClotherEle = $$('.unit_size_clother')
+
+var nameColor = $('#name_color')
+var listColorEle = $('#list_color')
+var colorBlockEle = $('#color_block')
+
+var nameSize = $('#name_size')
+var listSizeEle = $('#list_size')
+var sizeBlockEle = $('#size_block')
+
+var unitOfMeasure = "Inches"
+var sizeDataMain = null
+
+
 var listCategory = $('#plant_category')
 var quantityEle = $('#quantity')
 var cartListEle = $('#cart_list')
@@ -49,14 +67,15 @@ var priceItem = 0
 
 
 function start() {
+    imgMainProductEle.style.display = 'none'
+    imgMainLoading.style.display = 'flex'
     getCategoryPlants(renderCategoryPlants);
     getPlantProduct(queryProduct)
     getColorPlants()
     getSizePlants()
-    // setTimeout(() => {
-    //     getCart(renderCart)
-        addProductIntoCart()
-    // }, 2000);
+    getSizeClother()
+    changeUnitSizeclother()
+    addProductIntoCart()
 
 }
 
@@ -75,7 +94,9 @@ function renderCategoryPlants(categorys) {
 
 
 function queryProduct(plantsData) {
-    console.log(window.location.href.split('/').at(-1).replace(/%20/g, " ").trim());
+    imgMainProductEle.style.display = 'flex'
+    imgMainLoading.style.display = 'none'
+    
     var nameProduct = window.location.href.split('/').at(-1).replace(/%20/g, " ")
     plantsListData = plantsData.data.filter( o => o.name == nameProduct)
     var nameProductEle = $('#name_product')
@@ -84,14 +105,10 @@ function queryProduct(plantsData) {
     var itemsCategoryEle =  $$('.item-category')
     var desCategoryEle = $('#description_category')
 
-    var nameColor = $('#name_color')
-    var listColorEle = $('#list_color')
-    var colorBlockEle = $('#color_block')
+    
     var itemsColorEle = $$('.item-color')
     
-    var nameSize = $('#name_size')
-    var listSizeEle = $('#list_size')
-    var sizeBlockEle = $('#size_block')
+
     var itemsSizeEle = $$('.item-size')
     // console.log(sizeData);
     
@@ -123,9 +140,22 @@ function queryProduct(plantsData) {
     listSize = []
     itemsColorEle = $$('.item-color')
     itemsSizeEle = $$('.item-size')
+
+    sizeDataMain = sizeClotherData.data.filter((ele) => {
+        return ele.category == titleSizeClotherEle.textContent.trim()
+    })
+    renderSizeClotherEle(sizeDataMain, sizeClotherDecriptionEle, unitOfMeasure)
 // -----------------------------------------------------------------------
     itemsCategoryEle.forEach((itemCategory) => {
         itemCategory.onclick = () => {
+            titleSizeClotherEle.textContent = itemCategory.name
+            sizeDataMain = sizeClotherData.data.filter((ele) => {
+                                    return ele.category == titleSizeClotherEle.textContent
+                                })
+            renderSizeClotherEle(sizeDataMain, sizeClotherDecriptionEle, unitOfMeasure)
+            // console.log(sizeClotherData);
+            // sizeClotherDecriptionEle.innerHTML += "123456"
+            
             focusEle(itemsCategoryEle, itemCategory)
             var nameCategory = itemCategory.getAttribute('name')
             listCategoryData.data.forEach((itemCategoryData) => {
@@ -184,12 +214,11 @@ function queryProduct(plantsData) {
             listSize = []
         }
     })
-    itemsCategoryEle[0].classList.add('border-blue-700')
-
-    itemsColorEle[0].classList.add('border-blue-700')
+    itemsCategoryEle[0].classList.add('border-green-500')
+    itemsColorEle[0].classList.add('border-green-500')
     handleClickColorAndSize(colorData, itemsColorEle, nameColor, plantsData, currentPlantProduct, currentProductId)
 
-    itemsSizeEle[0].classList.add('border-blue-700')
+    itemsSizeEle[0].classList.add('border-green-500')
     handleClickColorAndSize(sizeData, itemsSizeEle, nameSize, plantsData, currentPlantProduct, currentProductId)
 
 
@@ -279,9 +308,9 @@ function uniqBy(a, key) {
 
 function focusEle(eles, ele) {
     eles.forEach((element) => {
-        element.classList.remove('border-blue-700')
+        element.classList.remove('border-green-500')
     })
-        ele.classList.add('border-blue-700')
+        ele.classList.add('border-green-500')
 }
 
 
@@ -307,9 +336,11 @@ function getInforProduct(plantsListData, currentPlantProduct, currentProductId, 
         }
     })
     currentProductObj = plantsListData.filter( o => o.id === currentProductId)[0]
-    // console.log(plantsData.data);
+    console.log(currentProductObj);
     priceProductEle.textContent = `${currentProductObj.price}`
     imgMainProductEle.setAttribute('src',currentProductObj.img)
+    nameColor.textContent = currentProductObj.color.name
+    nameSize.textContent = currentProductObj.size.name
     quantity.onchange = () => {
         currentPlantProduct.quantity = parseInt(quantity.value)
         currentProductObj.quantityATC = currentPlantProduct.quantity
@@ -368,7 +399,7 @@ function checkCategory(plantsListData, category) {
 
 function addProductIntoCart(params) { 
     var btnAddToCartEle = $("#btn_add-to-cart")
-    // console.log(currentProductObj)
+    console.log(currentProductObj)
     btnAddToCartEle.onclick = () => {
         const data = currentProductObj;
         console.log(data);
@@ -390,6 +421,20 @@ function addProductIntoCart(params) {
             console.error('Error:', error);
         });
     }
+}
+
+function changeUnitSizeclother(params) {
+    unitSizeClotherEle.forEach((unitSize) => {
+        unitSize.addEventListener('click', () => {
+            unitSizeClotherEle.forEach(e => {
+                e.classList.remove('border-b-2','border-red-500')
+            })
+            unitSize.classList.add('border-b-2','border-red-500')
+            unitOfMeasure = unitSize.textContent
+            console.log(sizeDataMain);
+            renderSizeClotherEle(sizeDataMain, sizeClotherDecriptionEle, unitOfMeasure)
+        })
+    })
 }
 
 // function checkboxCart(params) {

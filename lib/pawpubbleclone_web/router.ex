@@ -21,14 +21,15 @@ defmodule PawpubblecloneWeb.Router do
   end
 
   scope "/", PawpubblecloneWeb do
-    pipe_through [:browser, :authenticate_admin, :admin_layout]
+    pipe_through [:browser, :authenticate_admin]
 
     resources "/sizes", SizeController, only: [:index, :new, :create, :delete]
+    resources "/size_clothers", SizeClotherController, only: [:index, :new, :create, :delete]
     resources "/colors", ColorController, only: [:index, :new, :create, :delete]
     resources "/categorys", CategoryController, only: [:index, :new, :create, :delete]
     resources "/shippings", ShippingController, only: [:index, :new, :create, :delete]
     resources "/vouchers", VoucherController, only: [:index, :new, :create, :delete]
-    resources "/users", UserController
+    resources "/users", UserController, only: [:index, :show, :delete]
   end
 
   scope "/", PawpubblecloneWeb do
@@ -41,6 +42,21 @@ defmodule PawpubblecloneWeb.Router do
     pipe_through [:browser, :admin_layout]
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]
+  end
+
+  scope "/users", PawpubblecloneWeb do
+    pipe_through [:browser, :authenticate_admin]
+
+    put "/:id", UserController, :update
+    patch "/:id", UserController, :update
+    get "/:id/edit", UserController, :edit
+  end
+
+  scope "/registers", PawpubblecloneWeb do
+    pipe_through [:browser, :admin_layout]
+
+    get "/", UserController, :new
+    post "/", UserController, :create
   end
 
   scope "/profile", PawpubblecloneWeb do
@@ -74,7 +90,7 @@ defmodule PawpubblecloneWeb.Router do
 
   scope "/collections", PawpubblecloneWeb do
     pipe_through [:browser, :authenticate_admin]
-    get "/:concept/new", CollectionController, :new
+    get "/new", CollectionController, :new
     post "/product", CollectionController, :create
     delete "/product/:id", CollectionController, :delete
     get "/:concept/:name/:id/edit", CollectionController, :edit
@@ -142,6 +158,7 @@ defmodule PawpubblecloneWeb.Router do
     resources "/colors", ColorController, only: [:index, :show]
     resources "/categorys", CategoryController, only: [:index, :show]
     resources "/sizes", SizeController, only: [:index, :show]
+    resources "/size_clothers", SizeClotherController, only: [:index, :show]
     resources "/concepts", ConceptController, only: [:index, :show]
     resources "/products/plants", Plant_productController, only: [:index, :show]
     resources "/carts", CartController, only: [:index, :show]

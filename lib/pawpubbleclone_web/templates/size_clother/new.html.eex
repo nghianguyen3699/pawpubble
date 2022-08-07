@@ -1,0 +1,39 @@
+<div class="flex flex-col items-start justify-center">
+    <span><%= link "Back", to: Routes.size_clother_path(@conn, :index) %></span>
+    <div>
+        <h1 class="py-3 text-gray-700 text-xl font-bold">New Size Clother</h1>
+    </div>
+
+    <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+            <p>Oops, somethin went wrong! Please check the errors below.</p>
+        </div>
+    <% end %>
+    <%= form_for @changeset, Routes.size_clother_path(@conn, :create), [method: "post"], fn f -> %>
+        <div class="flex flex-col items-start justify-center">
+            <%= label f, :category_id, "Category", class: "text-gray-600"%>
+            <%= select f, :category_id, category_select_options(@categorys), prompt: "Choose a category", class: "h-10 px-2 border-2 mb-4"  %>
+
+            <%= label f, :size_id, "Size", class: "text-gray-600"%>
+            <%= select f, :size_id, category_select_options(@sizes), prompt: "Choose a size", class: "h-10 px-2 border-2 mb-4"  %>
+
+            <%= label f, "Size Detail (inches)", class: "text-gray-600"%>
+            <div class="flex justify-start items-center">
+                <%= text_input f, :shirt_length_in, placeholder: "Shirt Length (inches)" , class: "h-10 px-4 border-2 mb-4 mr-4"%>
+                <%= error_tag f, :shirt_length_in %>
+                <%= text_input f, :chest_width_in, placeholder: "Chest Width (inches)", class: "h-10 px-4 border-2 mb-4" %>
+                <%= error_tag f, :chest_width_in %>
+            </div>
+
+            <%= label f, "Size Detail (centimeters)", class: "text-gray-600"%>
+            <div class="flex justify-start items-center">
+                <%= text_input f, :shirt_length_cm, placeholder: "Shirt Length (centimeters)", class: "h-10 px-4 border-2 mb-4 mr-4"%>
+                <%= error_tag f, :shirt_length_cm %>
+                <%= text_input f, :chest_width_cm, placeholder: "Chest Width (centimeters)", class: "h-10 px-4 border-2 mb-4" %>
+                <%= error_tag f, :chest_width_cm %>
+            </div>
+        </div>
+
+        <%= submit "Create size clother" , class: "flex justify-center items-center w-50 px-6 py-2 text-white bg-green-600 hover:bg-red-800 h-8 rounded"%>
+    <% end %>
+</div>

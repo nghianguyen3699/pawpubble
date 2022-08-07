@@ -114,9 +114,9 @@ defmodule Pawpubbleclone.Plants do
     end
   end
 
-  def get_all_categorys_base_products(name) do
+  def get_all_categorys_base_products(concept_id, name) do
     categorys =
-      from(i in Plant_product, where: i.concept_id == 9 and i.name == ^name, select: {i.id, i.category_id, i.name})
+      from(i in Plant_product, where: i.concept_id == ^concept_id and i.name == ^name, select: {i.id, i.category_id, i.name})
        |> Repo.all()
        |> Enum.uniq_by(fn {_, x, y} -> {x, y} end)
 
@@ -181,9 +181,9 @@ defmodule Pawpubbleclone.Plants do
     end
   end
 
-  def load_categorys_base_product(category) do
+  def load_categorys_base_product(concept_id, category) do
     categorys =
-      from( i in Plant_product, where: i.concept_id == 9, select: {i.id, i.category_id})
+      from( i in Plant_product, where: i.concept_id == ^concept_id, select: {i.id, i.category_id})
        |> Repo.all()
        |> Enum.uniq_by(fn {_,x} -> {x} end)
     categorys

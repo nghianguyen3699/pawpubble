@@ -42,6 +42,7 @@ defmodule Pawpubbleclone.Accounts.User do
     |> validate_password()
     |> check_comfirm_password(params)
     |> validate_email()
+    |> IO.inspect()
   end
 
   def update_changeset_contain_password(user, params \\ %{}) do

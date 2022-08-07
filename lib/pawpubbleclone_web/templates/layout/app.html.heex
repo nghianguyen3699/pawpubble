@@ -23,30 +23,30 @@
     }
 }
 </style>
-<header id="header" class="">
+<header id="header" class="mb-8">
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="relative bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+    <div class="w-full mx-auto border-b-2">
+        <div class="flex justify-between items-center border-gray-100 lg:mx-32 md:mx-2 py-2 md:justify-start md:space-x-10">
         <div class="flex justify-start lg:w-0 lg:flex-1">
             <a href="#">
-            <img class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="">
+            <div class="h-8 w-48 bg-no-repeat bg-center bg-cover" style="background-image: url('/images/img_homepage/logo/logo.png')"></div>
             </a>
         </div>
         <div class="md:flex items-center justify-end md:flex-1 lg:w-0">
-        <div class="navbar__container-option flex justify-center items-center">
-                    <div class="navbar__container-option-cart-main cursor-pointer relative mr-6 pl-4">
-                        <i class="navbar__container--cart cart_icon text-xl fas fa-shopping-cart"></i>
-                        <span class="navbar__container-option-cart-count cart_count w-5 h-5 bg-green-500 text-white absolute flex justify-center items-center pt-1" style="border-radius: 20%; top: -12px; right: -15px">0</span>
-                        <div class="navbar__container-option-cart cart_container hidden absolute z-50 bg-white border rounded-md ease-in-out drop-shadow-xl" style="top: 150%; right: 0%">
-                            <div class="navbar__container-option-cart-cover flex flex-col p-4" style="max-height: 600px">
+        <div class="flex justify-center items-center">
+                    <div class="cursor-pointer relative mr-6 pl-4">
+                        <i class="cart_icon text-xl text-gray-400 fas fa-shopping-cart"></i>
+                        <span class="cart_count hidden w-5 h-5 bg-green-500 text-white absolute flex justify-center items-center pt-1" style="border-radius: 20%; top: -12px; right: -15px">0</span>
+                        <div class="cart_container hidden absolute z-50 bg-white border rounded-md ease-in-out drop-shadow-xl" style="top: 150%; right: 0%">
+                            <div class="flex flex-col p-4" style="max-height: 600px">
                                 <div class="">
-                                    <input id="checkbox_all_item_cart" class="h-5 w-5 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox">
+                                    <input id="checkbox_all_item_cart" class="hidden h-5 w-5 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox">
                                 </div>
                                 <div id="cart_list" class="flex flex-col overflow-y-scroll invisible-scrollbar">
-                                    <div class="navbar__container-option-cart-empty hidden flex flex-col items-center justify-center px-6 py-3 bg-gray-300 rounded-md" style="min-width: 280px">
-                                        <i class="navbar__container-option-cart-empty-icon text-xl text-gray-500 fas fa-cart-plus"></i>
-                                        <span class="navbar__container-option-cart-empty-call pt-4 text-l text-gray-500">Cart is empty</span>
+                                    <div class="flex flex-col items-center justify-center px-6 py-3 bg-gray-300 rounded-md" style="min-width: 280px">
+                                        <i class="text-xl text-gray-500 fas fa-cart-plus"></i>
+                                        <span class="pt-4 text-l text-gray-500">Cart is empty</span>
                                     </div>
                                     <%# <div class="navbar__container-option-cart-infor px-6 flex justify-center items-start border-b-2 pb-4 mt-4">
                                         <div class="navbar__container-option-cart-img w-20">
@@ -84,57 +84,19 @@
                                                 <span class="navbar__container-option-cart-remove p-2 pl-3 hover:underline hover:text-red-500 cursor-pointer">Remove item</span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="navbar__container-option-cart-infor px-6 flex justify-center items-start border-b-2 pb-4 mt-4">
-                                        <div class="navbar__container-option-cart-img w-20">
-                                            <img src="/images/img_plants/Hoodies/Ash/1.jpg" alt="" class="navbar__container-option-cart-detail-img ">
-                                        </div>
-                                        <div class="navbar__container-option-cart-detail flex flex-col flex-nowrap pl-6" style="min-width: 280px">
-                                            <span class="navbar__container-option-cart-title pb-3 text-lg font-bold">
-                                                ALOE
-                                            </span>
-                                            <span class="navbar__container-option-cart-proper text-base pb-1 text-gray-500">
-                                                Unisex T-shirt / Black / S
-                                            </span>
-                                            <span class="navbar__container-option-cart-proper text-base pb-1 text-gray-500">
-                                                Category: T-shirt
-                                            </span>
-                                            <span class="navbar__container-option-cart-proper text-base pb-1 text-gray-500">
-                                                Color: red
-                                            </span>
-                                            <span class="navbar__container-option-cart-proper text-base pb-1 text-gray-500">
-                                                Size: XL
-                                            </span> 
-                                            <span class="navbar__container-option-cart-price--new text-lg font-bold text-red-500">
-                                                $29.00
-                                            </span>
-                                            <div class="navbar__container-option-cart-quantity flex items-center">
-                                                <div class="navbar__container-option-cart-quantity-num flex justify-between items-center border" style="min-width: 100px">
-                                                    <div class="option-cart-quantity-variability text-lg px-2 py-2 border-x cursor-pointer">
-                                                        <i class="option-cart-quantity-minus fas fa-minus"></i>
-                                                    </div>
-                                                    <span class="option-cart-quantity-count">1</span>
-                                                    <div class="option-cart-quantity-variability text-lg px-2 py-2 border-x cursor-pointer">
-                                                        <i class="option-cart-quantity-plus fas fa-plus"></i>
-                                                    </div>
-                                                </div>
-                                                <span class="navbar__container-option-cart-remove p-2 pl-3 hover:underline hover:text-red-500 cursor-pointer">Remove item</span>
-                                            </div>
-                                        </div>
-                                    </div> %>
-                                    
-                                    
+                                    </div> %>                          
                                 </div>
-                                <div class="navbar__container-option-cart-pay mt-4">
-                                    <div class="navbar__container-option-cart-subtotal flex justify-between items-center">
-                                        <div class="navbar__container-option-subtotal-title">
+
+                                <div class="mt-4">
+                                    <div class="flex justify-between items-center">
+                                        <div class="">
                                             SUBTOTAL
                                         </div>
-                                        <div class="total_price_cart navbar__container-option-subtotal-price text-xl font-bold text-red-500">
+                                        <div class="total_price_cart text-xl font-bold text-red-500">
                                             $00.00
                                         </div>
                                     </div>
-                                    <div class="navbar__container-option-cart-shipping mb-6">
+                                    <div class="mb-6">
                                         Shipping fee is calculated at checkout
                                     </div>
                                     <a href="/carts" class="btn btn-go-to-cart hover:bg-green-500 hover:text-white hover:border-green-500">GO TO CART</a>
@@ -168,7 +130,7 @@
             </div>
         <% else %>
             <a href="/sessions/new" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
-            <a href="/users/new" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a>
+            <a href="/registers" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-600 hover:bg-green-700"> Sign up </a>
         <% end %>
         </div>
         </div>
@@ -184,43 +146,43 @@
 </div>
 <footer id="footer">
     <div class="footer">
-        <div class="back-top w-full h-16 flex justify-center items-center bg-gray-100">
-            <a href="#header" class="text-xl font-bold">Back To Top</a>
+        <a href="#header" class="back-top w-full h-16 flex justify-center items-center bg-gray-100">
+            <span class="text-base font-bold ease-in-out">Back To Top</span>
             <i class="fas fa-angle-up text-2xl ml-8"></i>
-        </div>
+        </a>
         <div class="bg-gray-200 grid grid-cols-1 xl:grid-cols-1 xl:gap-x-8 flex justify-center items-center px-36">
-            <img src="/images/logo/logo.png">
+            <img src="/images/img_homepage/logo/logo.png">
             <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
                 <div class="">
-                    <ul class="service text-xl font-bold">
-                        <li class="text-2xl font-bold">Service</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">About Us</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Track Order</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">FAQ</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Shipping & Return Policies</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Terms and Conditions</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Privacy Policy</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">DMCA</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Contact Us</li>
+                    <ul class="service text-base font-bold">
+                        <li class="text-xl font-bold">Service</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">About Us</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Track Order</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">FAQ</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Shipping & Return Policies</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Terms and Conditions</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Privacy Policy</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">DMCA</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Contact Us</li>
                     </ul>
                 </div>
                 <div class="">
-                    <ul class="service text-xl font-bold">
-                        <li class="text-2xl font-bold">Company</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Sell on Chip</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Chip Seller Blog</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Blog</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Popular Storefronts</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Tags directory</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Pawpubble Reviews</li>
+                    <ul class="service text-base font-bold">
+                        <li class="text-xl font-bold">Company</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Sell on Chip</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Chip Seller Blog</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Blog</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Popular Storefronts</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Tags directory</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Pawpubble Reviews</li>
                     </ul>
                 </div>
                 <div class="">
-                    <ul class="service text-xl font-bold">
-                        <li class="text-2xl font-bold">Need Help</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Submit a Request</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">support@pawpubble.com</li>
-                        <li class="text-xl font-light my-8 opacity-75 cursor-pointer hover:text-red-500">2900 Shadeland Ave Suite B1 Indianapolis, IN 46219</li>
+                    <ul class="service text-base font-bold">
+                        <li class="text-xl font-bold">Need Help</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">Submit a Request</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">support@pawpubble.com</li>
+                        <li class="font-light my-8 opacity-75 cursor-pointer hover:text-red-500">2900 Shadeland Ave Suite B1 Indianapolis, IN 46219</li>
                     </ul>
                 </div>
                 <div class="">

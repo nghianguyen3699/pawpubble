@@ -414,7 +414,7 @@ function handleNavigate(params) {
 function showMore(params) {
     var height = window.innerHeight
     mainEle.classList.add('overflow-hidden')
-    mainEle.setAttribute("style", `height: 1000px;`) 
+    // mainEle.setAttribute("style", `height: 1000px;`) 
 }
 function resetStorage(params) {
     if (window.location.search.includes("category") == false) {

@@ -85,4 +85,18 @@ function getAddress(callback) {
 export { getAddress }
 // ----------------------ADDRESS----------------------------------------
 
+// ----------------------ADDRESS----------------------------------------
+var sizeClotherApi = 'http://localhost:4000/api/size_clothers'
+
+var sizeClotherData = null
+
+function getSizeClother(callback) {
+    fetch(sizeClotherApi)
+        .then(response => response.json())
+        .then(sizeClother => sizeClotherData = sizeClother)
+        .catch(err => console.error(err))
+}
+export { getSizeClother, sizeClotherData }
+// ----------------------ADDRESS----------------------------------------
+
 

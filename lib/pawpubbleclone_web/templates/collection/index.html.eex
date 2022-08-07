@@ -6,10 +6,10 @@
     <i class="fas fa-caret-right ml-4 text-l text-gray-500"></i>
     <span class="text-l text-gray-500 ml-4"><%= @concept.name %></span>
   </div>
-  <div class="text-4xl font-black text-green-600 mb-8">
+  <div class="text-4xl font-black <%= if @concept.id==9 do "text-green-600" else "text-gray-500" end%> mb-8">
     <%= @concept.name %>
   </div>
-  <div class="text-2xl font-normal text-green-800 mb-12">
+  <div class="text-2xl font-normal <%= if @concept.id==9 do "text-green-800" else "text-gray-600" end%> mb-12">
     <%= @concept.decription %>
   </div>
 
@@ -63,7 +63,7 @@
         <%= if @targets do %>
           <%= for target <- @targets do %>
             <div class="target_item cursor-pointer flex justify-between align-center pb-4 pt-4 border-b border-gray-200">
-              <span value="<%= target.target %>" class="text-xl font-normal text-gray-700"><%= target.target %></span>
+              <span value="<%= target %>" class="text-xl font-normal text-gray-700"><%= target %></span>
             </div>
           <% end %>
         <% end %>

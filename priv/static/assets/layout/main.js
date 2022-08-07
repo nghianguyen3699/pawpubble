@@ -34,7 +34,7 @@ var plantsListData = null
 var cartData = null
 
 function start() {
-    getPlantProduct(plantsApi => plantsListData = plantsApi.data.filter( o => o.name == "Aloe"))
+    getPlantProduct(plantsApi => plantsListData = plantsApi)
     focusCart()
     setTimeout(() => {
         getCart(renderCart)
@@ -45,78 +45,92 @@ start()
 
 
 function renderCart(cartDataApi) {
-    
+
+    listCart = []
     cartData = cartDataApi
-    cartData.data.forEach((item) => {
-        var itemCart = plantsListData.find((o) => o.id == item.product_id);
-        itemCart.quantityIncart = item.quantity
-        itemCart.idItem = item.id
-        listCart.push(itemCart);
-    })
-    var htmlsItemCart = listCart.map((item) => {
-        // console.log(item.color.name);
-        return `
-                    <div class="cart_item flex justify-center items-start py-4" style="min-width: 420px; ">
-                        <div class="">
-                            <input class="check_item_cart_header h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-green-500 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="">
-                        </div>
-                        <img src="${item.img}" alt="" class="w-20">
-                        <div class="flex flex-col pl-4 flex-nowrap" style="min-width: 280px; ">
-                            <span class="-title text-xl font-bold">
-                                ${item.name}
-                            </span>
-                            <span class="text-m font-normal text-gray-400 py-1">
-                                ${item.concept.name}
-                            </span>
-                            <span class="text-m font-normal text-gray-400 py-1">
-                                Category: ${item.category.name}
-                            </span>
-                            <span class="color_item_cart ${item.color == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
-                                Color: ${item.color == null ? '' : item.color.name}
-                            </span>
-                            <span class="size_item_cart ${item.size == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
-                                Size: ${item.size == null ? '' : item.size.name}
-                            </span>
-                            <div class="">
-                                <span class="flex justify-start items-center text-xl font-medium text-red-500">
-                                    <span>$</span>
-                                    <span class="">
-                                        ${item.price}
-                                    </span>
-                                </span>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="flex justify-between items-center border-2" style="min-width: 100px">
-                                    <div class="minus_quantity text-xl" style="padding: 5px 7px">
-                                        <i class="fas fa-minus"></i>
-                                    </div>
-                                    <span class="">${item.quantityIncart}</span>
-                                    <div class="plus_quantity text-xl" style="padding: 5px 7px">
-                                        <i class="fas fa-plus"></i>
-                                    </div>
-                                </div>
-                                <span class="delete_item pl-3 cursor-pointer hover:underline hover:text-red-700">Remove item</span>
-                            </div>
-                            <div class="sku_product hidden">${item.sku}</div>
-                        </div>
-                    </div>
-                `
-        
-    })
-        // console.log(htmlsItemCart);
-    //     cartListEle.appendChild(htmlsItemCart)
-    cartListEle.innerHTML = htmlsItemCart.join('')
-    listCheckboxCartEle = $$('.check_item_cart_header')
-    listRemoveItemCartEle = $$('.delete_item')
-    checkboxCart()
-    removeItemCart()
-    minusQuantityBtn = $$('.minus_quantity')
-    plusQuantityBtn = $$('.plus_quantity')
-    changeQuantityCart()
-    if (checkAllStatusCheckbox(listCheckboxCartEle) == true) {
-        checkboxAllCart.checked = true
+    if (cartData.data == null) {
+        cartData.data = []
     }
-    cartCountEle.textContent = listCheckboxCartEle.length
+    console.log(cartData.data);
+    console.log(cartCountEle, checkboxAllCart);
+    if (cartData.data.length > 0) {
+        cartCountEle.classList.remove('hidden')
+        checkboxAllCart.classList.remove('hidden')
+        cartData.data.forEach((item) => {
+            var itemCart = plantsListData.data.find((o) => o.id == item.product_id);
+    
+            itemCart.quantityIncart = item.quantity
+            itemCart.idItem = item.id
+            listCart.push(itemCart);
+        })
+        var htmlsItemCart = listCart.map((item) => {
+            // console.log(item.color.name);
+            return `
+                        <div class="cart_item flex justify-center items-start py-4" style="min-width: 420px; ">
+                            <div class="">
+                                <input class="check_item_cart_header h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-green-500 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="">
+                            </div>
+                            <img src="${item.img}" alt="" class="w-20">
+                            <div class="flex flex-col pl-4 flex-nowrap" style="min-width: 280px; ">
+                                <span class="-title text-xl font-bold">
+                                    ${item.name}
+                                </span>
+                                <span class="text-m font-normal text-gray-400 py-1">
+                                    ${item.concept.name}
+                                </span>
+                                <span class="text-m font-normal text-gray-400 py-1">
+                                    Category: ${item.category.name}
+                                </span>
+                                <span class="color_item_cart ${item.color == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
+                                    Color: ${item.color == null ? '' : item.color.name}
+                                </span>
+                                <span class="size_item_cart ${item.size == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
+                                    Size: ${item.size == null ? '' : item.size.name}
+                                </span>
+                                <div class="">
+                                    <span class="flex justify-start items-center text-xl font-medium text-red-500">
+                                        <span>$</span>
+                                        <span class="">
+                                            ${item.price}
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="flex justify-between items-center border-2" style="min-width: 100px">
+                                        <div class="minus_quantity text-xl" style="padding: 5px 7px">
+                                            <i class="fas fa-minus"></i>
+                                        </div>
+                                        <span class="">${item.quantityIncart}</span>
+                                        <div class="plus_quantity text-xl" style="padding: 5px 7px">
+                                            <i class="fas fa-plus"></i>
+                                        </div>
+                                    </div>
+                                    <span class="delete_item pl-3 cursor-pointer hover:underline hover:text-red-700">Remove item</span>
+                                </div>
+                                <div class="sku_product hidden">${item.sku}</div>
+                            </div>
+                        </div>
+                    `
+            
+        })
+            // console.log(htmlsItemCart);
+        //     cartListEle.appendChild(htmlsItemCart)
+        cartListEle.innerHTML = htmlsItemCart.join('')
+        listCheckboxCartEle = $$('.check_item_cart_header')
+        listRemoveItemCartEle = $$('.delete_item')
+        checkboxCart()
+        removeItemCart()
+        minusQuantityBtn = $$('.minus_quantity')
+        plusQuantityBtn = $$('.plus_quantity')
+        changeQuantityCart()
+        if (checkAllStatusCheckbox(listCheckboxCartEle) == true) {
+            checkboxAllCart.checked = true
+        }
+        cartCountEle.textContent = listCheckboxCartEle.length
+    } else {
+        checkboxAllCart.classList.add('hidden')
+        cartCountEle.classList.add('hidden')
+    }
     
 }
 
