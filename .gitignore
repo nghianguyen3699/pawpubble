@@ -32,4 +32,4 @@ pawpubbleclone-*.tar
 npm-debug.log
 /assets/node_modules/
 
-/uploads
+# /uploads
