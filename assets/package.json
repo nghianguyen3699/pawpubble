@@ -3,10 +3,6 @@
     "deploy": "cd .. && mix assets.deploy && rm -f _build/esbuild*"
   },
   "devDependencies": {
-    "file-loader": "^6.2.0",
     "tailwindcss": "^2.2.8"
-  },
-  "repository": {
-    "type": "git",
   }
 }
