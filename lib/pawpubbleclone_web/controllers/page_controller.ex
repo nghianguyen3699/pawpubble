@@ -5,11 +5,10 @@ defmodule PawpubblecloneWeb.PageController do
 
   def index(conn, _params) do
 
-    plants =
-    for i <- [30, 157, 306, 307] do
-      Repo.preload(Plants.get_plant_product!(i), [:category])
+    plants_recomment =
+      Plants.get_products_recomment()
+        |> Repo.preload([:category, :concept])
 
-    end
-    render(conn, "index.html", plants: plants)
+    render(conn, "index.html", plants_recomment: plants_recomment)
   end
 end

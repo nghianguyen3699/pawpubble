@@ -3,6 +3,7 @@ import { getCart,
          getShipping
         } from '/assets/module/fetch.js'
 
+import { renderCart } from '/assets/layout/main.js'
 
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
@@ -35,16 +36,21 @@ var totalPriceInp = $('#order_session_total_price')
 var confirmOrderBtn = $('.confirm_order_btn')
 var orderCodeInp = $('#order_session_order_code')
 var checkoutMainEle = $('#checkout_main')
+var backToCartBtn = $('.back_to_cart_btn')
+var cartMainEle = $('#cart_main')
+var listItemOrderEle = $('.list_item_order')
 
 function start(params) {
     getPlantProduct(plantsData => plantsListData = plantsData)
     getShipping(renderShippingELe)
     setTimeout(() => {
-        getCart(renderCart);
+        getCart(renderCartMain);
     }, 1000);
     // selectOptionShipping()
+    // checkBtnCheckout()
     checkout()
     confirmOrder()
+    backToCart()
 }
 
 start()
@@ -54,9 +60,10 @@ var listCart = [];
 var itemSelected = [];
 var itemOrder = []
 
-function renderCart(cartDataApi) {
+function renderCartMain(cartDataApi) {
     // console.log(plantsListData);
     // var colorItemCart = $$
+    listCart = [];
     cartData = cartDataApi
     cartData.data.forEach((item) => {
         var itemCart = plantsListData.data.find((o) => o.id == item.product_id);
@@ -64,6 +71,7 @@ function renderCart(cartDataApi) {
         itemCart.totalPrice = (itemCart.quantityIncart * parseFloat(itemCart.price)).toFixed(2)
         listCart.push(itemCart);
     })
+    
     totalItemCartEle.textContent = `${listCart.length} Items`
     var htmlsItemCart = listCart.map((item, index) => {
         // console.log(item.color.name);
@@ -240,7 +248,7 @@ function removeItemCart(params) {
     var skuProduct = null
     // console.log(listRemoveItemCartEle);
     listRemoveItemCartEle.forEach(removeItem => {
-        removeItem.onclick = () => {          
+        removeItem.onclick = () => {   
             for (let i = 1; i < removeItem.parentNode.childNodes.length; i += 2) {
                 if (removeItem.parentNode.childNodes[i].classList.contains('sku')) {
                     skuProduct = removeItem.parentNode.childNodes[i].textContent.trim();
@@ -263,6 +271,7 @@ function removeItemCart(params) {
                     .then(response => response.text())
                     .then(data => {
                         console.log('Success:', data);
+                        getCart(renderCartMain)
                         getCart(renderCart)
                     })
                     .catch((error) => {
@@ -279,10 +288,7 @@ function selectItemCart(params) {
     var totalPrice = 0
     var totalItem = 0
     
-    valueShipping = parseFloat(optionShipping.value)
-    console.log(optionShipping.value);
-    console.log(totalPriceAllCost);
-    
+    valueShipping = parseFloat(optionShipping.value) 
     optionShipping.onchange = () => {
         for (let i = 0; i < optionShipping.childNodes.length; i++) {
             if (optionShipping.childNodes[i].getAttribute('value') == optionShipping.value) {
@@ -302,9 +308,9 @@ function selectItemCart(params) {
         // console.log(totalPriceAllCost);
     }
     listCheckboxItemCart.forEach((item, index) => {
+        // console.log(item);
         item.addEventListener('click', () => {
-            var indexSlectItem = listCart.length - (index + 1)
-            // console.log(listCart);
+            // var indexSelectItem = index
             for (let i = 1; i < item.parentNode.parentNode.childNodes.length; i += 2) {
                 if (item.parentNode.parentNode.childNodes[i].classList.contains('total_price_item')) {
                     if (item.checked) {
@@ -312,16 +318,12 @@ function selectItemCart(params) {
                         totalItem ++
                         totalPriceAllCost = totalPrice + valueShipping
                         totalPriceAllCostEle.innerHTML = `$${totalPriceAllCost.toFixed(2)}`
-                        itemSelected.push(listCart[indexSlectItem])
-                        console.log(itemSelected);
+                        itemSelected.push(listCart[index])
 
                     } else {
                         totalPrice -= parseFloat(item.parentNode.parentNode.childNodes[i].textContent.trim().slice(1))
                         totalItem --
-                        console.log(itemSelected);
-                        console.log(listCart[indexSlectItem]);
-                        itemSelected = itemSelected.filter(item => item !== listCart[indexSlectItem])
-                        console.log(itemSelected);
+                        itemSelected = itemSelected.filter(item => item !== listCart[index])
                         if (totalPrice == 0) {
                             totalPriceAllCost = 0
                             totalPriceAllCostEle.innerHTML = `$${totalPriceAllCost.toFixed(2)}`
@@ -337,6 +339,7 @@ function selectItemCart(params) {
             }
             totalPriceItemsSelected.innerHTML = `${totalPrice.toFixed(2)}$`
             totalItemSelectedEle.innerHTML = `Items ${totalItem}`
+            checkBtnCheckout()
         })
     })
         
@@ -346,6 +349,7 @@ function checkout(params) {
     checkoutBtnEle.addEventListener('click', () => {
         console.log(checkoutMainEle);
         checkoutMainEle.classList.remove('hidden')
+        cartMainEle.classList.add('hidden')
         shippingOrderEle.setAttribute('value', idShipping)
         totalPriceInp.setAttribute('value', totalPriceAllCost.toFixed(2))
         shippingTaxEle.textContent = `Shipping Tax: $${valueShipping}`
@@ -364,7 +368,6 @@ function checkout(params) {
     })
 }
 function confirmOrder(params) {
-
     confirmOrderBtn.addEventListener('click', () => {
         var date = new Date();
         var components = [
@@ -378,13 +381,15 @@ function confirmOrder(params) {
         ];
 
         var order_number = components.join("");
+        // console.log(itemOrder);
+        // console.log(order_number);
         orderCodeInp.setAttribute('value', order_number)
         const data = {
             products: itemOrder,
             order_code: order_number
         };
         console.log(data);
-        fetch(`/order/product`, {
+        fetch(`/orders/product`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -405,7 +410,6 @@ function confirmOrder(params) {
 function renderItemOrder(params) {    
     quantityProductOrderEle.textContent = `ITEM ${itemSelected.length}`
     quantityProductOrderInp.setAttribute('value',itemSelected.length)
-    var listItemOrderEle = $('.list_item_order')
     var htmlsItemOrder = itemSelected.map((item) => {
         var productData = new Object({
             product_id: item.id,
@@ -425,17 +429,27 @@ function renderItemOrder(params) {
                 <p class="text-sm">Quantity: ${item.quantityIncart}</p>             
                 <span class="text-red-600">Price</span> $${item.totalPrice}
             </div>
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </div>
         </div>
         `
     })
     listItemOrderEle.innerHTML = htmlsItemOrder.join('')
-    console.log(itemOrder);
-
+    // checkBtnCheckout()
 }
+function backToCart(params) {
+    backToCartBtn.addEventListener('click', () => {
+        checkoutMainEle.classList.add('hidden')
+        cartMainEle.classList.remove('hidden')
+    })
+}
+function checkBtnCheckout() {
+    if (parseInt(totalItemSelectedEle.textContent.replace('Items ', "")) == 0) {
+        checkoutBtnEle.classList.add('pointer-events-none')
+        checkoutBtnEle.classList.add('opacity-50')
+        
+    } else {
+        checkoutBtnEle.classList.remove('pointer-events-none')
+        checkoutBtnEle.classList.remove('opacity-50')
+    }
+}
+
+export { renderCartMain }

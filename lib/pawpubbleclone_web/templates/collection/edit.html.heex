@@ -1,5 +1,9 @@
-<h1>Edit Plant Products</h1>
+<div class="flex flex-col items-start justify-center">
+    <div class="flex w-full justify-between items-center">
+        <h1 class="py-3 text-gray-700 text-xl font-bold">Edit Plant Products</h1>
+        <span class="text-red-500 hover-text-red-700"><%= link "Back", to: Routes.admin_path(@conn, :index) %></span>
+    </div>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.collection_path(@conn, :update, @plant_product)) %>
+    <%= render "form.html", Map.put(assigns, :action, Routes.collection_path(@conn, :update, @plant_product)) %>
 
-<span><%= link "Back", to: Routes.collection_path(@conn, :index, @concept_slug) %></span>
+</div>

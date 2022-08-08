@@ -76,7 +76,8 @@ defmodule PawpubblecloneWeb.CartController do
   #   IO.inspect(params)
   # end
 
-  def delete(conn, %{ "id" => id}) do
+  def delete(conn, params = %{ "id" => id}) do
+    IO.inspect(params)
     cart_item = Carts.get_cart(id)
     case Carts.delete(cart_item) do
        {:ok, _}->

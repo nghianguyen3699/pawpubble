@@ -5,7 +5,7 @@ defmodule PawpubblecloneWeb.SessionController do
   alias PawpubblecloneWeb.Auth
 
   def new(conn, _params) do
-    render(conn, "new.html")
+    render(conn, "new.html", authenticate: true)
   end
 
   def create(conn, %{ "session" => %{ "email" => email, "password" => password}} ) do
@@ -18,8 +18,7 @@ defmodule PawpubblecloneWeb.SessionController do
         # IO.inspect(conn)
       {:error, _reason} ->
         conn
-        |> put_flash(:info, "Invalid email/password combination")
-        |> render("new.html")
+        |> render("new.html", authenticate: false)
     end
   end
 

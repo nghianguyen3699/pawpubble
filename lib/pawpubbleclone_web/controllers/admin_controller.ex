@@ -118,7 +118,7 @@ defmodule PawpubblecloneWeb.AdminController do
   end
 
   def login(conn, _params) do
-    render(conn, "login.html")
+    render(conn, "login.html", authenticate: true)
   end
 
   def sortProducts(conn, %{"concept_id" => concept_id, "category_id" => category_id, "color_id" => color_id, "size_id" => size_id}) do
@@ -294,10 +294,10 @@ defmodule PawpubblecloneWeb.AdminController do
         |> put_flash(:info, "Welcome back!")
         |> redirect(to: Routes.admin_path(conn, :index))
         # IO.inspect(conn)
-      {:error, _reason} ->
-        conn
-        |> put_flash(:info, "Invalid email/password combination")
-        |> render("new.html")
+      {:error, :unauthenticate} ->
+        render(conn, "login.html", authenticate: false)
+      {:error, :not_found} ->
+        render(conn, "login.html", authenticate: nil)
     end
   end
 

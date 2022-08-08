@@ -36,6 +36,10 @@ var imgMainProductEle = $('#img_main_product')
 var titleSizeClotherEle = $('.title_size_clother')
 var sizeClotherDecriptionEle = $('#size_clother_decription')
 var unitSizeClotherEle = $$('.unit_size_clother')
+var sizeGuideEle = $('#size_guide')
+var imgSizeClotherEle = $('#img_size_clother')
+var successAlertModal = $('#modal-alert-id')
+var modalBackdropEle = $('#modal-id-backdrop')
 
 var nameColor = $('#name_color')
 var listColorEle = $('#list_color')
@@ -119,6 +123,9 @@ function queryProduct(plantsData) {
     currentPlantProduct.color = listFirstCate[0].color.name
     currentPlantProduct.size = listFirstCate[0].size.name
 
+    nameColor.textContent = currentPlantProduct.color
+    nameSize.textContent = currentPlantProduct.size
+
     getInforProduct(plantsListData, currentPlantProduct, currentProductId, priceProductEle)
 
     // console.log(currentPlantProduct);
@@ -144,6 +151,7 @@ function queryProduct(plantsData) {
     sizeDataMain = sizeClotherData.data.filter((ele) => {
         return ele.category == titleSizeClotherEle.textContent.trim()
     })
+    console.log(sizeDataMain);
     renderSizeClotherEle(sizeDataMain, sizeClotherDecriptionEle, unitOfMeasure)
 // -----------------------------------------------------------------------
     itemsCategoryEle.forEach((itemCategory) => {
@@ -153,6 +161,12 @@ function queryProduct(plantsData) {
                                     return ele.category == titleSizeClotherEle.textContent
                                 })
             renderSizeClotherEle(sizeDataMain, sizeClotherDecriptionEle, unitOfMeasure)
+            if (sizeClotherDecriptionEle.childNodes.length == 0) {
+                sizeGuideEle.classList.add('hidden')
+            } else {
+                sizeGuideEle.classList.remove('hidden')
+            }
+            changeImgSizeClother(itemCategory)
             // console.log(sizeClotherData);
             // sizeClotherDecriptionEle.innerHTML += "123456"
             
@@ -168,7 +182,6 @@ function queryProduct(plantsData) {
                     checkCategory(plantsListData, itemCategoryData.name)
                 }
             })
-            getInforProduct(plantsListData, currentPlantProduct, currentProductId, priceProductEle)
             plantsListData.forEach((plantData) => {
                 if (nameCategoryEle.textContent == plantData.category.name) {
                     listColor.push(plantData.color)
@@ -183,9 +196,10 @@ function queryProduct(plantsData) {
 
             listColor = uniqBy(listColor, JSON.stringify);
             listSize = uniqBy(listSize, JSON.stringify);
-
+            console.log(listColor);
             sizeBlockEle.classList.remove('hidden')
             colorBlockEle.classList.remove('hidden')
+            getInforProduct(plantsListData, currentPlantProduct, currentProductId, priceProductEle)
             switch (true) {
                 case (listColor[0] == null && listSize[0] == null):
                     sizeBlockEle.classList.add('hidden')
@@ -203,13 +217,16 @@ function queryProduct(plantsData) {
                     renderSizeEle(listSize, listSizeEle)
                     renderColorEle(listColor, listColorEle)
                     break;
-            }
+                }
             itemsColorEle = $$('.item-color')
             handleClickColorAndSize(colorData, itemsColorEle, nameColor, plantsData, currentPlantProduct, currentProductId)
             
             itemsSizeEle = $$('.item-size')
             handleClickColorAndSize(sizeData, itemsSizeEle, nameSize, plantsData, currentPlantProduct, currentProductId)
-
+            itemsColorEle[0].classList.add('border-green-500')
+            nameColor.textContent = currentPlantProduct.color
+            nameSize.textContent = currentPlantProduct.size
+            itemsSizeEle[0].classList.add('border-green-500')
             listColor = []
             listSize = []
         }
@@ -224,6 +241,35 @@ function queryProduct(plantsData) {
 
 }
 
+
+function changeImgSizeClother(itemCategory) {
+    switch (itemCategory.name) {
+        case "Classic T-Shirt":
+            imgSizeClotherEle.src = "/images/size_clother/classic-t-shirt.png"
+            break;
+        case "Ladies T-Shirt":
+            imgSizeClotherEle.src = "/images/size_clother/ladies-t-shirt.png"
+            break;
+        case "Premium Fit Mens Tee":
+            imgSizeClotherEle.src = "/images/size_clother/premium-fit-mens-tee.png"
+            break;
+        case "Premium Fit Ladies Tee":
+            imgSizeClotherEle.src = "/images/size_clother/premium-fit-ladies-tee.png"
+            break;
+        case "Hooded Sweatshirt":
+            imgSizeClotherEle.src = "/images/size_clother/hooded-sweatshirt.png"
+            break;
+        case "Crewneck Sweatshirt":
+            imgSizeClotherEle.src = "/images/size_clother/crewneck-sweatshirt.png"
+            break;
+        case "Unisex Tanks":
+            imgSizeClotherEle.src = "/images/size_clother/unisex-tank.png"
+            break;
+        case "Ladies Flowy Tank":
+            imgSizeClotherEle.src = "/images/size_clother/ladies-flowy-tank.png"
+            break;
+    }
+}
 
 // function renderCart(cartDataApi) {
 //     // console.log(cartData);
@@ -336,11 +382,12 @@ function getInforProduct(plantsListData, currentPlantProduct, currentProductId, 
         }
     })
     currentProductObj = plantsListData.filter( o => o.id === currentProductId)[0]
-    console.log(currentProductObj);
     priceProductEle.textContent = `${currentProductObj.price}`
     imgMainProductEle.setAttribute('src',currentProductObj.img)
-    nameColor.textContent = currentProductObj.color.name
-    nameSize.textContent = currentProductObj.size.name
+    if (currentProductObj.color_id != null) {
+        nameColor.textContent = currentProductObj.color.name
+        nameSize.textContent = currentProductObj.size.name
+    }
     quantity.onchange = () => {
         currentPlantProduct.quantity = parseInt(quantity.value)
         currentProductObj.quantityATC = currentPlantProduct.quantity
@@ -416,6 +463,12 @@ function addProductIntoCart(params) {
         .then(data => {
             console.log('Success:', data);
             getCart(renderCart)
+            modalBackdropEle.classList.remove('hidden')
+            successAlertModal.classList.remove('hidden')
+            setTimeout(() => {
+                modalBackdropEle.classList.add('hidden')
+                successAlertModal.classList.add('hidden')
+            }, 1000);
         })
         .catch((error) => {
             console.error('Error:', error);

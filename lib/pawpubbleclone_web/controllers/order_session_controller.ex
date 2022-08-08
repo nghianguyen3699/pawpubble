@@ -3,6 +3,7 @@ defmodule PawpubblecloneWeb.OrderSessionController do
 
   alias Pawpubbleclone.Orders
   alias Pawpubbleclone.Product_Orders
+  alias Pawpubbleclone.Plants
   # alias Pawpubbleclone.Orders.Order_session
 
 
@@ -13,7 +14,8 @@ defmodule PawpubblecloneWeb.OrderSessionController do
       |> get_session(:user_id)
       order_session = Map.put(order_session, "user_id", user_id)
     case Orders.create_order(order_session) do
-       {:ok, _}->
+       {:ok, order_session}->
+        # IO.inspect(order_session)
         conn
         |> redirect(to: Routes.order_session_path(conn, :successfuly))
        {:error, %Ecto.Changeset{} = changeset} ->
@@ -22,12 +24,30 @@ defmodule PawpubblecloneWeb.OrderSessionController do
   end
 
   def create_product(conn, %{"products" => products, "order_code" => order_code}) do
-    Enum.map(products, fn product ->
-      product = Map.put(product, "order_code", order_code)
+    Enum.map(products, fn product -> product = Map.put(product, "order_code", order_code)
       case Product_Orders.create_product_order(product) do
-         {:ok, _}->
-          conn
-          |> put_flash(:info, "Create succsessfuly")
+         {:ok, product} ->
+          IO.inspect(product)
+          id =
+          product_update = Plants.get_plant_product!(product.product_id)
+          IO.inspect(product_update)
+          quantity_current = product_update.quantity - product.quantity
+          IO.inspect(Decimal.to_float(product_update.price)*2)
+          revenue_current =
+            if product_update.revenue == nil do
+              0 + Decimal.to_float(product_update.price) * product.quantity
+            else
+              product_update.revenue + Decimal.to_float(product_update.price) * product.quantity
+            end
+          IO.inspect(revenue_current)
+          case Plants.update_plant_product(product_update, %{"quantity" => quantity_current, "revenue" => revenue_current}) do
+            {:ok, _} ->
+              conn
+              |> put_flash(:info, "Create succsessfuly")
+            {:error, _} ->
+              conn
+              |> put_flash(:info, "Faith")
+          end
          {:error, _} ->
           conn
           |> put_flash(:info, "Faith")

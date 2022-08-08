@@ -7,8 +7,8 @@
 
 
 <body class="bg-gray-100">
-  <div class="container mx-auto mt-10">
-    <div class="flex shadow-md my-10">
+  <div class="container mx-auto">
+    <div id="cart_main" class="flex shadow-md my-10">
       <div class="w-3/4 bg-white px-10 py-10">
         <div class="flex justify-between border-b pb-8">
           <h1 class="font-semibold text-2xl">Shopping Cart</h1>
@@ -47,9 +47,8 @@
           </div>  %>
         </div>
 
-        <a href="#" class="flex font-semibold text-indigo-600 text-sm mt-10">
-
-          <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
+        <a href="/" class="flex font-semibold text-green-500 text-sm mt-10">
+          <svg class="fill-current mr-2 text-green-500 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
           Continue Shopping
         </a>
       </div>
@@ -61,31 +60,36 @@
           <span class="total_price_items_selected font-semibold text-m">00.00$</span>
         </div>
         <div>
-          <label class="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
+          <label class="font-semibold inline-block mb-3 text-sm uppercase">Shipping</label>
           <select class="option_shipping block p-2 text-gray-600 w-full text-sm">
             <%# <option value = '10' selected="selected">Standard shipping - $10.00</option>
             <option value = '20'>Fast delivery - $20.00</option>
             <option value = '25'>International courier - $25.00</option> %>
           </select>
         </div>
-        <div class="py-10">
+        <div class="py-6">
           <label for="promo" class="font-semibold inline-block mb-3 text-sm uppercase">Promo Code</label>
           <input type="text" id="promo" placeholder="Enter your code" class="p-2 text-sm w-full">
         </div>
-        <button class="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">Apply</button>
+        <button class="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white">Apply</button>
         <div class="border-t mt-8">
           <div class="flex font-semibold justify-between py-6 text-sm uppercase">
             <span>Total cost</span>
             <span class="total_price_all_cost text-xl text-red-500">$0.00</span>
           </div>
-          <a href="#checkout_main" class="">
-          <button class="checkout_btn bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout</button>
-          </a>
+          <button class="checkout_btn opacity-50 bg-green-500 hover:bg-green-700 py-3 text-white w-full">Checkout</button>
         </div>
       </div>
 
     </div>
-  <div id="checkout_main" class="p-12 mx-auto shadow-md hidden">
+
+
+
+  <div id="checkout_main" class="my-10 p-10 mx-auto shadow-md hidden">
+    <div class="back_to_cart_btn flex font-semibold text-green-500 hover:text-green-700 cursor-pointer text-lg mb-6">
+            <svg class="fill-current mr-2 text-green-500 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
+            Cart
+    </div>
     <div class="flex flex-col w-full px-0 mx-auto md:flex-row">
           <div class="flex flex-col md:w-9/12">
               <h2 class="mb-4 font-bold md:text-xl text-heading ">Shipping Address</h2>
@@ -111,15 +115,8 @@
                       </div>
                       <div class="mt-4">
                           <div class="w-full">
-                              <label for="Shipping" class="block mb-3 text-sm font-semibold text-gray-500">Address</label>
                               <%= hidden_input f, :shipping_id, value: 1,  class: "shipping_order" %>
                           </div>
-                      </div>
-                      <div class="flex items-center mt-4">
-                          <label class="flex items-center text-sm group text-heading">
-                              <input type="checkbox"
-                                  class="w-5 h-5 border border-gray-300 rounded focus:outline-none focus:ring-1">
-                              <span class="ml-2">Save this information for next time</span></label>
                       </div>
                       <div class="relative pt-3 xl:pt-6">
                           <div class="w-full">
@@ -135,43 +132,7 @@
                   </h2>
                   <div class="mt-8">
                       <div class="list_item_order flex flex-col space-y-4">
-                          <%# <div class="flex justify-start">
-                              <div class="w-full">
-                                  <img src="https://source.unsplash.com/user/erondu/1600x900" alt="image" class="w-60">
-                              </div>
-                              <div>
-                                  <h2 class="text-xl font-bold">Aloe</h2>
-                                  <p class="text-sm">T-shirt</p>
-                                  <p class="text-sm">M</p>
-                                  <p class="text-sm">Black</p>
-                                  <span class="text-red-600">Price</span> $20
-                              </div>
-                              <div>
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
-                                      viewBox="0 0 24 24" stroke="currentColor">
-                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M6 18L18 6M6 6l12 12" />
-                                  </svg>
-                              </div>
-                          </div>
-                          <div class="flex space-x-4">
-                              <div>
-                                  <img src="https://source.unsplash.com/collection/190727/1600x900" alt="image"
-                                      class="w-60">
-                              </div>
-                              <div>
-                                  <h2 class="text-xl font-bold">Title</h2>
-                                  <p class="text-sm">Lorem ipsum dolor sit amet, tet</p>
-                                  <span class="text-red-600">Price</span> $20
-                              </div>
-                              <div>
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
-                                      viewBox="0 0 24 24" stroke="currentColor">
-                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M6 18L18 6M6 6l12 12" />
-                                  </svg>
-                              </div>
-                          </div> %>
+
                       </div>
                   </div>
                   <div class="flex p-4 mt-4">
@@ -180,19 +141,19 @@
                   </div>
                   <div
                       class="subtotal_order flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                      Subtotal<span class="ml-2">$40.00</span></div>
+                      Subtotal<span class="ml-2">$00.00</span></div>
                   <div
                       class="shipping_tax flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                      Shipping Tax<span class="ml-2">$10</span></div>
+                      Shipping Tax<span class="ml-2">$00</span></div>
                   <div
                       class="total_order flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                      Total<span class="ml-2">$50.00</span></div>
+                      Total<span class="ml-2">$00.00</span></div>
                       <%= hidden_input f, :total_price, value: 0 %>
                       <%= hidden_input f, :order_code, value: 0 %>
 
               </div>
 
-              <%= submit "Confirm Order", class: "confirm_order_btn w-full px-6 py-2 text-blue-200 bg-blue-600 hover:bg-blue-900"%>
+              <%= submit "Confirm Order", class: "confirm_order_btn w-full px-6 py-2 text-white bg-green-600 hover:bg-green-700"%>
           </div>
           <% end %>
       </div>

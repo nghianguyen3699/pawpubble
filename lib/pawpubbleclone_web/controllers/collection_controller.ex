@@ -94,6 +94,7 @@ defmodule PawpubblecloneWeb.CollectionController do
     concept = Concepts.get_concept(concept_id)
     plant_categorys = get_all_categorys_base_products(concept_id, name)
                       |> Repo.preload([:category])
+                      IO.inspect(plant_categorys)
     plant_product = get_plant_product_by_name!(name)
     personnalizeds_collec = get_all_plant_product_by_name!(name)
     render(conn, "show.html",  [concept: concept, name: name, plant_product: plant_product, all_plant_product: personnalizeds_collec, plant_categorys: plant_categorys])
@@ -104,10 +105,10 @@ defmodule PawpubblecloneWeb.CollectionController do
   #   render(conn, "show_concept.html", plant_product: Plant_product)
   # end
 
-  def edit(conn, %{"id" => id, "concept" => concept_slug}) do
+  def edit(conn, %{"id" => id}) do
     plant_product = get_plant_product!(id)
     changeset = change_plant_product(plant_product)
-    render(conn, "edit.html", concept_slug: concept_slug, plant_product: plant_product, changeset: changeset)
+    render(conn, "edit.html", plant_product: plant_product, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "plant_product" => plant_product_params}) do
@@ -117,20 +118,20 @@ defmodule PawpubblecloneWeb.CollectionController do
       {:ok, plant_product} ->
         conn
         |> put_flash(:info, "Plant product updated successfully.")
-        |> redirect(to: Routes.collection_path(conn, :show, plant_product))
+        |> redirect(to: Routes.admin_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", plant_product: plant_product, changeset: changeset)
     end
   end
 
-  def delete(conn, %{"id" => id, "concept" => concept_slug}) do
+  def delete(conn, %{"id" => id}) do
     plant_product = get_plant_product!(id)
     {:ok, _plant_product} = delete_plant_product(plant_product)
 
     conn
     |> put_flash(:info, "Plant product deleted successfully.")
-    |> redirect(to: Routes.collection_path(conn, :index, concept_slug: concept_slug,))
+    |> redirect(to: Routes.collection_path(conn, :index))
   end
 
   def create_cart(conn) do

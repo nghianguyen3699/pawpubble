@@ -2,6 +2,7 @@ import { getCart } from '/assets/module/fetch.js'
 import { getPlantProduct } from '/assets/module/fetch.js'
 import { setStorage } from '/assets/module/local_storage.js'
 import { removeDuplicates } from '/assets/component.js'
+// import { renderCartMain } from '/assets/cart/main.js'
 
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
@@ -34,6 +35,7 @@ var plantsListData = null
 var cartData = null
 
 function start() {
+    console.log(window.location);
     getPlantProduct(plantsApi => plantsListData = plantsApi)
     focusCart()
     setTimeout(() => {
@@ -48,21 +50,21 @@ function renderCart(cartDataApi) {
 
     listCart = []
     cartData = cartDataApi
+    console.log(cartData);
     if (cartData.data == null) {
         cartData.data = []
     }
-    console.log(cartData.data);
-    console.log(cartCountEle, checkboxAllCart);
     if (cartData.data.length > 0) {
         cartCountEle.classList.remove('hidden')
         checkboxAllCart.classList.remove('hidden')
         cartData.data.forEach((item) => {
             var itemCart = plantsListData.data.find((o) => o.id == item.product_id);
-    
+            
             itemCart.quantityIncart = item.quantity
             itemCart.idItem = item.id
             listCart.push(itemCart);
         })
+        console.log(listCart);
         var htmlsItemCart = listCart.map((item) => {
             // console.log(item.color.name);
             return `
@@ -128,6 +130,12 @@ function renderCart(cartDataApi) {
         }
         cartCountEle.textContent = listCheckboxCartEle.length
     } else {
+        cartListEle.innerHTML = `
+            <div class="flex flex-col items-center justify-center px-6 py-3 bg-gray-300 rounded-md" style="min-width: 280px">
+                <i class="text-xl text-gray-500 fas fa-cart-plus"></i>
+                <span class="pt-4 text-l text-gray-500">Cart is empty</span>
+            </div>
+        `
         checkboxAllCart.classList.add('hidden')
         cartCountEle.classList.add('hidden')
     }
@@ -280,6 +288,7 @@ function changeQuantityCart(params) {
 }
 
 function removeItemCart(params) {
+    console.log(window.location);
     var skuProduct = null
     listRemoveItemCartEle.forEach(removeItem => {
         removeItem.onclick = () => {          
@@ -302,6 +311,7 @@ function removeItemCart(params) {
                     .then(data => {
                         console.log('Success:', data);
                         getCart(renderCart)
+                        // getCart(renderCartMain)
                     })
                     .catch((error) => {
                         console.error('Error:', error);

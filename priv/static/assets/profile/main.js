@@ -6,6 +6,9 @@ const $$ = document.querySelectorAll.bind(document)
 const meta = document.querySelector('meta[name="csrf-token"]');
 const token = meta.content;
 
+const PAGE_STORAGE_KEY = 'PAGE PROFILE'
+var config = JSON.parse(localStorage.getItem(PAGE_STORAGE_KEY)) || {}
+
 var titleContent = $$('.title_content')
 var mainContent = $$('.main_content')
 
@@ -48,6 +51,7 @@ var districtAddressSelectEle = $('#district')
 var wardAddressSelectEle = $('#ward')
 var addressMainEle = $('#address_main')
 var changeAddressEle = $('.change_address')
+var titleMainEle = $('#title-main')
 
 var listAllAddress = null 
 
@@ -68,9 +72,27 @@ function start() {
 start()
 
 
+function setMainContent(key, value) {
+    config[key] = value
+    localStorage.setItem(PAGE_STORAGE_KEY, JSON.stringify(config))
+}
+
 function transform(params) {
+    titleMainEle.textContent = config.main_content
+    mainContent.forEach( (item) => {
+        if (config.main_content == item.id) {
+            item.classList.remove('hidden')
+        } else {
+            item.classList.add('hidden')
+        }
+    })
     titleContent.forEach( (ele) => {
+        if (ele.getAttribute('name') == config.main_content) {
+            ele.classList.remove('text-gray-500')
+            ele.classList.add('text-pink-600')
+        }
         ele.addEventListener('click', () => {
+            setMainContent('main_content', ele.getAttribute('name'))
             mainContent.forEach( (item) => {
                 if (ele.getAttribute('name') == item.id) {
                     item.classList.remove('hidden')
@@ -78,7 +100,13 @@ function transform(params) {
                     item.classList.add('hidden')
                 }
             })
-            
+            titleContent.forEach( (item) => {
+                item.classList.remove('text-pink-600')
+                item.classList.add('text-gray-500')
+            })
+            ele.classList.remove('text-gray-500')
+            ele.classList.add('text-pink-600')
+            titleMainEle.textContent = ele.getElementsByTagName('span')[0].textContent
         })
     })
 }

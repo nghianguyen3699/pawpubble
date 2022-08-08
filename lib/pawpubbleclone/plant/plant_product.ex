@@ -8,7 +8,7 @@ defmodule Pawpubbleclone.Plant.Plant_product do
     field :sku, :string
     field :img, :string
     field :quantity, :integer
-    field :revenue, :decimal
+    field :revenue, :float
     field :number_click, :integer
     belongs_to :concept, Pawpubbleclone.Concepts.ConceptCore
     belongs_to :color, Pawpubbleclone.Colors.ColorCore

@@ -93,9 +93,8 @@ defmodule PawpubblecloneWeb.Router do
     get "/new", CollectionController, :new
     post "/product", CollectionController, :create
     delete "/product/:id", CollectionController, :delete
-    get "/:concept/:name/:id/edit", CollectionController, :edit
-    put "/:concept/:id", CollectionController, :update
-    post "/:concept/product/:id", CollectionController, :create_cart
+    get "/:name/:id/edit", CollectionController, :edit
+    put "/:id", CollectionController, :update
   end
 
   scope "/collections", PawpubblecloneWeb do

@@ -77,9 +77,10 @@ defmodule Pawpubbleclone.Plants do
   end
 
 
-  def update_plant_product(%Plant_product{} = plant_product, attrs) do
+  def update_plant_product(%Plant_product{} = plant_product, atts) do
     plant_product
-    |> Plant_product.changeset(attrs)
+    |> Plant_product.changeset(atts)
+    # |> IO.inspect()
     |> Repo.update()
   end
 
@@ -178,6 +179,18 @@ defmodule Pawpubbleclone.Plants do
     for {x, _, _, _, _} <- products do
       x
         |> get_plant_product!()
+    end
+  end
+
+  def get_products_recomment() do
+    name_products =
+      from( p in Plant_product, select: p.name )
+        |> Repo.all()
+        |> Enum.uniq_by(fn x -> x end)
+    for n <- name_products do
+      from( p in Plant_product, where: p.name == ^n, order_by: p.revenue )
+        |> Repo.all()
+        |> hd()
     end
   end
 
