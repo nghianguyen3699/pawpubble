@@ -46,6 +46,13 @@ defmodule Pawpubbleclone.Accounts do
      |> User.email_changeset(email)
      |> Repo.update()
   end
+
+  def update_revenue(%User{} = user, revenue) do
+    user
+     |> User.changeset(revenue)
+     |> Repo.update()
+  end
+
   def update_phone(%User{} = user, phone) do
     user
      |> User.phone_changeset(phone)

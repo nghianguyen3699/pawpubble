@@ -16,20 +16,31 @@ var cartMain = $('.cart_icon')
 var cartContainer = $('.cart_container')
 var checkboxAllCart = $('#checkbox_all_item_cart')
 var cartCountEle = $('.cart_count')
+var optionProfileEle = $$('.option_profile')
 var listCheckboxCartEle = null
 var listRemoveItemCartEle = null
 var minusQuantityBtn = null
 var plusQuantityBtn 
 var listCart = [];
 
-var PAGE_STORAGE_KEY = "CART_HEADER"
+const PAGE_STORAGE_KEY = "CART_HEADER"
 var config = JSON.parse(localStorage.getItem(PAGE_STORAGE_KEY)) || {}
+
+const PAGE_STORAGE_KEY_PROFILE = 'PAGE PROFILE'
+var config_profile = JSON.parse(localStorage.getItem(PAGE_STORAGE_KEY_PROFILE)) || {}
+
 totalPrice = 0
 
 var totalPrice = 0.00
 var quantityItem = 0
 var priceItem = 0
-var itemSelected = config.itemChecked
+var itemSelected = []
+
+if (config.itemChecked != undefined) {
+    itemSelected = config.itemChecked
+} else {
+    setStorage("itemChecked", [], config, PAGE_STORAGE_KEY)
+}
 
 var plantsListData = null
 var cartData = null
@@ -37,6 +48,7 @@ var cartData = null
 function start() {
     getPlantProduct(getproduct)
     focusCart()
+    setPageProfile()
     // setTimeout(() => {
     //     getCart(renderCart)
     // },1000)
@@ -47,6 +59,21 @@ start()
 async function getproduct(data) {
     plantsListData = await data
     getCart(renderCart)
+}
+
+function setMainContent(key, value) {
+    config_profile[key] = value
+    localStorage.setItem(PAGE_STORAGE_KEY_PROFILE, JSON.stringify(config_profile))
+}
+
+function setPageProfile(params) {
+    optionProfileEle.forEach((ele) => {
+        ele.addEventListener('click', () => {
+            let content = ele.textContent.toLowerCase()
+            console.log(content);
+            setMainContent('main_content', content)
+        })
+    })
 }
 
 function renderCart(cartDataApi) {
@@ -123,6 +150,8 @@ function renderCart(cartDataApi) {
         cartListEle.innerHTML = htmlsItemCart.join('')
         listCheckboxCartEle = $$('.check_item_cart_header')
         listRemoveItemCartEle = $$('.delete_item')
+        // cartListEle.getElementsByClassName('cart_item').length
+        // setStorage("itemChecked", cartListEle.getElementsByClassName('cart_item').length, config, PAGE_STORAGE_KEY)
         checkboxCart()
         removeItemCart()
         minusQuantityBtn = $$('.minus_quantity')

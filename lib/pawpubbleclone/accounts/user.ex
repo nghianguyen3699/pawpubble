@@ -13,7 +13,7 @@ defmodule Pawpubbleclone.Accounts.User do
     field :password_hash, :string
     field :phone, :string
     field :address, :string
-    field :revenue, :decimal
+    field :revenue, :float
     field :gender, :string
     field :birthday, :date
 

@@ -208,6 +208,13 @@ defmodule Pawpubbleclone.Plants do
 
   end
 
+  def get_total_revenue() do
+    Enum.map(list_plants, fn x -> x.revenue end)
+    |> Enum.filter(& !is_nil(&1))
+    |> Enum.reduce(fn p, acc -> p + acc end)
+    |> trunc()
+  end
+
   def change_plant_product(%Plant_product{} = plant_product, attrs \\ %{}) do
     Plant_product.changeset(plant_product, attrs)
   end

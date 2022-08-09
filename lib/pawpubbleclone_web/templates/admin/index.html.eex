@@ -35,17 +35,17 @@
         <div class="w-full container flex flex-col items-start justify-center ju mt-0 pt-3 pb-3 md:pb-0">
             <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-white z-20" id="nav-content">
                 <ul class="list-reset flex pt-3 md:py-3 px-1 md:px-2 text-center md:text-left" style="background-color: #1F2937">
-                        <li class="mr-3 flex-1 border px-6 hover:text-">
+                        <li class="mr-3 flex-1 border px-6 rounded">
                             <a href="/admin" name="user" class="item_naviga flex justify-center items-center py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white">
                                 <i class="fas fa-user pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">User</span>
                             </a>
                         </li>
-                        <li class="mr-3 flex-1 border px-6">
+                        <li class="mr-3 flex-1 border px-6 rounded">
                             <a href="/admin" name="product" class="item_naviga flex justify-center items-center py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white">
                                 <i class="fas fa-cubes pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Product</span>
                             </a>
                         </li>
-                        <li class="mr-3 flex-1 border px-6">
+                        <li class="mr-3 flex-1 border px-6 rounded">
                             <a href="/admin" name="purchase" class="item_naviga flex justify-center items-center py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white">
                                 <i class="fa fa-envelope pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Purchase</span>
                             </a>
@@ -201,9 +201,8 @@
                                         <td class="py-4 px-6 border-b border-grey-light"><%= user.phone%></td>
                                         <td class="py-4 px-6 border-b border-grey-light"><%= user.revenue%></td>
                                         <td class="py-4 px-6 border-b border-grey-light">
-                                            <a href="#" class="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-green-400 hover:bg-green-dark">Message</a>
+                                            <span href="#" class="text-grey-lighter font-bold py-1 px-3 pointer-events-none rounded text-xs opacity-50 bg-green-400 hover:bg-green-dark">Message</span>
                                             <%= link "View", to: Routes.user_path(@conn, :show, user), class: "text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-blue-400 hover:bg-blue-dark"%>
-                                            <%# <a href="#" class="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-blue-400 hover:bg-blue-dark">View</a> %>
                                         </td>
                                     </tr>
                                 <% end %>
@@ -225,18 +224,18 @@
                                 <%= select f, :category_id, category_select_options(@categorys), prompt: "Choose a category", class: "bg-white border rounded-lg w-full h-8" %>
                                 <%= select f, :color_id, category_select_options(@colors), prompt: "Choose a color", class: "bg-white border rounded-lg w-full h-8" %>
                                 <%= select f, :size_id, category_select_options(@sizes), prompt: "Choose a size", class: "bg-white border rounded-lg w-full h-8" %>
-                                <%= submit "Sort", class: "w-1/4 px-6 py-2 text-blue-200 bg-blue-600 hover:bg-blue-900 h-8 rounded"%>
+                                <%= submit "Sort", class: "w-1/4 flex justify-center items-center px-6 py-2 text-white bg-green-600 hover:bg-green-700 h-8 rounded"%>
                             </div>
                             <% end %>
                                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
-                                            <th class="p-4">
+                                            <%# <th class="p-4">
                                                 <div class="flex items-center">
                                                     <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                                     <label for="checkbox-all-search" class="sr-only">checkbox</label>
                                                 </div>
-                                            </th>
+                                            </th> %>
                                             <th class="px-6 py-3">
                                                 <span>Id</span>
                                             </th>
@@ -280,14 +279,13 @@
                                     </thead>
                                     <tbody>
                                         <%= for product <- @products do %>
-                                        <tr
-                                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <td class="w-4 p-4">
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <%# <td class="w-4 p-4">
                                                 <div class="flex items-center">
                                                     <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                                     <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                                                 </div>
-                                            </td>
+                                            </td> %>
                                             <td class="px-6 py-4">
                                                 <%= product.id %>
                                             </td>
@@ -323,8 +321,8 @@
                                                 <%= product.revenue %>
                                             </td>
                                             <td class="px-6 py-4 text-right">
-                                                <a href="/collections/<%=product.name%>/<%=product.id%>/edit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <%= link "Delete", to: Routes.collection_path(@conn, :delete, product), method: :delete, data: [confirm: "Are you sure"]%>
+                                                <a href="/collections/<%=product.name%>/<%=product.id%>/edit" class="font-medium text-white bg-green-600 hover:bg-green-700 p-1 rounded">Edit</a>
+                                                <%= link "Delete", to: Routes.collection_path(@conn, :delete, product), method: :delete, data: [confirm: "Are you sure"], class: "font-medium text-white bg-red-500 hover:bg-red-700 p-1 rounded" %>
                                             </td>
                                         </tr>
                                         <% end %>
@@ -342,8 +340,8 @@
                             <div class=" flex justify-end items-center p-4">
                                 <%= select f, :atts_order, ["Order code": "order_code","ID user": "id_user", "Bill of lading no": "bill_of_lading_no"] %>
                                 <%= text_input f, :atts_input , class: "ml-4"%>
-                                <%= submit "Sort", class: "w-50 ml-4 px-6 py-2 text-blue-200 bg-green-600 hover:bg-green-900 h-8 rounded"%>
-                                <a href="/admin", class="w-50 ml-4 px-6 py-2 text-blue-200 bg-red-500 hover:bg-red-800 h-8 rounded">Cancel</a>
+                                <%= submit "Sort", class: "w-50 ml-4 px-6 py-2 flex justify-center items-center text-white bg-green-600 hover:bg-green-700 h-8 rounded"%>
+                                <a href="/admin", class="w-50 ml-4 px-6 py-2 flex justify-center items-center text-white bg-red-500 hover:bg-red-700 h-8 rounded">Cancel</a>
                             </div>
                             <% end %>
                                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">

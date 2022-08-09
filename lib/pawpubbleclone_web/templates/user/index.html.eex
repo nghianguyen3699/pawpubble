@@ -1,28 +1,30 @@
-<div class="container-user-index text-4xl">
-    <span class="text-2xl text-blue-600 hover:text-blue-300"><%= link "Back", to: Routes.page_path(@conn, :index)%></span>
-    <h1 class="pt-8 pb-6">List User</h1>
-    <table class="border-collapse mb-6">
-        <thead>
-            <th class="border border-slate-300">Name</th>
-            <th class="border border-slate-300">Email</th>
-            <th class="border border-slate-300">Phone</th>
-            <th></th>
-
+<div class="container-user-index">
+    <%= link "Back", to: Routes.page_path(@conn, :index), class: "flex justify-center items-center w-20 px-6 py-2 text-white bg-red-500 hover:bg-red-700 h-8 rounded"%>
+    <div>
+        <h1 class="text-start text-4xl mt-4 mb-6 text-gray-600 font-bold font-sans">List User</h1>
+    </div>
+    <table class="text-start mb-4">
+        <thead class="border-b-2">
+            <th class="px-4">Id</th>
+            <th class="px-4">Name</th>
+            <th class="px-4">Email</th>
+            <th class="px-4">Phone</th>
         </thead>
         <tbody>
             <%= for user <- @users do %>
-                <tr class="text-3xl text-gray-400">
-                    <td class="border border-slate-300 text-zinc-400 py-6 px-6"><%= user.name %></td>
-                    <td class="border border-slate-300 text-zinc-400 px-6"><%= user.email %></td>
-                    <td class="border border-slate-300 text-zinc-400 px-6"><%= user.phone %></td>
-                    <td class="text-3xl">
-                        <span class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded text-2xl"><%= link "Show", to: Routes.user_path(@conn, :show, user)%></span>
-                        <span class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded text-2xl"><%= link "Edit", to: Routes.user_path(@conn, :edit, user)%></span>
-                        <span class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded text-2xl"><%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure"]%></span>
+                <tr class="border-b-2">
+                    <td class="border-r-2 px-2"><%= user.id %></td>
+                    <td class="border-r-2 px-2"><%= user.name %></td>
+                    <td class="border-r-2 px-2"><%= user.email %></td>
+                    <td class="border-r-2 px-2"><%= user.phone %></td>
+                    <td class="">
+                        <span><%= link "Show", to: Routes.user_path(@conn, :show, user), class: "text-white px-1 rounded bg-green-600 hover:bg-green-700"%></span>
+                        <span><%= link "Edit", to: Routes.user_path(@conn, :edit, user), class: "text-white px-1 rounded bg-blue-600 hover:bg-blue-700"%></span>
+                        <span><%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure"], class: "text-white px-1 rounded bg-red-500 hover:bg-red-700"%></span>
                     </td>
                 </tr>
             <% end %>
         </tbody>
     </table>
-    <span><%= link "New", to: Routes.user_path(@conn, :new), class: "text-3xl bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %></span>
+    <span><%= link "New", to: Routes.user_path(@conn, :new), class: "flex justify-center items-center w-20 px-6 py-2 mb-8 text-white bg-green-500 hover:bg-green-700 h-8 rounded" %></span>
 </div>

@@ -120,11 +120,11 @@
                         <%# <a href="#" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fa fa-cog fa-fw"></i> Settings</a> %>
                         <div class="flex justify-start items-center ml-2 hover:text-red-400">
                             <i class="fa fa-user fa-fw"></i>
-                            <%= link "Profile", to: Routes.profile_path(@conn, :index, @current_user), class: "p-2 text-sm no-underline block"%>
+                            <%= link "Profile", to: Routes.profile_path(@conn, :index, @current_user), class: "option_profile p-2 text-sm no-underline block"%>
                         </div>
                         <div class="flex justify-start items-center ml-3 hover:text-red-400">
                             <i class="fas fa-shopping-bag text-m"></i>
-                            <%= link "Purchase", to: Routes.profile_path(@conn, :index, @current_user), class: "p-2 text-sm no-underline block"%>
+                            <%= link "Purchase", to: Routes.profile_path(@conn, :index, @current_user), class: "option_profile p-2 text-sm no-underline block"%>
                         </div>
                         <div class="flex justify-start items-center ml-2 hover:text-red-400">
                             <i class="fas fa-sign-out-alt fa-fw"></i>

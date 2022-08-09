@@ -5,12 +5,16 @@ const meta = document.querySelector('meta[name="csrf-token"]');
 const token = meta.content;
 
 const PAGE_STORAGE_KEY = 'PAGE ADMIN'
+var config = JSON.parse(localStorage.getItem(PAGE_STORAGE_KEY)) || {}
+
+if (config.currentPage == undefined) {
+    setPage('currentPage', 'user')
+}
 
 var navigaEle = $$('.item_naviga')
 var mainContentEle = $$('.main_content')
 var titleEle = $('#title')
 var currentPage = 'user'
-var config = JSON.parse(localStorage.getItem(PAGE_STORAGE_KEY)) || {}
 var paginationEle = $('.pagination')
 var pageItemsEle = $$('.page-item')
 var billOfLadingNoInputEle = $(".bill_lading_input")
@@ -54,28 +58,17 @@ function addClassPagination(params) {
 }
 function changeNav() {
     navigaEle.forEach(item => {
-        
+        if (item.getElementsByTagName('span')[0].textContent.toLowerCase() == config.currentPage) {
+            item.parentNode.classList.add('bg-green-600')
+            
+        } else {
+            item.parentNode.classList.remove('bg-green-600')
+        }
         item.addEventListener('click', () => {
             // console.log(item.name);
-            setPage('currentPage', item.name)
-            
-            navigaEle.forEach(item => {
-                item.classList.remove('border-blue-600', 'border-b-2')
-            })
-            item.classList.add('border-blue-600', 'border-b-2')
-            // mainContentEle.forEach((ele) => {
-            //     // console.log(ele.id);
-            //     if (ele.id != item.getAttribute('name')) {
-            //         ele.classList.add('hidden')
-            //     }
-            //     else {
-            //         titleEle.textContent = ele.id.toUpperCase()
-            //         ele.classList.remove('hidden')
-            //     }
-                
-            // })
+            setPage('currentPage', item.name)          
         
-    });
+        });
     })
 }
 

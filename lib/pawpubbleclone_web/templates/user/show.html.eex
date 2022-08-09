@@ -1,21 +1,61 @@
-<h1 class="text-3xl text-blue-400 mr-20"><%= @user.name %></h1>
-<ul class="mt-8 text-4xl">
-    <li class="mb-6">
-        <strong>Name:</strong>
-        <%= @user.name %>
-    </li>
-    <li class="mb-6">
-        <strong>Email:</strong>
-        <%= @user.email %>
-    </li>
-    <li class="mb-6">
-        <strong>Phone Number:</strong>
-        <%= @user.phone %>
-    </li>
-    <li class="mb-6">
-        <strong>Address:</strong>
-        <%= @user.address %>
-    </li>
-</ul>
-<span><%= link "Back", to: Routes.user_path(@conn, :index), class: "text-3xl mr-5 text-red-400" %><span>
-<span><%= link "Edit", to: Routes.user_path(@conn, :edit, @user), class: "text-3xl mr-10 text-red-400" %></span>
+
+<div class="flex flex-col justify-center items-center border-2 rounded-lg px-20 py-10 mb-12">
+    <div class="flex justify-between items-center w-full">
+        <%= link "Back", to: Routes.admin_path(@conn, :index), class: "flex justify-center items-center w-50 px-6 py-2 text-white bg-red-500 hover:bg-red-700 h-8 rounded" %>
+        <%= link "Edit", to: Routes.user_path(@conn, :edit, @user), class: "flex justify-center items-center w-50 px-6 py-2 text-white bg-green-600 hover:bg-red-700 h-8 rounded" %>
+    </div>
+    <div id="infor_profile" class="">
+        <div class=" flex flex-col p-3">
+            <div class="flex justify-start items-center">
+                <label class="w-40 text-gray-500 flex justify-end">Username</label>
+                <span class="ml-12"><%= @user.name %></span>
+            </div>
+        </div>
+        <div class=" flex flex-col p-3">
+            <div class="flex justify-start items-center">
+                <label class="w-40 text-gray-500 flex justify-end">Email</label>
+                <div class="flex justify-start items-center">
+                    <span id="email" class="ml-12"><%= @user.email %></span>
+                </div>
+            </div>
+        </div>
+        <div class=" flex flex-col p-3">
+            <div class="flex justify-start items-center">
+                <label class="w-40 text-gray-500 flex justify-end">Phone number</label>
+                <div class="flex justify-start items-center">
+                    <span id="phone_number" class="ml-12"><%= @user.phone %></span>
+                </div>
+            </div>
+        </div>
+        <div class=" flex flex-col p-3">
+            <div class="flex justify-start items-center">
+                <label class="w-40 text-gray-500 flex justify-end">Address</label>
+                <div id="address_main" class="flex justify-start items-center">
+                    <span class="ml-12 w-52"><%= @user.address %></span>
+                </div>
+            </div>
+        </div>
+        <div class=" flex flex-col p-3">
+            <div class="flex justify-start items-center">
+                <label class="w-40 text-gray-500 flex justify-end">Gender</label>
+                <span class="ml-12 w-52"><%= @user.gender %></span>
+            </div>
+        </div>
+        <div class=" flex flex-col p-3">
+            <div class="flex justify-start items-center">
+                <label class="w-40 text-gray-500 flex justify-end">Date of birth</label>
+                <div class="flex flex-col justify-center items-start">
+                    <span class="ml-12 w-52"><%= @user.birthday %></span>
+                </div>
+            </div>
+        </div>
+        <div class=" flex flex-col p-3">
+            <div class="flex justify-start items-center">
+                <label class="w-40 text-gray-500 flex justify-end">Revenue</label>
+                <div class="flex flex-col justify-center items-start">
+                    <span class="ml-12 w-52"><%= @user.revenue %></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
