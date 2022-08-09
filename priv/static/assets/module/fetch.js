@@ -1,5 +1,5 @@
 // ----------------------COLOR---------------------------------------
-var colorApi = 'http://localhost:4000/api/colors'
+var colorApi = 'https://pawpubble.herokuapp.com/api/colors'
 
 var colorData = null
 
@@ -13,7 +13,7 @@ export { getColorPlants, colorData };
 // ----------------------COLOR---------------------------------------
 
 // ----------------------SIZE----------------------------------------
-var sizeApi = 'http://localhost:4000/api/sizes'
+var sizeApi = 'https://pawpubble.herokuapp.com/api/sizes'
 
 var sizeData = null
 
