@@ -31,7 +31,7 @@ config :pawpubbleclone, PawpubblecloneWeb.Endpoint,
       "tailwindcss",
       "--input=css/app.css",
       "--output=../priv/static/assets/app.css",
-      "--postcss",
+      # "--postcss",
       "--watch",
       cd: Path.expand("../assets", __DIR__)
     ]

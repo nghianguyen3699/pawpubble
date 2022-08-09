@@ -35,8 +35,7 @@ var plantsListData = null
 var cartData = null
 
 function start() {
-    console.log(window.location);
-    getPlantProduct(plantsApi => plantsListData = plantsApi)
+    getPlantProduct(getproduct)
     focusCart()
     setTimeout(() => {
         getCart(renderCart)
@@ -45,9 +44,12 @@ function start() {
 
 start()
 
+function getproduct(data) {
+    plantsListData = data
+}
 
 function renderCart(cartDataApi) {
-
+    console.log(plantsListData);
     listCart = []
     cartData = cartDataApi
     console.log(cartData);

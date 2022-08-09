@@ -1,5 +1,6 @@
 // ----------------------COLOR---------------------------------------
 var colorApi = 'https://pawpubble.herokuapp.com/api/colors'
+// var colorApi = 'http://localhost:4000/api/colors'
 
 var colorData = null
 
@@ -14,6 +15,7 @@ export { getColorPlants, colorData };
 
 // ----------------------SIZE----------------------------------------
 var sizeApi = 'https://pawpubble.herokuapp.com/api/sizes'
+// var sizeApi = 'http://localhost:4000/api/sizes'
 
 var sizeData = null
 
@@ -28,6 +30,7 @@ export { getSizePlants, sizeData };
 
 // ----------------------CATEGORY------------------------------------
 var categoryApi = 'https://pawpubble.herokuapp.com/api/categorys'
+// var categoryApi = 'http://localhost:4000/api/categorys'
 function getCategoryPlants(callback) {
     fetch(categoryApi)
         .then(response => response.json())
@@ -39,6 +42,7 @@ export { getCategoryPlants };
 
 // ----------------------PRODUCT------------------------------------
 var plantApi = 'https://pawpubble.herokuapp.com/api/products/plants'
+// var plantApi = 'http://localhost:4000/api/products/plants'
 
 async function getPlantProduct(callback) {
     const response = await fetch(plantApi)
@@ -51,6 +55,7 @@ export { getPlantProduct };
 
 // ----------------------CART---------------------------------------
 var cartApi = 'https://pawpubble.herokuapp.com/api/carts '
+// var cartApi = 'http://localhost:4000/api/carts '
 
 function getCart(callback) {
     fetch(cartApi)
@@ -63,6 +68,7 @@ export { getCart };
 
 // ----------------------SHIPPING---------------------------------------
 var shippingApi = 'https://pawpubble.herokuapp.com/api/shippings '
+// var shippingApi = 'http://localhost:4000/api/shippings '
 
 function getShipping(callback) {
     fetch(shippingApi)
@@ -87,6 +93,7 @@ export { getAddress }
 
 // ----------------------ADDRESS----------------------------------------
 var sizeClotherApi = 'https://pawpubble.herokuapp.com/api/size_clothers'
+// var sizeClotherApi = 'http://localhost:4000/api/size_clothers'
 
 var sizeClotherData = null
 
