@@ -40,11 +40,11 @@ export { getCategoryPlants };
 // ----------------------PRODUCT------------------------------------
 var plantApi = 'https://pawpubble.herokuapp.com/api/products/plants'
 
-function getPlantProduct(callback) {
-    fetch(plantApi)
-        .then(response => response.json())
-        .then(callback)
-        .catch(err => console.error(err))
+async function getPlantProduct(callback) {
+    const response = await fetch(plantApi)
+    const data = await response.json()
+    callback(data)
+
 }
 export { getPlantProduct };
 // ----------------------PRODUCT------------------------------------
