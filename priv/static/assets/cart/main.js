@@ -40,12 +40,16 @@ var backToCartBtn = $('.back_to_cart_btn')
 var cartMainEle = $('#cart_main')
 var listItemOrderEle = $('.list_item_order')
 
+var listCart = [];
+var itemSelected = [];
+var itemOrder = []
+
 function start(params) {
-    getPlantProduct(plantsData => plantsListData = plantsData)
+    getPlantProduct(getproduct)
     getShipping(renderShippingELe)
-    setTimeout(() => {
-        getCart(renderCartMain);
-    }, 1000);
+    // setTimeout(() => {
+    //     getCart(renderCartMain);
+    // }, 1000);
     // selectOptionShipping()
     // checkBtnCheckout()
     checkout()
@@ -55,10 +59,11 @@ function start(params) {
 
 start()
 
+async function getproduct(data) {
+    plantsListData = await data
+    getCart(renderCartMain)
+}
 
-var listCart = [];
-var itemSelected = [];
-var itemOrder = []
 
 function renderCartMain(cartDataApi) {
     // console.log(plantsListData);

@@ -34,7 +34,7 @@ var itemSelected = config.itemChecked
 var plantsListData = null
 var cartData = null
 
-async function start() {
+function start() {
     getPlantProduct(getproduct)
     focusCart()
     // setTimeout(() => {
