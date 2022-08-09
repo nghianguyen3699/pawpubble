@@ -38,7 +38,7 @@ export { getCategoryPlants };
 // ----------------------CATEGORY------------------------------------
 
 // ----------------------PRODUCT------------------------------------
-var plantApi = 'https://pawpubble.herokuapp.com/products/plants'
+var plantApi = 'https://pawpubble.herokuapp.com/api/products/plants'
 
 function getPlantProduct(callback) {
     fetch(plantApi)
