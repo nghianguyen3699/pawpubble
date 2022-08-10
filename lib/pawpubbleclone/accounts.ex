@@ -1,5 +1,6 @@
 defmodule Pawpubbleclone.Accounts do
 
+  import Ecto.Query
   alias Pawpubbleclone.Repo
   alias Pawpubbleclone.Accounts.User
   alias Pawpubbleclone.Admin
@@ -14,6 +15,15 @@ defmodule Pawpubbleclone.Accounts do
 
   def get_user_by(params) do
     Repo.get_by(User, params)
+  end
+
+  def get_new_users(period) do
+    to_day = Date.utc_today()
+    from( u in User, select: u.inserted_at)
+      |> Repo.all()
+      |> Enum.map(fn d -> Date.diff(to_day, NaiveDateTime.to_date(d))  end)
+      |> Enum.map(fn d -> if d <= period, do: d end)
+      |> Enum.filter(& !is_nil(&1))
   end
 
   @spec list_users :: any
@@ -80,19 +90,6 @@ defmodule Pawpubbleclone.Accounts do
     |> Repo.insert()
   end
 
-  # def authenticate_by_name_and_pass(name, given_pass) do
-  #   user = get_user_by(name: name)
-  #   IO.inspect(user)
-  #   cond do
-  #     user && Pbkdf2.verify_pass(given_pass, user.password_hash) ->
-  #       {:ok, user}
-  #     user ->
-  #       {:error, :unauthenticate}
-  #     true ->
-  #       Pbkdf2.no_user_verify()
-  #       {:error, :not_found}
-  #   end
-  # end
   def authenticate_by_email_and_pass(email, given_pass) do
     user = get_user_by(email: email)
     admin = Admin.get_admin_by(email: email)

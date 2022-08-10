@@ -28,6 +28,8 @@ defmodule PawpubblecloneWeb.AdminController do
     total_users = Enum.count(Accounts.list_users())
     total_products = Enum.count(list_plants())
     total_orders = Enum.count(Orders.list_orders())
+    total_new_users = Enum.count(Accounts.get_new_users(7))
+    total_new_orders = Enum.count(Orders.get_new_orders(1))
     users =
       User
       |> Repo.paginate(params)
@@ -52,9 +54,11 @@ defmodule PawpubblecloneWeb.AdminController do
                                    products: products,
                                    orders: orders,
                                    revenue: revenue,
-                                   total_users: total_users
+                                   total_users: total_users,
                                    total_products: total_products,
-                                   total_orders: total_orders,)
+                                   total_orders: total_orders,
+                                   total_new_users: total_new_users,
+                                   total_new_orders: total_new_orders)
       Map.has_key?(conn.query_params, "atts_order") == true ->
         atts_order = conn.query_params["atts_order"]
         atts_input = conn.query_params["atts_input"]
@@ -84,7 +88,15 @@ defmodule PawpubblecloneWeb.AdminController do
 
           end
         IO.inspect(orders)
-        render(conn, "index.html", users: users, products: products, orders: orders)
+        render(conn, "index.html",  users: users,
+                                    products: products,
+                                    orders: orders,
+                                    revenue: revenue,
+                                    total_users: total_users,
+                                    total_products: total_products,
+                                    total_orders: total_orders,
+                                    total_new_users: total_new_users,
+                                    total_new_orders: total_new_orders)
       true ->
         products =
           Plant_product
@@ -92,7 +104,15 @@ defmodule PawpubblecloneWeb.AdminController do
           |> preload([:concept, :color, :size, :category])
           |> Repo.paginate(params)
 
-        render(conn, "index.html", users: users, products: products, orders: orders)
+        render(conn, "index.html",  users: users,
+                                    products: products,
+                                    orders: orders,
+                                    revenue: revenue,
+                                    total_users: total_users,
+                                    total_products: total_products,
+                                    total_orders: total_orders,
+                                    total_new_users: total_new_users,
+                                    total_new_orders: total_new_orders)
     end
     # if Map.has_key?(conn.query_params, "concept_id") do
 

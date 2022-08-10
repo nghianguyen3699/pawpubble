@@ -22,6 +22,15 @@ defmodule Pawpubbleclone.Orders do
         |> Repo.all()
   end
 
+  def get_new_orders(period) do
+    to_day = Date.utc_today()
+    from( u in Order_session, select: u.inserted_at)
+      |> Repo.all()
+      |> Enum.map(fn d -> Date.diff(to_day, NaiveDateTime.to_date(d))  end)
+      |> Enum.map(fn d -> if d <= period, do: d end)
+      |> Enum.filter(& !is_nil(&1))
+  end
+
   def list_orders() do
     Repo.all(Order_session)
   end
