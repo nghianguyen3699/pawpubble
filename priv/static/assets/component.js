@@ -20,8 +20,7 @@ function previousSlide(){
 }
 
 function removeDuplicates(arr) {
-	return arr.filter((item, 
-		index) => arr.indexOf(item) === index);
+	return arr.filter((item, index) => arr.indexOf(item) === index);
 }
 
-export {removeDuplicates}
+export { removeDuplicates }

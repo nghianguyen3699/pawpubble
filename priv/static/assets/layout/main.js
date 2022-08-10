@@ -77,10 +77,8 @@ function setPageProfile(params) {
 }
 
 function renderCart(cartDataApi) {
-    console.log(plantsListData);
     listCart = []
     cartData = cartDataApi
-    console.log(cartData);
     if (cartData.data == null) {
         cartData.data = []
     }
@@ -94,9 +92,7 @@ function renderCart(cartDataApi) {
             itemCart.idItem = item.id
             listCart.push(itemCart);
         })
-        console.log(listCart);
         var htmlsItemCart = listCart.map((item) => {
-            // console.log(item.color.name);
             return `
                         <div class="cart_item flex justify-center items-start py-4" style="min-width: 420px; ">
                             <div class="">
@@ -320,7 +316,6 @@ function changeQuantityCart(params) {
 }
 
 function removeItemCart(params) {
-    console.log(window.location);
     var skuProduct = null
     listRemoveItemCartEle.forEach(removeItem => {
         removeItem.onclick = () => {          

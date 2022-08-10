@@ -32,8 +32,8 @@ defmodule PawpubblecloneWeb.CollectionView do
      |> Enum.filter(& !is_nil(&1))
   end
 
-  def get_slug_concept() do
-
+  def get_slug_concept(current_user) do
+    IO.inspect(current_user)
   end
 
 end

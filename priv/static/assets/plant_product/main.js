@@ -71,8 +71,8 @@ var priceItem = 0
 
 
 function start() {
-    imgMainProductEle.style.display = 'none'
-    imgMainLoading.style.display = 'flex'
+    imgMainProductEle.classList.add('hidden')
+    imgMainLoading.classList.remove('hidden')
     getCategoryPlants(renderCategoryPlants);
     getPlantProduct(queryProduct)
     getColorPlants()
@@ -98,8 +98,8 @@ function renderCategoryPlants(categorys) {
 
 
 function queryProduct(plantsData) {
-    imgMainProductEle.style.display = 'flex'
-    imgMainLoading.style.display = 'none'
+    imgMainProductEle.classList.remove('hidden')
+    imgMainLoading.classList.add('hidden')
     
     var nameProduct = window.location.href.split('/').at(-1).replace(/%20/g, " ")
     plantsListData = plantsData.data.filter( o => o.name == nameProduct)
@@ -117,8 +117,12 @@ function queryProduct(plantsData) {
     // console.log(sizeData);
     
     // ------------------------render data first load-------------------------
+    // console.log(plantsListData[0]);
+    var nameProductShow = window.location.pathname.split('/').at(-1).replaceAll('%20', " ")
     var listFirstCate = plantsListData.filter( o => o.category.name === plantsListData[0].category.name)
-    
+    // console.log(listFirstCate)
+    nameProductEle.innerHTML = `${nameProductShow} Classic T-Shirt`
+
     currentPlantProduct.category = listFirstCate[0].category.name
     currentPlantProduct.color = listFirstCate[0].color.name
     currentPlantProduct.size = listFirstCate[0].size.name
@@ -129,7 +133,6 @@ function queryProduct(plantsData) {
     getInforProduct(plantsListData, currentPlantProduct, currentProductId, priceProductEle)
 
     // console.log(currentPlantProduct);
-    // console.log(currentProductId);
     listFirstCate.forEach((e) => {
         listColor.push(e.color)
         if (e.size != null) {
@@ -139,8 +142,10 @@ function queryProduct(plantsData) {
             listSize.push(e.size)
         }
     })
+
     listColor = uniqBy(listColor, JSON.stringify);
     listSize = uniqBy(listSize, JSON.stringify);
+
     renderColorEle(listColor, listColorEle)
     renderSizeEle(listSize, listSizeEle)
     listColor = []
@@ -151,7 +156,6 @@ function queryProduct(plantsData) {
     sizeDataMain = sizeClotherData.data.filter((ele) => {
         return ele.category == titleSizeClotherEle.textContent.trim()
     })
-    console.log(sizeDataMain);
     renderSizeClotherEle(sizeDataMain, sizeClotherDecriptionEle, unitOfMeasure)
 // -----------------------------------------------------------------------
     itemsCategoryEle.forEach((itemCategory) => {
@@ -175,7 +179,7 @@ function queryProduct(plantsData) {
             listCategoryData.data.forEach((itemCategoryData) => {
                 if (itemCategoryData.name == nameCategory) {
                     nameCategoryEle.innerHTML = `${itemCategoryData.name}`
-                    nameProductEle.innerHTML = `Aloe ${itemCategoryData.name}`
+                    nameProductEle.innerHTML = `${nameProductShow} ${itemCategoryData.name}`
                     renderDesCategoryEle(desCategoryEle, itemCategoryData.description)
 
                     currentPlantProduct.category = itemCategoryData.name
@@ -383,7 +387,7 @@ function getInforProduct(plantsListData, currentPlantProduct, currentProductId, 
     })
     currentProductObj = plantsListData.filter( o => o.id === currentProductId)[0]
     priceProductEle.textContent = `${currentProductObj.price}`
-    imgMainProductEle.setAttribute('src',currentProductObj.img)
+    imgMainProductEle.style.backgroundImage = `url("${currentProductObj.img}")`
     if (currentProductObj.color_id != null) {
         nameColor.textContent = currentProductObj.color.name
         nameSize.textContent = currentProductObj.size.name
@@ -401,7 +405,7 @@ function handleClickColorAndSize(data, elements, name, plantsData, currentPlantP
             focusEle(elements, item)
             data.data.forEach((i) => {
                 switch (true) {
-                    case (i.rgb !== undefined):
+                    case (i.rgb != undefined):
                         if (i.rgb == item.style.backgroundColor) {
                             currentPlantProduct.color = i.name
                             name.textContent = `${i.name}`
@@ -415,6 +419,7 @@ function handleClickColorAndSize(data, elements, name, plantsData, currentPlantP
                         break;
                 }
             })
+            console.log(currentPlantProduct);
             getInforProduct(plantsListData, currentPlantProduct, currentProductId, priceProductEle)
         }
     })
@@ -446,7 +451,6 @@ function checkCategory(plantsListData, category) {
 
 function addProductIntoCart(params) { 
     var btnAddToCartEle = $("#btn_add-to-cart")
-    console.log(currentProductObj)
     btnAddToCartEle.onclick = () => {
         const data = currentProductObj;
         console.log(data);
