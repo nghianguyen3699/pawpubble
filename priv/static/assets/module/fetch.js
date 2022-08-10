@@ -1,6 +1,6 @@
 // ----------------------COLOR---------------------------------------
-// var colorApi = 'https://pawpubble.herokuapp.com/api/colors'
-var colorApi = 'http://localhost:4000/api/colors'
+var colorApi = 'https://pawpubble.herokuapp.com/api/colors'
+// var colorApi = 'http://localhost:4000/api/colors'
 
 var colorData = null
 
@@ -14,8 +14,8 @@ export { getColorPlants, colorData };
 // ----------------------COLOR---------------------------------------
 
 // ----------------------SIZE----------------------------------------
-// var sizeApi = 'https://pawpubble.herokuapp.com/api/sizes'
-var sizeApi = 'http://localhost:4000/api/sizes'
+var sizeApi = 'https://pawpubble.herokuapp.com/api/sizes'
+// var sizeApi = 'http://localhost:4000/api/sizes'
 
 var sizeData = null
 
@@ -29,8 +29,8 @@ export { getSizePlants, sizeData };
 // ----------------------SIZE----------------------------------------
 
 // ----------------------CATEGORY------------------------------------
-// var categoryApi = 'https://pawpubble.herokuapp.com/api/categorys'
-var categoryApi = 'http://localhost:4000/api/categorys'
+var categoryApi = 'https://pawpubble.herokuapp.com/api/categorys'
+// var categoryApi = 'http://localhost:4000/api/categorys'
 function getCategoryPlants(callback) {
     fetch(categoryApi)
         .then(response => response.json())
@@ -41,8 +41,8 @@ export { getCategoryPlants };
 // ----------------------CATEGORY------------------------------------
 
 // ----------------------PRODUCT------------------------------------
-// var plantApi = 'https://pawpubble.herokuapp.com/api/products/plants'
-var plantApi = 'http://localhost:4000/api/products/plants'
+var plantApi = 'https://pawpubble.herokuapp.com/api/products/plants'
+// var plantApi = 'http://localhost:4000/api/products/plants'
 
 async function getPlantProduct(callback) {
     const response = await fetch(plantApi)
@@ -54,8 +54,8 @@ export { getPlantProduct };
 // ----------------------PRODUCT------------------------------------
 
 // ----------------------CART---------------------------------------
-// var cartApi = 'https://pawpubble.herokuapp.com/api/carts '
-var cartApi = 'http://localhost:4000/api/carts '
+var cartApi = 'https://pawpubble.herokuapp.com/api/carts '
+// var cartApi = 'http://localhost:4000/api/carts '
 
 function getCart(callback) {
     fetch(cartApi)
@@ -67,8 +67,8 @@ export { getCart };
 // ----------------------CART---------------------------------------
 
 // ----------------------SHIPPING---------------------------------------
-// var shippingApi = 'https://pawpubble.herokuapp.com/api/shippings '
-var shippingApi = 'http://localhost:4000/api/shippings '
+var shippingApi = 'https://pawpubble.herokuapp.com/api/shippings '
+// var shippingApi = 'http://localhost:4000/api/shippings '
 
 function getShipping(callback) {
     fetch(shippingApi)
@@ -92,8 +92,8 @@ export { getAddress }
 // ----------------------ADDRESS----------------------------------------
 
 // ----------------------ADDRESS----------------------------------------
-// var sizeClotherApi = 'https://pawpubble.herokuapp.com/api/size_clothers'
-var sizeClotherApi = 'http://localhost:4000/api/size_clothers'
+var sizeClotherApi = 'https://pawpubble.herokuapp.com/api/size_clothers'
+// var sizeClotherApi = 'http://localhost:4000/api/size_clothers'
 
 var sizeClotherData = null
 

@@ -174,7 +174,7 @@
         <div class="relative mb-8">
           <%= link to: "/collections/#{get_slug_concept(10).slug}" do %>
           <img src="images/img_homepage/fitness_product/1.jpg" class="h-full">
-          <div class="absolute d-ib bottom-0 right-0" style="width: 318px; text-align: left; right: 25px; bottom: 165px;">
+          <div class="absolute d-ib bottom-0 right-0" style="width: 318px; text-align: left; right: 5%; bottom: 25%;">
             <div class="">
               <h2 class="text-6xl mb-10 font-black text-white">Fitness Gifts</h2>
               <h3 class="text-3xl font-light mb-10 text-white">Get ready to sweat!</h3>
