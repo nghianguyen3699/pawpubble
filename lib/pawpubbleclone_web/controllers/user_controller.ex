@@ -57,14 +57,12 @@ defmodule PawpubblecloneWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    # IO.inspect(user_params["email"])
     case Accounts.register_user(user_params) do
       {:ok, user}->
         email = user_params["email"]
         send_email_registration(email)
         conn
         |> PawpubblecloneWeb.Auth.login(user)
-        |> put_flash(:info, "#{user.name} created!")
         |> redirect(to: Routes.user_path(conn, :index))
        {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
