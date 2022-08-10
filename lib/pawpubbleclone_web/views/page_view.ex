@@ -10,4 +10,5 @@ defmodule PawpubblecloneWeb.PageView do
   def get_slug_concept(id) do
     Concepts.get_concept(id)
   end
+
 end

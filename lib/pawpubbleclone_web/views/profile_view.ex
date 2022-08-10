@@ -6,13 +6,19 @@ defmodule PawpubblecloneWeb.ProfileView do
   alias Pawpubbleclone.Plants
 
   def hiddenPartEmail(email) do
-    email
-     |> String.replace(String.slice(email, 2..(String.length(email) - 3)), String.duplicate("*", String.length(email) - 4))
+    if email != nil do
+      email
+      |> String.replace(String.slice(email, 2..(String.length(email) - 3)), String.duplicate("*", String.length(email) - 4))
+    else
+    end
   end
 
   def hiddenPartPhone(phone) do
-    phone
-     |> String.replace(String.slice(phone, 2..(String.length(phone) - 3)), String.duplicate("*", String.length(phone) - 4))
+    if phone != nil do
+      phone
+       |> String.replace(String.slice(phone, 2..(String.length(phone) - 3)), String.duplicate("*", String.length(phone) - 4))
+    else
+    end
   end
 
   def showFirstCharacterName(name) do

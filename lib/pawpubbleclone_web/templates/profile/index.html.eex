@@ -62,7 +62,8 @@
                     <label class="w-40 text-gray-500 flex justify-end">Email</label>
                     <div class="flex justify-start items-center">
                         <span id="email" class="ml-12"><%= hiddenPartEmail(@user.email) %></span>
-                        <span class="cursor-pointer change-email_button bg-green-400 hover:bg-green-600 rounded text-m px-2 py-1 ml-2">Change</span>
+                        <span class="<%= if @user.email == nil, do: "hidden"%> cursor-pointer change-email_button bg-green-400 hover:bg-green-600 rounded text-m px-2 py-1 ml-2">Change</span>
+                        <span class="<%= if @user.email != nil, do: "hidden"%> cursor-pointer edit-email_button bg-green-400 hover:bg-green-600 rounded text-m px-2 py-1 ml-2">Edit</span>
                     </div>
                 </div>
             </div>
@@ -70,8 +71,9 @@
                 <div class="flex justify-start items-center">
                     <label class="w-40 text-gray-500 flex justify-end">Phone number</label>
                     <div class="flex justify-start items-center">
-                        <span id="phone_number" class="ml-12"><%= hiddenPartEmail(@user.phone) %></span>
-                        <span class="cursor-pointer change-phone_button bg-green-400 hover:bg-green-600 rounded text-m px-2 py-1 ml-2">Change</span>
+                        <span id="phone_number" class="ml-12 w-52"><%= hiddenPartEmail(@user.phone) %></span>
+                        <span class="<%= if @user.phone == nil, do: "hidden"%> cursor-pointer change-phone_button bg-green-400 hover:bg-green-600 rounded text-m px-2 py-1 ml-2">Change</span>
+                        <span class="<%= if @user.phone != nil, do: "hidden"%> cursor-pointer edit-phone_button bg-green-400 hover:bg-green-600 rounded text-m px-2 py-1 ml-2">Edit</span>
                     </div>
                 </div>
             </div>
@@ -80,14 +82,14 @@
                     <label class="w-40 text-gray-500 flex justify-end">Address</label>
                     <div id="address_main" class="flex justify-start items-center">
                         <span class="ml-12 w-52"><%= @user.address %></span>
-                        <span class="change-address_button cursor-pointer change-phone_button bg-green-400 hover:bg-green-600 rounded text-m px-2 py-1 ml-2">Change</span>
+                        <span class="change-address_button cursor-pointer bg-green-400 hover:bg-green-600 rounded text-m px-2 py-1 ml-2">Change</span>
                     </div>
                     <div class="change_address hidden flex flex-col justify-center items-start ml-12 w-72">
                         <%= select f, :province, [], class: "px-4 py-2 mb-2 w-full" %>
                         <%= select f, :district, [], prompt: "Choose District", class: "px-4 py-2 w-full mb-2" %>
                         <%= select f, :ward, [], prompt: "Choose Ward", class: "px-4 py-2 mb-2 w-full" %>
                         <%= textarea f, :description , class: "px-2 py-2 mb-2 w-full border border-gray-500"%>
-                        <span class="back-address_button cursor-pointer change-phone_button bg-red-400 hover:bg-red-600 rounded text-m px-3 py-1 ">Back</span>
+                        <span class="back-address_button cursor-pointer bg-red-400 hover:bg-red-600 rounded text-m px-3 py-1 ">Back</span>
                     </div>
                 </div>
             </div>
@@ -168,7 +170,7 @@
                                            "" -> ""
                                            x when x != "" -> "hidden"
                                            end %> flex flex-col w-full" >
-            <i class="back_icon_step1 text-gray-600 hover:text-red-400 ml-6 mt-4 w-12 cursor-pointer fas fa-arrow-left"></i>
+            <%= link "", to: Routes.profile_path(@conn, :index, @user), class: "text-gray-600 hover:text-red-400 ml-6 mt-4 w-12 cursor-pointer ml-6 mt-4 fas fa-arrow-left"%>
             <div class="flex flex-col items-start justify-center ml-20">
                 <h5 class="font-bold text-gray-500 mb-4 mt-4">Old Email</h5>
                 <input class="email_old_input w-52 border mb-2 w-1/3 h-10 p-4" type="email" placeholder="">
@@ -202,7 +204,7 @@
                                            "" -> ""
                                            x when x != "" -> "hidden"
                                            end %> flex flex-col w-full">
-            <i class="back_icon_step1 text-gray-600 hover:text-red-400 ml-6 mt-4 w-12 cursor-pointer fas fa-arrow-left"></i>
+            <%= link "", to: Routes.profile_path(@conn, :index, @user), class: "text-gray-600 hover:text-red-400 ml-6 mt-4 w-12 cursor-pointer ml-6 mt-4 fas fa-arrow-left"%>
             <div class="flex flex-col items-start justify-center ml-20">
                 <h5 class="font-bold text-gray-500 mb-4 mt-4">Old Phone</h5>
                 <input class="phone_old_input w-52 border mb-2 w-1/3 h-10 p-4" type="" placeholder="" maxlength="12">

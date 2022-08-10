@@ -29,6 +29,8 @@ var oldErrorEmailEle = $('.error_old_email')
 var oldErrorPhoneEle = $('.error_old_phone')
 var changeEmailBtn = $('.change-email_button')
 var changePhoneBtn = $('.change-phone_button')
+var editEmailBtn = $('.edit-email_button')
+var editPhoneBtn = $('.edit-phone_button')
 var changeAddressBtn = $('.change-address_button')
 var backAddressBtn = $('.back-address_button')
 var backStep1Btn = $$('.back_icon_step1')
@@ -123,16 +125,28 @@ function newEmailAndPhone(params) {
         oldPhoneEle.classList.remove('hidden')
         avatarFormEle.classList.add('hidden')
     })
-    backStep1Btn.forEach( (ele, index) => {
-        ele.addEventListener('click', () => {
-            inforProfileEle.classList.remove('hidden')
-            avatarFormEle.classList.remove('hidden')
-            if (index == 0) {
-                oldEmailEle.classList.add('hidden')              
-            } else {
-                oldPhoneEle.classList.add('hidden')
-            }
-        })
+    // backStep1Btn.forEach( (ele, index) => {
+    //     ele.addEventListener('click', () => {
+    //         inforProfileEle.classList.remove('hidden')
+    //         avatarFormEle.classList.remove('hidden')
+    //         if (index == 0) {
+    //             oldEmailEle.classList.add('hidden')              
+    //         } else {
+    //             oldPhoneEle.classList.add('hidden')
+    //         }
+    //     })
+    // })
+    editEmailBtn.addEventListener('click', () => {
+        inforProfileEle.classList.add('hidden')
+        oldEmailEle.classList.add('hidden')
+        avatarFormEle.classList.add('hidden')
+        changeEmailEle.classList.remove('hidden')
+    })
+    editPhoneBtn.addEventListener('click', () => {
+        inforProfileEle.classList.add('hidden')
+        oldPhoneEle.classList.add('hidden')
+        avatarFormEle.classList.add('hidden')
+        changePhoneEle.classList.remove('hidden')
     })
 
 }

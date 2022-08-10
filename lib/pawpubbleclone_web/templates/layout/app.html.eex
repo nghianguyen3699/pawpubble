@@ -110,6 +110,7 @@
                 <div class="relative inline-block">
                     <div class="flex justify-center items-center">
                         <div class="w-10 h-10 rounded-full overflow-hidden shadow-inner text-center bg-purple cursor-pointer">
+                            <div class="empty_avatar <%= if Pawpubbleclone.Avatar.url({@current_user.avatar, @current_user}) == nil do "" else "hidden" end %> flex items-center justify-center w-10 h-10 bg-gray-600 text-lg text-white font-bold align-middle"><%= showFirstCharacterName(@current_user.name)%></div>
                             <img src="<%=Pawpubbleclone.Avatar.url({@current_user.avatar, @current_user})%>" class="object-cover w-full h-full object-center visible group-hover:hidden">
                         </div>
                         <button onclick="toggleDD('myDropdown')" class="drop-button text-gray py-2 px-2"> <span class="pr-2"><i class="em em-robot_face"></i></span> Hi, <%= @current_user.name %> <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

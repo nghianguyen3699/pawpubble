@@ -101,8 +101,8 @@ function queryProduct(plantsData) {
     imgMainProductEle.classList.remove('hidden')
     imgMainLoading.classList.add('hidden')
     
-    var nameProduct = window.location.href.split('/').at(-1).replace(/%20/g, " ")
-    plantsListData = plantsData.data.filter( o => o.name == nameProduct)
+    var nameProductShow = window.location.pathname.split('/').at(-1).replaceAll('%20', " ")
+    plantsListData = plantsData.data.filter( o => o.name == nameProductShow)
     var nameProductEle = $('#name_product')
 
     var nameCategoryEle = $('#name_category')
@@ -118,7 +118,7 @@ function queryProduct(plantsData) {
     
     // ------------------------render data first load-------------------------
     // console.log(plantsListData[0]);
-    var nameProductShow = window.location.pathname.split('/').at(-1).replaceAll('%20', " ")
+    
     var listFirstCate = plantsListData.filter( o => o.category.name === plantsListData[0].category.name)
     // console.log(listFirstCate)
     nameProductEle.innerHTML = `${nameProductShow} Classic T-Shirt`
