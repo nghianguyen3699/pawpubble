@@ -59,8 +59,8 @@ defmodule PawpubblecloneWeb.UserController do
   def create(conn, %{"user" => user_params}) do
     case Accounts.register_user(user_params) do
       {:ok, user}->
-        email = user_params["email"]
-        send_email_registration(email)
+        # email = user_params["email"]
+        # send_email_registration(email)
         conn
         |> PawpubblecloneWeb.Auth.login(user)
         |> redirect(to: Routes.user_path(conn, :index))
