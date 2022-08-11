@@ -27,7 +27,7 @@ defmodule PawpubblecloneWeb.AuthAdmin do
       conn
     else
       conn
-      |> redirect(to: Routes.page_path(conn, :index))
+      |> redirect(to: Routes.admin_path(conn, :login))
       |> halt()
     end
   end
