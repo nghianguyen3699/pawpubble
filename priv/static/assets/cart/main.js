@@ -76,9 +76,11 @@ function renderCartMain(cartDataApi) {
         itemCart.totalPrice = (itemCart.quantityIncart * parseFloat(itemCart.price)).toFixed(2)
         listCart.push(itemCart);
     })
-    
+
+    // console.log(listCart);
+    // listCart = listCart.reverse();
     totalItemCartEle.textContent = `${listCart.length} Items`
-    var htmlsItemCart = listCart.map((item, index) => {
+    var htmlsItemCart = listCart.reverse().map((item, index) => {
         // console.log(item.color.name);
         return `
                 <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
