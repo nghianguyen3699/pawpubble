@@ -61,7 +61,8 @@ config :scrivener_html,
   view_style: :bootstrap_v4
 
 config :arc,
-  storage: Arc.Storage.Local
+  # storage: Arc.Storage.Local,
+  storage_dir: "priv/static/images/uploads/user/avatars"
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

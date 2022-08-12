@@ -28,9 +28,9 @@ defmodule Pawpubbleclone.Avatar do
   # end
 
   # Override the storage directory:
-  def storage_dir(version, {file, scope}) do
-    "uploads/user/avatars"
-  end
+  # def storage_dir(version, {file, scope}) do
+  #   "priv/static/images/uploads/user/avatars"
+  # end
 
   # Provide a default URL if there hasn't been a file uploaded
   # def default_url(version, scope) do
