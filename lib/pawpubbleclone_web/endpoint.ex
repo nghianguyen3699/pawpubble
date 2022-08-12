@@ -25,8 +25,8 @@ defmodule PawpubblecloneWeb.Endpoint do
     only: ~w(assets fonts images favicon.ico robots.txt)
 
   plug Plug.Static,
-    at: "/images/uploads",
-    from: Path.expand("./images/uploads"),
+    at: "/priv/static",
+    from: :pawpubbleclone,
     gzip: false
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
