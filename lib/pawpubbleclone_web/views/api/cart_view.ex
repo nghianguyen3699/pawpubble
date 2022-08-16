@@ -8,6 +8,7 @@ defmodule PawpubblecloneWeb.Api.CartView do
       %{data: render_many(carts, PawpubblecloneWeb.Api.CartView, "cart.json")}
     end
   end
+
   def render("show.json", %{cart: cart}) do
     %{data: render_one(cart, PawpubblecloneWeb.Api.CartView, "cart.json")}
   end

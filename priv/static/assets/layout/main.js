@@ -17,6 +17,8 @@ var cartContainer = $('.cart_container')
 var checkboxAllCart = $('#checkbox_all_item_cart')
 var cartCountEle = $('.cart_count')
 var optionProfileEle = $$('.option_profile')
+var checkOutCart = $('#checkout_item_cart')
+var IdItemsEle = $('#id_items')
 var listCheckboxCartEle = null
 var listRemoveItemCartEle = null
 var minusQuantityBtn = null
@@ -77,6 +79,9 @@ function setPageProfile(params) {
 }
 
 function renderCart(cartDataApi) {
+    if (window.location.pathname.includes('carts')) {
+        setStorage("itemChecked", [], config, PAGE_STORAGE_KEY)
+    }
     listCart = []
     cartData = cartDataApi
     if (cartData.data == null) {
@@ -97,6 +102,7 @@ function renderCart(cartDataApi) {
                         <div class="cart_item flex justify-center items-start py-4" style="min-width: 420px; ">
                             <div class="">
                                 <input class="check_item_cart_header h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-green-500 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="">
+                                <span class="hidden">${item.id}</span>
                             </div>
                             <img src="${item.img}" alt="" class="w-20">
                             <div class="flex flex-col pl-4 flex-nowrap" style="min-width: 280px; ">
@@ -150,6 +156,7 @@ function renderCart(cartDataApi) {
         // setStorage("itemChecked", cartListEle.getElementsByClassName('cart_item').length, config, PAGE_STORAGE_KEY)
         checkboxCart()
         removeItemCart()
+        checkOutBtn()
         minusQuantityBtn = $$('.minus_quantity')
         plusQuantityBtn = $$('.plus_quantity')
         changeQuantityCart()
@@ -209,6 +216,7 @@ function checkboxCart() {
                     checkboxAllCart.checked = false
                 } 
             })
+            checkOutBtn()
             // priceItem = parseFloat(checkbox.parentNode.parentNode.childNodes[5].childNodes[11].childNodes[1].childNodes[3].textContent.trim());
             // quantityItem = parseFloat(parseInt(checkbox.parentNode.parentNode.childNodes[5].childNodes[13].childNodes[1].childNodes[3].textContent.trim()))
             priceItem = listCart[index].price
@@ -347,6 +355,40 @@ function removeItemCart(params) {
             })
         }
     })
+}
+
+function checkOutBtn(params) {
+    let listID = []
+    listCheckboxCartEle.forEach((checkBox, index) => {
+        config.itemChecked.forEach((item) => {
+            if (item == index) {
+                let idItem = parseInt(checkBox.parentNode.getElementsByTagName('span')[0].textContent)
+                listID.push(idItem)
+            }
+        })
+    })
+    IdItemsEle.value = listID.toString().replaceAll(",", "_")
+    // console.log(listID);
+    // checkOutCart.addEventListener('click', () => {
+    //     const data = {
+    //         id_items: listID
+    //     }
+    //     fetch(`/carts/checkout`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'X-CSRF-TOKEN': token
+    //         },
+    //         body: JSON.stringify(data),
+    //     })
+    //     .then(response => response.text())
+    //     .then(data => {
+    //         console.log('Success:', data);
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error:', error);
+    //     });
+    // })
 }
 
 function updateCart(index) {

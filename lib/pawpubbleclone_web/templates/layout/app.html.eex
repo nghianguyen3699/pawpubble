@@ -100,6 +100,13 @@
                                         Shipping fee is calculated at checkout
                                     </div>
                                     <a href="/carts" class="btn btn-go-to-cart hover:bg-green-500 hover:text-white hover:border-green-500">GO TO CART</a>
+                                    <%= form_for @conn, Routes.cart_path(@conn, :checkout), [method: "post"], fn f -> %>
+
+                                        <%= hidden_input f, :id_items %>
+
+                                    <%= submit "CHECK OUT", class: "btn btn-go-to-cart hover:bg-green-500 hover:text-white hover:border-green-500"%>
+                                    <%# <a href="/carts" id="checkout_item_cart" class="btn btn-go-to-cart hover:bg-green-500 hover:text-white hover:border-green-500">CHECK OUT</a> %>
+                                    <% end %>
                                 </div>
                             </div>
                         </div>

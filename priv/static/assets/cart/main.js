@@ -18,6 +18,7 @@ var cartListEle = $('#list_item')
 var listRemoveItemCartEle = null
 var totalItemCartEle = $('.total_item_cart')
 var listCheckboxItemCart = null
+var totalPriceItemEle = null
 var totalPriceItemsSelected = $('.total_price_items_selected')
 var subtotalOrderEle = $('.subtotal_order')
 var totalItemSelectedEle = $('.total_item_selected')
@@ -28,6 +29,8 @@ var checkoutBtnEle = $('.checkout_btn')
 var valueShipping = null
 var idShipping = 1
 var totalPriceAllCost = 0
+var totalPrice = 0
+var totalItem = 0
 var totalOrder = $('.total_order')
 var shippingOrderEle = $('.shipping_order')
 var quantityProductOrderEle = $('.quantity_product_order')
@@ -80,12 +83,13 @@ function renderCartMain(cartDataApi) {
     // console.log(listCart);
     // listCart = listCart.reverse();
     totalItemCartEle.textContent = `${listCart.length} Items`
-    var htmlsItemCart = listCart.reverse().map((item, index) => {
+    var htmlsItemCart = listCart.map((item, index) => {
         // console.log(item.color.name);
         return `
                 <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
                     <div class="flex items-start h-32">
                         <input class="check_item_cart h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="">
+                        <span class="hidden">${item.id}</span>
                     </div>
                     <div class="infor_item flex w-2/5">
                         <div class="w-28">
@@ -127,6 +131,7 @@ function renderCartMain(cartDataApi) {
         
     })
     cartListEle.innerHTML = htmlsItemCart.join('')
+    totalPriceItemEle = $$('.total_price_item')
     changeQuantityItemCartBTN()
     listRemoveItemCartEle = $$('.remove_item_btn')
     removeItemCart()
@@ -145,6 +150,7 @@ function renderShippingELe(shippingDataApi) {
 function changeQuantityItemCartBTN() {
     var quantityListMinusBtnEl = $$('.quantity_minus_btn')
     var totalPrice = null
+    var totalAllItemSelect = null
     quantityListMinusBtnEl.forEach((itemBtn, index) => {
         var quantity = parseInt(itemBtn.parentNode.childNodes[3].value)
         if (quantity == 1) {
@@ -152,6 +158,7 @@ function changeQuantityItemCartBTN() {
             itemBtn.addEventListener('click', (e) => {e.preventDefault()})
         }
         itemBtn.onclick = () => {
+            totalPriceAllCost = 0
             quantity = parseInt(itemBtn.parentNode.childNodes[3].value)
             if (quantity == 1) {
                 itemBtn.classList.add('text-gray-300')
@@ -166,6 +173,8 @@ function changeQuantityItemCartBTN() {
                         totalPrice = parseFloat(itemBtn.parentNode.parentNode.childNodes[i].textContent.trim().slice(1)) * quantity
                         itemBtn.parentNode.parentNode.childNodes[i+2].textContent = `$${totalPrice.toFixed(2)}`
                         listCart[indexSelectItem].totalPrice = totalPrice.toFixed(2)
+                        // console.log(totalPrice);
+                        // console.log();
                     }
                     
                 }
@@ -175,12 +184,22 @@ function changeQuantityItemCartBTN() {
                 }
                 itemBtn.parentNode.childNodes[3].setAttribute('value', quantity)
             }
+            totalPriceItemEle.forEach(item => {
+                // console.log(item.parentNode.getElementsByTagName('input'));
+                if (item.parentNode.getElementsByTagName('input')[0].checked == true) {
+                    totalPriceAllCost += parseFloat(item.textContent.slice(1))
+                    
+                }
+            })
+            // console.log(totalAllItemSelect);
+            totalPriceItemsSelected.innerHTML = `${totalPriceAllCost.toFixed(2)}$`
         }
     })
     var quantityListPlusBtnEl = $$('.quantity_plus_btn')
     // console.log(quantityListPlusBtnEl);
     quantityListPlusBtnEl.forEach((itemBtn, index) => {
         itemBtn.onclick = () => {
+            totalPriceAllCost = 0
             var quantity = parseInt(itemBtn.parentNode.childNodes[3].value)
             quantity += 1
             var indexSelectItem = listCart.length - (index + 1)
@@ -199,6 +218,14 @@ function changeQuantityItemCartBTN() {
                 itemBtn.parentNode.childNodes[1].removeEventListener('click', (e) => {e.preventDefault()});
                 itemBtn.parentNode.childNodes[1].classList.remove('text-gray-300')
             }
+            totalPriceItemEle.forEach(item => {
+                // console.log(item.parentNode.getElementsByTagName('input'));
+                if (item.parentNode.getElementsByTagName('input')[0].checked == true) {
+                    totalPriceAllCost += parseFloat(item.textContent.slice(1))
+                    
+                }
+            })
+            totalPriceItemsSelected.innerHTML = `${totalPriceAllCost.toFixed(2)}$`
         }
     })
 }
@@ -292,8 +319,7 @@ function removeItemCart(params) {
 }
 
 function selectItemCart(params) {
-    var totalPrice = 0
-    var totalItem = 0
+
     
     valueShipping = parseFloat(optionShipping.value) 
     optionShipping.onchange = () => {
@@ -305,7 +331,6 @@ function selectItemCart(params) {
         }
         valueShipping = parseFloat(optionShipping.value)
         // 
-        console.log(totalPriceAllCost);
         if (totalPrice == 0) {
             totalPriceAllCostEle.innerHTML = `$${totalPriceAllCost.toFixed(2)}`
         } else {
@@ -314,8 +339,38 @@ function selectItemCart(params) {
         }
         // console.log(totalPriceAllCost);
     }
+    let indexEqual = window.location.search.indexOf('=')
+    let listIdCheckout = window.location.search.slice(indexEqual + 1).split("_")
     listCheckboxItemCart.forEach((item, index) => {
         // console.log(item);
+        listIdCheckout.forEach((id) => {
+            if (id == item.parentNode.getElementsByTagName('span')[0].textContent) {
+                item.checked = true
+            }
+        })
+        for (let i = 1; i < item.parentNode.parentNode.childNodes.length; i += 2) {
+            if (item.parentNode.parentNode.childNodes[i].classList.contains('total_price_item')) {
+                if (item.checked) {
+                    totalPrice += parseFloat(item.parentNode.parentNode.childNodes[i].textContent.trim().slice(1))
+                    totalItem ++
+                    totalPriceAllCost = totalPrice + valueShipping
+                    totalPriceAllCostEle.innerHTML = `$${totalPriceAllCost.toFixed(2)}`
+                    itemSelected.push(listCart[index])
+
+                }
+            }
+        }
+        totalPriceAllCost = 0
+        totalPriceItemEle.forEach(item => {
+            // console.log(item.parentNode.getElementsByTagName('input'));
+            if (item.parentNode.getElementsByTagName('input')[0].checked == true) {
+                totalPriceAllCost += parseFloat(item.textContent.slice(1))
+                
+            }
+        })
+        totalPriceItemsSelected.innerHTML = `${totalPriceAllCost.toFixed(2)}$`
+        totalItemSelectedEle.innerHTML = `Items ${totalItem}`
+        checkBtnCheckout()
         item.addEventListener('click', () => {
             // var indexSelectItem = index
             for (let i = 1; i < item.parentNode.parentNode.childNodes.length; i += 2) {
@@ -344,7 +399,15 @@ function selectItemCart(params) {
                     }
                 }
             }
-            totalPriceItemsSelected.innerHTML = `${totalPrice.toFixed(2)}$`
+            totalPriceAllCost = 0
+            totalPriceItemEle.forEach(item => {
+                // console.log(item.parentNode.getElementsByTagName('input'));
+                if (item.parentNode.getElementsByTagName('input')[0].checked == true) {
+                    totalPriceAllCost += parseFloat(item.textContent.slice(1))
+                    
+                }
+            })
+            totalPriceItemsSelected.innerHTML = `${totalPriceAllCost.toFixed(2)}$`
             totalItemSelectedEle.innerHTML = `Items ${totalItem}`
             checkBtnCheckout()
         })

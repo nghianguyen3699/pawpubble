@@ -7,10 +7,16 @@ defmodule PawpubblecloneWeb.CartController do
   # alias Pawpubbleclone.Carts.Cart
 
 
-  def index(conn, _params) do
+  def index(conn, params) do
     changeset = Order_session.changeset(%Order_session{}, %{})
     user = conn.assigns.current_user
-    render(conn, "index.html", user: user, changeset: changeset)
+    if Map.has_key?(params, "id_items") do
+      id_items = params["id_items"]
+      IO.inspect(id_items)
+      render(conn, "index.html", user: user, changeset: changeset, id_items: id_items)
+    else
+      render(conn, "index.html", user: user, changeset: changeset)
+    end
   end
 
   # def show(conn, %{ "name" => name}) do
@@ -55,7 +61,11 @@ defmodule PawpubblecloneWeb.CartController do
           |> current_path()
       end
     end
+  end
 
+  def checkout(conn, %{"id_items" => id_items}) do
+    conn
+      |> redirect(to: Routes.cart_path(conn, :index, id_items: id_items))
   end
 
   def update(conn, %{ "id" => id, "quantity" => quantity_new}) do

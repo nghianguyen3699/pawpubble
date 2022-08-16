@@ -107,6 +107,7 @@ defmodule PawpubblecloneWeb.Router do
     pipe_through [:browser, :authenticate_user]
     get "/", CartController, :index
     post "/", CartController, :create
+    post "/checkout", CartController, :checkout
     put "/:id", CartController, :update
     # put "/", CartController, :update_quantity
     delete "/:id", CartController, :delete
