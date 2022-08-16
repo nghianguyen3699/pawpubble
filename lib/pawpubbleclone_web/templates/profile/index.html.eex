@@ -136,7 +136,7 @@
             <div class="flex flex-col justify-center items-center w-full">
                 <div class="my-4">
                     <div class="group w-48 h-48 rounded-full overflow-hidden shadow-inner text-center bg-purple cursor-pointer">
-                            <div class="empty_avatar <%= if Pawpubbleclone.Avatar.url({@user.avatar, @user}) == nil do "" else "hidden" end %> flex items-center justify-center w-48 h-48 bg-gray-600 text-5xl text-white font-bold align-middle"><%= showFirstCharacterName(@user.name)%></div>
+                            <div id="empty_avatar" class="<%= if Pawpubbleclone.Avatar.url({@user.avatar, @user}) == nil do "" else "hidden" end %> flex items-center justify-center w-48 h-48 bg-gray-600 text-5xl text-white font-bold align-middle"><%= showFirstCharacterName(@user.name)%></div>
                             <img id="avatar_image" src="<%= Pawpubbleclone.Avatar.url({@user.avatar, @user}) %>" alt="avatar" class="<%= if Pawpubbleclone.Avatar.url({@user.avatar, @user}) == nil do "hidden" else "" end %> object-cover w-full h-full object-center visible group-hover:hidden" />
                     </div>
                 </div>
