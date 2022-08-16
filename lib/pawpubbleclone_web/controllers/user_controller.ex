@@ -63,7 +63,7 @@ defmodule PawpubblecloneWeb.UserController do
         # send_email_registration(email)
         conn
         |> PawpubblecloneWeb.Auth.login(user)
-        |> redirect(to: Routes.user_path(conn, :index))
+        |> redirect(to: Routes.page_path(conn, :index))
        {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
