@@ -97,20 +97,36 @@
                   <div class="">
                       <div class="space-x-0 lg:flex lg:space-x-4">
                           <div class="w-full">
-                              <label for="name" class="block mb-3 text-sm font-semibold text-gray-500">Name</label>
+                              <label for="name" class="inline mb-3 text-sm font-semibold text-gray-500">Name</label>
+                              <label for="name" class="inline mb-3 text-sm font-semibold text-red-500">*</label>
                               <%= text_input f, :name, value: @user.name, placeholder: :Name, class: "w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" %>
                           </div>
                       </div>
                       <div class="mt-4">
                           <div class="w-full">
-                              <label for="Phone" class="block mb-3 text-sm font-semibold text-gray-500">Phone Number</label>
+                              <div class="flex justify-between items-center">
+                                <div class="flex justify-center items-center">
+                                  <label for="name" class="mb-3 mr-1 text-sm font-semibold text-gray-500">Phone</label>
+                                  <label for="name" class="mb-3 text-sm font-semibold text-red-500">*</label>
+                                </div>
+                              <a href="/profile/<%=@current_user.id%>" class="text-sm font-semibold text-green-600 hover:underline">Change default phone number</a>
+                              </div>
                               <%= text_input f, :phone, value: @user.phone, placeholder: :Phone, class: "w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" %>
+                              <span class="hidden text-sm font-medium text-red-500">Please don't leave this field blank</span>
+
                           </div>
                       </div>
                       <div class="mt-4">
                           <div class="w-full">
-                              <label for="Address" class="block mb-3 text-sm font-semibold text-gray-500">Address</label>
+                              <div class="flex justify-between items-center">
+                                <div class="flex justify-center items-center">
+                                  <label for="name" class="mb-3 mr-1 text-sm font-semibold text-gray-500">Address</label>
+                                  <label for="name" class="mb-3 text-sm font-semibold text-red-500">*</label>
+                                </div>
+                              <a href="/profile/<%=@current_user.id%>" class="text-sm font-semibold text-green-600 hover:underline">Change default address</a>
+                              </div>
                               <%= textarea f, :address, value: @user.address, placeholder: :Address, class: "w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" %>
+                              <span class="hidden text-sm font-medium text-red-500">Please don't leave this field blank</span>
                           </div>
                       </div>
                       <div class="mt-4">
@@ -153,7 +169,7 @@
 
               </div>
 
-              <%= submit "Confirm Order", class: "confirm_order_btn w-full px-6 py-2 text-white bg-green-600 hover:bg-green-700"%>
+              <%= submit "Confirm Order", class: "confirm_order_btn opacity-50 pointer-events-none w-full px-6 py-2 text-white bg-green-600 hover:bg-green-700"%>
           </div>
           <% end %>
       </div>

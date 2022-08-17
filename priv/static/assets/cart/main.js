@@ -42,6 +42,8 @@ var checkoutMainEle = $('#checkout_main')
 var backToCartBtn = $('.back_to_cart_btn')
 var cartMainEle = $('#cart_main')
 var listItemOrderEle = $('.list_item_order')
+const orderPhoneInput = $('#order_session_phone')
+const orderAddressInput = $('#order_session_address')
 
 var listCart = [];
 var itemSelected = [];
@@ -57,6 +59,7 @@ function start(params) {
     // checkBtnCheckout()
     checkout()
     confirmOrder()
+    checkFillInputInfor()
     backToCart()
 }
 
@@ -150,7 +153,6 @@ function renderShippingELe(shippingDataApi) {
 function changeQuantityItemCartBTN() {
     var quantityListMinusBtnEl = $$('.quantity_minus_btn')
     var totalPrice = null
-    var totalAllItemSelect = null
     quantityListMinusBtnEl.forEach((itemBtn, index) => {
         var quantity = parseInt(itemBtn.parentNode.childNodes[3].value)
         if (quantity == 1) {
@@ -165,13 +167,15 @@ function changeQuantityItemCartBTN() {
                 itemBtn.addEventListener('click', (e) => {e.preventDefault()})
             } else {
                 quantity -= 1
-                var indexSelectItem = listCart.length - (index + 1)
+                var indexSelectItem = index
                 listCart[indexSelectItem].quantityIncart = quantity
                 // listCart[indexSelectItem].totalPrice = (quantity * parseFloat(listCart[indexSelectItem].price)).toFixed(2)
                 for (let i = 1; i < itemBtn.parentNode.parentNode.childNodes.length; i += 2) {
                     if (itemBtn.parentNode.parentNode.childNodes[i].classList.contains('price_item')) {
                         totalPrice = parseFloat(itemBtn.parentNode.parentNode.childNodes[i].textContent.trim().slice(1)) * quantity
                         itemBtn.parentNode.parentNode.childNodes[i+2].textContent = `$${totalPrice.toFixed(2)}`
+                        console.log(quantity);
+                        listCart[indexSelectItem].quantityIncart = quantity
                         listCart[indexSelectItem].totalPrice = totalPrice.toFixed(2)
                         // console.log(totalPrice);
                         // console.log();
@@ -202,12 +206,14 @@ function changeQuantityItemCartBTN() {
             totalPriceAllCost = 0
             var quantity = parseInt(itemBtn.parentNode.childNodes[3].value)
             quantity += 1
-            var indexSelectItem = listCart.length - (index + 1)
+            var indexSelectItem = index
             listCart[indexSelectItem].quantityIncart = quantity
             for (let i = 1; i < itemBtn.parentNode.parentNode.childNodes.length; i += 2) {
                 if (itemBtn.parentNode.parentNode.childNodes[i].classList.contains('price_item')) {
                     totalPrice = parseFloat(itemBtn.parentNode.parentNode.childNodes[i].textContent.trim().slice(1)) * quantity
                     itemBtn.parentNode.parentNode.childNodes[i+2].textContent = `$${totalPrice.toFixed(2)}`
+                    listCart[indexSelectItem].quantityIncart = quantity
+                    console.log(listCart[indexSelectItem]);
                     listCart[indexSelectItem].totalPrice = totalPrice.toFixed(2)
                 }
                 
@@ -355,6 +361,7 @@ function selectItemCart(params) {
                     totalItem ++
                     totalPriceAllCost = totalPrice + valueShipping
                     totalPriceAllCostEle.innerHTML = `$${totalPriceAllCost.toFixed(2)}`
+                    console.log(listCart);
                     itemSelected.push(listCart[index])
 
                 }
@@ -380,7 +387,9 @@ function selectItemCart(params) {
                         totalItem ++
                         totalPriceAllCost = totalPrice + valueShipping
                         totalPriceAllCostEle.innerHTML = `$${totalPriceAllCost.toFixed(2)}`
+                        console.log(listCart);
                         itemSelected.push(listCart[index])
+                        console.log(itemSelected);
 
                     } else {
                         totalPrice -= parseFloat(item.parentNode.parentNode.childNodes[i].textContent.trim().slice(1))
@@ -417,7 +426,6 @@ function selectItemCart(params) {
 
 function checkout(params) {
     checkoutBtnEle.addEventListener('click', () => {
-        console.log(checkoutMainEle);
         checkoutMainEle.classList.remove('hidden')
         cartMainEle.classList.add('hidden')
         shippingOrderEle.setAttribute('value', idShipping)
@@ -425,19 +433,11 @@ function checkout(params) {
         shippingTaxEle.textContent = `Shipping Tax: $${valueShipping}`
         subtotalOrderEle.textContent = `Subtotal: $${totalPriceItemsSelected.textContent.slice(0, -1)}`
         totalOrder.textContent = `Total: $${totalPriceAllCost.toFixed(2)}`
-        renderItemOrder()
-//         var url = new URLSearchParams({
-//             id1: 5,
-//             quantityIncart1: 6,
-//             id2: 4,
-//             quantityIncart2: 7
-//         }).toString()
-//         console.log(url);
-        // window.location.href = `/checkout?${itemSelected}`
-        
+        renderItemOrder()     
     })
 }
 function confirmOrder(params) {
+
     confirmOrderBtn.addEventListener('click', () => {
         var date = new Date();
         var components = [
@@ -477,9 +477,57 @@ function confirmOrder(params) {
     })
 }
 
+function checkInforOrder(params) {
+    if (orderPhoneInput.value != "" && orderAddressInput != "") {
+        confirmOrderBtn.classList.remove('opacity-50')
+        confirmOrderBtn.classList.remove('pointer-events-none')
+    } else {
+        console.log(true);
+        switch (true) {
+            case orderAddressInput.value == "":
+                console.log(456);
+                orderAddressInput.parentNode.getElementsByTagName('span')[0].classList.remove('hidden')
+                confirmOrderBtn.classList.add('opacity-50')
+                confirmOrderBtn.classList.add('pointer-events-none')
+                break;
+            case orderPhoneInput.value == "":
+                console.log('123');
+                orderPhoneInput.parentNode.getElementsByTagName('span')[0].classList.remove('hidden')
+                confirmOrderBtn.classList.add('opacity-50')
+                confirmOrderBtn.classList.add('pointer-events-none')
+                break;
+            case orderPhoneInput.value == "" && orderAddressInput.value == "" :
+                orderPhoneInput.parentNode.getElementsByTagName('span')[0].classList.remove('hidden')
+                orderAddressInput.parentNode.getElementsByTagName('span')[0].classList.remove('hidden')
+                confirmOrderBtn.classList.add('opacity-50')
+                confirmOrderBtn.classList.add('pointer-events-none')
+                break;
+        }
+    }   
+}
+
+function checkFillInputInfor(params) {
+    checkInforOrder()
+    orderPhoneInput.addEventListener('keyup', () => {
+        if (orderPhoneInput.value != "") {
+            orderPhoneInput.parentNode.getElementsByTagName('span')[0].classList.add('hidden')
+        }
+        checkInforOrder()
+    })
+    orderAddressInput.addEventListener('keyup', () => {
+        console.log(orderAddressInput.value);
+        if (orderAddressInput.value != "") {
+            // orderAddressInput.parentNode.getElementsByTagName('span')[0].classList.remove('hidden')
+            orderAddressInput.parentNode.getElementsByTagName('span')[0].classList.add('hidden')
+        } 
+        checkInforOrder()
+    })
+}
+
 function renderItemOrder(params) {    
     quantityProductOrderEle.textContent = `ITEM ${itemSelected.length}`
     quantityProductOrderInp.setAttribute('value',itemSelected.length)
+    console.log(itemSelected);
     var htmlsItemOrder = itemSelected.map((item) => {
         var productData = new Object({
             product_id: item.id,
