@@ -18,7 +18,8 @@ defmodule Pawpubbleclone.Orders do
       from(i in Order_session, join: s in Shippings,
                                on: s.id == i.shipping_id,
                                where: i.user_id == ^user_id,
-                               select: {i.order_code, i.total_price, i.inserted_at, s.value, i.bill_of_lading_no, i.quantity})
+                               select: {i.order_code, i.total_price, i.inserted_at, s.value, i.bill_of_lading_no, i.quantity},
+                               order_by: [desc: i.updated_at])
         |> Repo.all()
   end
 

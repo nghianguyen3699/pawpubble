@@ -9,7 +9,6 @@ defmodule PawpubblecloneWeb.ProfileController do
 
   def index(conn, params) do
     user = conn.assigns.current_user
-    IO.inspect(user)
     email =
     if Map.has_key?(params, "oldemail") do
       email_old = params["oldemail"]

@@ -40,8 +40,9 @@
                         <span class="cart_count hidden w-5 h-5 bg-green-500 text-white absolute flex justify-center items-center pt-1" style="border-radius: 20%; top: -12px; right: -15px">0</span>
                         <div class="cart_container hidden absolute z-50 bg-white border rounded-md ease-in-out drop-shadow-xl" style="top: 150%; right: 0%">
                             <div class="flex flex-col p-4" style="max-height: 600px">
-                                <div class="">
-                                    <input id="checkbox_all_item_cart" class="hidden h-5 w-5 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox">
+                                <div class="flex justify-start items-center border-b border-gray-300 pb-2">
+                                    <input id="checkbox_all_item_cart" class="hidden h-4 w-4 border border-gray-300 rounded-sm bg-white mt-1cursor-pointer" type="checkbox">
+                                    <span class="ml-2">Select All</span>
                                 </div>
                                 <div id="cart_list" class="flex flex-col overflow-y-scroll invisible-scrollbar">
                                     <div class="flex flex-col items-center justify-center px-6 py-3 bg-gray-300 rounded-md" style="min-width: 280px">

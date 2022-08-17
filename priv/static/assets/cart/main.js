@@ -86,54 +86,62 @@ function renderCartMain(cartDataApi) {
     // console.log(listCart);
     // listCart = listCart.reverse();
     totalItemCartEle.textContent = `${listCart.length} Items`
-    var htmlsItemCart = listCart.map((item, index) => {
-        // console.log(item.color.name);
-        return `
-                <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
-                    <div class="flex items-start h-32">
-                        <input class="check_item_cart h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="">
-                        <span class="hidden">${item.id}</span>
-                    </div>
-                    <div class="infor_item flex w-2/5">
-                        <div class="w-28">
-                            <img class="h-24" src="${item.img}" alt="">
+    var htmlsItemCart = null
+    if (listCart.length > 0) {
+        htmlsItemCart = listCart.map((item, index) => {
+            // console.log(item.color.name);
+            return `
+                    <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+                        <div class="flex items-start h-32">
+                            <input class="check_item_cart h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="">
+                            <span class="hidden">${item.id}</span>
                         </div>
-                        <div class="description_item flex flex-col justify-between ml-4 flex-grow">
-                            <span class="font-bold text-m">${item.name}</span>
-                            <span class="text-gray-500 text-s">${item.concept.name}</span>
-                            <span class="text-red-500 text-s">
-                                Category: ${item.category.name}
-                            </span>
-                            <span class="text-red-500 text-s color_item_cart ${item.color == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
-                                Color: ${item.color == null ? '' : item.color.name}
-                            </span>
-                            <span class="text-red-500 text-s size_item_cart ${item.size == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
-                                Size: ${item.size == null ? '' : item.size.name}
-                            </span>
-                            <span class="hidden sku text-red-500 text-s size_item_cart ${item.size == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
-                                ${item.sku}
-                            </span>
-                            <a class="remove_item_btn font-semibold hover:text-red-500 text-gray-500 text-s cursor-pointer">Remove</a>
+                        <div class="infor_item flex w-2/5">
+                            <div class="w-28">
+                                <img class="h-24" src="${item.img}" alt="">
+                            </div>
+                            <div class="description_item flex flex-col justify-between ml-4 flex-grow">
+                                <span class="font-bold text-m">${item.name}</span>
+                                <span class="text-gray-500 text-s">${item.concept.name}</span>
+                                <span class="text-red-500 text-s">
+                                    Category: ${item.category.name}
+                                </span>
+                                <span class="text-red-500 text-s color_item_cart ${item.color == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
+                                    Color: ${item.color == null ? '' : item.color.name}
+                                </span>
+                                <span class="text-red-500 text-s size_item_cart ${item.size == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
+                                    Size: ${item.size == null ? '' : item.size.name}
+                                </span>
+                                <span class="hidden sku text-red-500 text-s size_item_cart ${item.size == null ? 'hidden' : ''} text-m font-normal text-gray-400 py-1">
+                                    ${item.sku}
+                                </span>
+                                <a class="remove_item_btn font-semibold hover:text-red-500 text-gray-500 text-s cursor-pointer">Remove</a>
+                            </div>
                         </div>
+                        <div class="flex justify-center w-1/5 text-gray-600 text-l">
+                            <svg class="quantity_minus_btn fill-current w-3 cursor-pointer" viewBox="0 0 448 512">
+                                <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
+                            </svg>
+    
+                            <input class="quantity_item mx-2 border text-center w-8" type="text" value="${item.quantityIncart}">
+    
+                            <svg class="quantity_plus_btn fill-current text-gray-600 w-3 cursor-pointer" viewBox="0 0 448 512">
+                                <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
+                            </svg>
+                        </div>
+                        <span class="price_item text-center w-1/5 font-semibold text-xl">$${item.price}</span>
+                        <span class="total_price_item text-center w-1/5 font-semibold text-xl">$${parseFloat(item.price * item.quantityIncart).toFixed(2)}</span>
                     </div>
-                    <div class="flex justify-center w-1/5 text-gray-600 text-l">
-                        <svg class="quantity_minus_btn fill-current w-3 cursor-pointer" viewBox="0 0 448 512">
-                            <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
-                        </svg>
-
-                        <input class="quantity_item mx-2 border text-center w-8" type="text" value="${item.quantityIncart}">
-
-                        <svg class="quantity_plus_btn fill-current text-gray-600 w-3 cursor-pointer" viewBox="0 0 448 512">
-                            <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
-                        </svg>
-                    </div>
-                    <span class="price_item text-center w-1/5 font-semibold text-xl">$${item.price}</span>
-                    <span class="total_price_item text-center w-1/5 font-semibold text-xl">$${parseFloat(item.price * item.quantityIncart).toFixed(2)}</span>
-                </div>
-                `
-        
-    })
-    cartListEle.innerHTML = htmlsItemCart.join('')
+                    `
+            
+        })
+        cartListEle.innerHTML = htmlsItemCart.join('')
+    } else {
+        htmlsItemCart = `<div class="flex text-xl text-gray-400 font-bold justify-center items-center w-full h-52">
+                            You don't have any products in your shopping cart!
+                        </div>`
+        cartListEle.innerHTML = htmlsItemCart
+    }
     totalPriceItemEle = $$('.total_price_item')
     changeQuantityItemCartBTN()
     listRemoveItemCartEle = $$('.remove_item_btn')
@@ -197,6 +205,9 @@ function changeQuantityItemCartBTN() {
             })
             // console.log(totalAllItemSelect);
             totalPriceItemsSelected.innerHTML = `${totalPriceAllCost.toFixed(2)}$`
+            if (totalPriceItemsSelected.textContent != "0.00$") {
+                totalPriceAllCostEle.innerHTML = `$${(totalPriceAllCost + valueShipping).toFixed(2)}`
+            }
         }
     })
     var quantityListPlusBtnEl = $$('.quantity_plus_btn')
@@ -213,7 +224,6 @@ function changeQuantityItemCartBTN() {
                     totalPrice = parseFloat(itemBtn.parentNode.parentNode.childNodes[i].textContent.trim().slice(1)) * quantity
                     itemBtn.parentNode.parentNode.childNodes[i+2].textContent = `$${totalPrice.toFixed(2)}`
                     listCart[indexSelectItem].quantityIncart = quantity
-                    console.log(listCart[indexSelectItem]);
                     listCart[indexSelectItem].totalPrice = totalPrice.toFixed(2)
                 }
                 
@@ -232,6 +242,9 @@ function changeQuantityItemCartBTN() {
                 }
             })
             totalPriceItemsSelected.innerHTML = `${totalPriceAllCost.toFixed(2)}$`
+            if (totalPriceItemsSelected.textContent != "0.00$") {
+                totalPriceAllCostEle.innerHTML = `$${(totalPriceAllCost + valueShipping).toFixed(2)}`
+            }
         }
     })
 }
@@ -340,8 +353,7 @@ function selectItemCart(params) {
         if (totalPrice == 0) {
             totalPriceAllCostEle.innerHTML = `$${totalPriceAllCost.toFixed(2)}`
         } else {
-            totalPriceAllCost = totalPrice + valueShipping
-            totalPriceAllCostEle.innerHTML = `$${totalPriceAllCost.toFixed(2)}`
+            totalPriceAllCostEle.innerHTML = `$${(totalPriceAllCost + valueShipping).toFixed(2)}`
         }
         // console.log(totalPriceAllCost);
     }
@@ -359,9 +371,7 @@ function selectItemCart(params) {
                 if (item.checked) {
                     totalPrice += parseFloat(item.parentNode.parentNode.childNodes[i].textContent.trim().slice(1))
                     totalItem ++
-                    totalPriceAllCost = totalPrice + valueShipping
-                    totalPriceAllCostEle.innerHTML = `$${totalPriceAllCost.toFixed(2)}`
-                    console.log(listCart);
+                    totalPriceAllCostEle.innerHTML = `$${(totalPriceAllCost + valueShipping).toFixed(2)}`
                     itemSelected.push(listCart[index])
 
                 }
@@ -377,6 +387,7 @@ function selectItemCart(params) {
         })
         totalPriceItemsSelected.innerHTML = `${totalPriceAllCost.toFixed(2)}$`
         totalItemSelectedEle.innerHTML = `Items ${totalItem}`
+        totalPriceAllCostEle.innerHTML = `$${(totalPriceAllCost + valueShipping).toFixed(2)}`
         checkBtnCheckout()
         item.addEventListener('click', () => {
             // var indexSelectItem = index
@@ -385,26 +396,15 @@ function selectItemCart(params) {
                     if (item.checked) {
                         totalPrice += parseFloat(item.parentNode.parentNode.childNodes[i].textContent.trim().slice(1))
                         totalItem ++
-                        totalPriceAllCost = totalPrice + valueShipping
-                        totalPriceAllCostEle.innerHTML = `$${totalPriceAllCost.toFixed(2)}`
-                        console.log(listCart);
                         itemSelected.push(listCart[index])
-                        console.log(itemSelected);
+
 
                     } else {
                         totalPrice -= parseFloat(item.parentNode.parentNode.childNodes[i].textContent.trim().slice(1))
                         totalItem --
                         itemSelected = itemSelected.filter(item => item !== listCart[index])
-                        if (totalPrice == 0) {
-                            totalPriceAllCost = 0
-                            totalPriceAllCostEle.innerHTML = `$${totalPriceAllCost.toFixed(2)}`
-                            
-                        } else {
-                            totalPriceAllCost = totalPrice + valueShipping
-                            totalPriceAllCostEle.innerHTML = `$${totalPriceAllCost.toFixed(2)}`
-
-                        }
-        // console.log(totalPriceAllCost);
+                        totalPriceAllCost = 0
+                        totalPriceAllCostEle.innerHTML = `$${totalPriceAllCost.toFixed(2)}`
                     }
                 }
             }
@@ -417,6 +417,9 @@ function selectItemCart(params) {
                 }
             })
             totalPriceItemsSelected.innerHTML = `${totalPriceAllCost.toFixed(2)}$`
+            if (totalPriceItemsSelected.textContent != "0.00$") {
+                totalPriceAllCostEle.innerHTML = `$${(totalPriceAllCost + valueShipping).toFixed(2)}`
+            }
             totalItemSelectedEle.innerHTML = `Items ${totalItem}`
             checkBtnCheckout()
         })
@@ -429,10 +432,10 @@ function checkout(params) {
         checkoutMainEle.classList.remove('hidden')
         cartMainEle.classList.add('hidden')
         shippingOrderEle.setAttribute('value', idShipping)
-        totalPriceInp.setAttribute('value', totalPriceAllCost.toFixed(2))
+        totalPriceInp.setAttribute('value', (totalPriceAllCost + valueShipping).toFixed(2))
         shippingTaxEle.textContent = `Shipping Tax: $${valueShipping}`
         subtotalOrderEle.textContent = `Subtotal: $${totalPriceItemsSelected.textContent.slice(0, -1)}`
-        totalOrder.textContent = `Total: $${totalPriceAllCost.toFixed(2)}`
+        totalOrder.textContent = `Total: $${(totalPriceAllCost + valueShipping).toFixed(2)}`
         renderItemOrder()     
     })
 }
@@ -527,7 +530,6 @@ function checkFillInputInfor(params) {
 function renderItemOrder(params) {    
     quantityProductOrderEle.textContent = `ITEM ${itemSelected.length}`
     quantityProductOrderInp.setAttribute('value',itemSelected.length)
-    console.log(itemSelected);
     var htmlsItemOrder = itemSelected.map((item) => {
         var productData = new Object({
             product_id: item.id,
