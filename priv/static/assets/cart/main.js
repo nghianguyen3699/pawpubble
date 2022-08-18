@@ -4,12 +4,16 @@ import { getCart,
         } from '/assets/module/fetch.js'
 
 import { renderCart } from '/assets/layout/main.js'
+import { setStorage } from '/assets/module/local_storage.js'
 
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
 
 const meta = document.querySelector('meta[name="csrf-token"]');
 const token = meta.content;
+
+const PAGE_STORAGE_KEY = "CART_HEADER"
+var config = JSON.parse(localStorage.getItem(PAGE_STORAGE_KEY)) || {}
 
 var plantsListData = null
 var cartData = null
@@ -338,16 +342,14 @@ function removeItemCart(params) {
 }
 
 function selectItemCart(params) {
-
-    
     valueShipping = parseFloat(optionShipping.value) 
     optionShipping.onchange = () => {
         for (let i = 0; i < optionShipping.childNodes.length; i++) {
             if (optionShipping.childNodes[i].getAttribute('value') == optionShipping.value) {
                 idShipping = optionShipping.childNodes[i].getAttribute('idshipping')                
             }
-            
         }
+
         valueShipping = parseFloat(optionShipping.value)
         // 
         if (totalPrice == 0) {
@@ -357,8 +359,7 @@ function selectItemCart(params) {
         }
         // console.log(totalPriceAllCost);
     }
-    let indexEqual = window.location.search.indexOf('=')
-    let listIdCheckout = window.location.search.slice(indexEqual + 1).split("_")
+    let listIdCheckout = config.itemChecked
     listCheckboxItemCart.forEach((item, index) => {
         // console.log(item);
         listIdCheckout.forEach((id) => {
@@ -454,8 +455,7 @@ function confirmOrder(params) {
         ];
 
         var order_number = components.join("");
-        // console.log(itemOrder);
-        // console.log(order_number);
+
         orderCodeInp.setAttribute('value', order_number)
         const data = {
             products: itemOrder,
@@ -536,6 +536,7 @@ function renderItemOrder(params) {
             quantity: item.quantityIncart           
         });
         itemOrder.push(productData)
+        console.log(itemOrder);
         return `
         <div class="flex space-x-4 w-full">
             <div class="w-56">

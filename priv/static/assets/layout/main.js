@@ -178,6 +178,7 @@ function renderCart(cartDataApi) {
 }
 
 function checkboxCart() {
+    // setStorage("itemChecked", [], config, PAGE_STORAGE_KEY)
     if (config.itemChecked.length == 0) {
         totalPrice = 0
         setStorage("totalPrice", totalPrice, config, PAGE_STORAGE_KEY)
@@ -185,9 +186,8 @@ function checkboxCart() {
     listCheckboxCartEle.forEach((checkbox, index) => {
         if (config.itemChecked.length != 0) {
             config.itemChecked.forEach((e) => {
-                if (index == e) {
+                if (checkbox.parentNode.getElementsByTagName('span')[0].textContent == e) {
                     checkbox.checked = true;
-                    console.log(index, e);
                     priceItem = listCart[index].price
                     quantityItem = listCart[index].quantityIncart
                     totalPrice += priceItem*quantityItem
@@ -197,11 +197,10 @@ function checkboxCart() {
             })
         }
         checkbox.onclick = () => {
-            
             if (checkbox.checked) {
-                itemSelected.push(index)
+                itemSelected.push(checkbox.parentNode.getElementsByTagName('span')[0].textContent)
             } else {
-                var i = itemSelected.indexOf(index);
+                var i = itemSelected.indexOf(checkbox.parentNode.getElementsByTagName('span')[0].textContent);
                 if (i !== -1) {
                 itemSelected.splice(i, 1)
                 }
@@ -243,7 +242,7 @@ function checkboxCart() {
                 }
             })
             unCheckedbox.forEach((checkbox, index) => {
-                itemSelected.push(index)
+                itemSelected.push(checkbox.parentNode.getElementsByTagName('span')[0].textContent)
                 checkbox.checked = true
                 quantityItem = listCart[index].quantityIncart
                 priceItem = listCart[index].price
@@ -361,34 +360,12 @@ function checkOutBtn(params) {
     let listID = []
     listCheckboxCartEle.forEach((checkBox, index) => {
         config.itemChecked.forEach((item) => {
-            if (item == index) {
+            if (item == checkBox.parentNode.getElementsByTagName('span')[0].textContent) {
                 let idItem = parseInt(checkBox.parentNode.getElementsByTagName('span')[0].textContent)
                 listID.push(idItem)
             }
         })
     })
-    IdItemsEle.value = listID.toString().replaceAll(",", "_")
-    // console.log(listID);
-    // checkOutCart.addEventListener('click', () => {
-    //     const data = {
-    //         id_items: listID
-    //     }
-    //     fetch(`/carts/checkout`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'X-CSRF-TOKEN': token
-    //         },
-    //         body: JSON.stringify(data),
-    //     })
-    //     .then(response => response.text())
-    //     .then(data => {
-    //         console.log('Success:', data);
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error:', error);
-    //     });
-    // })
 }
 
 function updateCart(index) {
@@ -420,6 +397,11 @@ function updateCart(index) {
 function focusCart(params) {
     cartMain.addEventListener('click', () => {
         cartContainer.classList.toggle('hidden')
+    })
+    window.addEventListener('click', (e) => {
+        if (!cartContainer.contains(e.target) && !cartMain.contains(e.target)) {
+            cartContainer.classList.add('hidden')
+        }
     })
 }
 

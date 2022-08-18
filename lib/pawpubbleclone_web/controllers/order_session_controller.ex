@@ -41,7 +41,9 @@ defmodule PawpubblecloneWeb.OrderSessionController do
   def create_product(conn, %{"products" => products, "order_code" => order_code}) do
     list_products =
       Enum.map(products, fn product -> product = Map.put(product, "order_code", order_code) end)
-    for product <- list_products do
+    IO.inspect(list_products)
+    Enum.map(list_products, fn product ->
+      IO.inspect(product)
       case Product_Orders.create_product_order(product) do
         {:ok, product} ->
           product_update = Plants.get_plant_product!(product.product_id)
@@ -62,12 +64,12 @@ defmodule PawpubblecloneWeb.OrderSessionController do
               |> put_flash(:info, "Faith")
           end
           conn
-          |> redirect(to: Routes.cart_path(conn, :index))
+          |> put_flash(:info, "Create succsessfuly")
         {:error, _} ->
           conn
           |> put_flash(:info, "Faith")
       end
-    end
+    end)
   end
 
   # def update(conn, params = %{"id" => id, "bill_of_lading_no" => bill_of_lading_no}) do
